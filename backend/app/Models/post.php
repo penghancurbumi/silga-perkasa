@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'content',
+        'excerpt',
+        'thumbnail',
+        'status',          // draft | published | scheduled
+        'visibility',      // public | private | password
+        'meta_title',
+        'meta_description',
+        'category_id',
+        'author_id',
+        'published_at',
+        'scheduled_at',
+        'read_time',
+        'views_count',
+        'seo_score',
+    ];
+
+    
+    /*fungsi untuk mengubah tipe data otomatis*/
+    protected $casts = [
+        'published_at' => 'datetime',
+        'scheduled_at' => 'datetime',
+    ];
+
+    /* Relationships */
+
+    /*post di miliki oleh 1 user*/
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+    
+    /*1 post memiliki 1 category*/
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+
+    /*1 post bisa memliki banyak tag*/
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    /*user post memiliki banyak komen*/
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /* Scopes */
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'published')
+                     ->where('published_at', '<=', now());
+    }
+
+    public function scopeDraft($query)
+    {
+        return $query->where('status', 'draft');
+    }
+
+    public function scopeScheduled($query)
+    {
+        return $query->where('status', 'scheduled');
+    }
+
+    public function scopeByAuthor($query, int $authorId)
+    {
+        return $query->where('author_id', $authorId);
+    }
+
+    /* Accessors & Mutators */
+
+    /**
+     * Auto-generate slug jika tidak diisi.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (Post $post) {
+            if (empty($post->slug)) {
+                $post->slug = Str::slug($post->title);
+            }
+        });
+    }
+
+    public function getIsPublishedAttribute(): bool
+    {
+        return $this->status === 'published';
+    }
+
+    public function getStatusLabelAttribute(): string
+    {
+        return match ($this->status) {
+            'published' => 'Terpublikasi',
+            'draft'     => 'Draft',
+            'scheduled' => 'Terjadwal',
+            default     => ucfirst($this->status),
+        };
+    }
+}

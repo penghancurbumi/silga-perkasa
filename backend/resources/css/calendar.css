@@ -1,0 +1,68 @@
+/* Toolbar */
+#calendar .fc-toolbar {
+    margin-bottom: 4px !important;
+}
+
+#calendar .fc-toolbar-title {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+#calendar .fc-button {
+    font-size: 10px !important;
+    padding: 1px 5px !important;
+    line-height: 1 !important;
+    margin-bottom: 1px;
+}
+
+/* Header hari S M T W T F S */
+#calendar .fc-col-header-cell-cushion {
+    font-size: 9px !important;
+    padding: 2px 1px !important;
+    font-weight: 500 !important;
+}
+
+/* Angka tanggal */
+#calendar .fc-daygrid-day-number {
+    font-size: 9px !important;
+    padding: 1px 3px !important;
+}
+
+/* Tinggi baris — ini yang bikin kotak besar */
+#calendar .fc-daygrid-day-frame {
+    min-height: 20px !important;
+    max-height: 20px !important;
+    overflow: hidden !important;
+}
+
+#calendar .fc-daygrid-body tr {
+    height: 25px !important;
+}
+
+#calendar .fc-daygrid-body {
+    width: 100% !important;
+}
+
+/* Batasi tinggi keseluruhan kalender */
+#calendar .fc-view-harness {
+    height: auto !important;
+    max-height: 200px !important;
+}
+
+#calendar {
+    transform: none !important;
+    width: 100% !important;
+}
+
+/* Force kalender mengikuti lebar container */
+#calendar .fc-daygrid-body,
+#calendar .fc-scrollgrid-sync-table,
+#calendar table {
+    width: 100% !important;
+}
+
+#calendar .fc-scroller-harness,
+#calendar .fc-scroller {
+    overflow: hidden !important;
+    width: 100% !important;
+}
