@@ -1,5 +1,90 @@
 <table class="w-full text-sm mt-4">
     <thead>
+
+        <div class="flex flex-row items-center justify-between mb-2">
+            <div class="flex flex-col">
+                <h1 class="font-semibold text-[20px]">Content Management</h1>
+                <span class="text-[13px] text-gray-400">Pusat kendali untuk mengelola dan memantau konten blog secara efisien</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <a href="{{ route('content.export') }}"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-white text-black rounded hover:bg-gray-200 
+                border border-gray-300 transition cursor-pointer text-[15px]">
+                <iconify-icon
+                    icon="material-symbols:download"
+                    width="20">
+                </iconify-icon>
+                    Export
+                </a>
+                
+                <a href="{{ route('content.create') }}"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-white text-black rounded hover:bg-gray-200 
+                border border-gray-300 transition cursor-pointer text-[15px]">
+                <iconify-icon
+                    icon="material-symbols:add"
+                    width="20">
+                </iconify-icon>
+                    Artikel Baru
+                </a>
+            </div>
+        </div>
+
+        {{--Widget--}}
+            @php
+                $stats = [
+                    [
+                        'label' => 'Total Artikel', 
+                        'value' => $totalPosts ?? 0, 
+                        'icon' => 'material-symbols:article-outline',
+                        'color' => 'bg-gray-50'
+                    ],
+                    [
+                        'label' => 'Terpublikasi', 
+                        'value' => $totalPosts ?? 0, 
+                        'icon' => 'ix:success',
+                        'color' => 'bg-gray-50'
+                    ],
+                    [
+                        'label' => 'Draft', 
+                        'value' => $totalPosts ?? 0, 
+                        'icon' => 'mdi:file-outline',
+                        'color' => 'bg-gray-50'
+                    ],
+                    [
+                        'label' => 'Total View', 
+                        'value' => $totalPosts ?? 0, 
+                        'icon' => 'mdi:eye-outline',
+                        'color' => 'bg-gray-50'
+                    ],
+                ];
+            @endphp
+        <div class="grid grid-cols-4 gap-2">        
+        @foreach($stats as $stat)
+            <div class="bg-white rounded border border-gray-300 px-4 py-3 flex items-center">
+                <div class="flex items-center justify-center rounded-lg gap-2">
+
+                    <iconify-icon
+                        icon="{{ $stat['icon'] }}"
+                        width="20"
+                        class="text-{{ $stat['color'] }}-600 bg-gray-200 border border-gray-400 p-2 rounded">
+                    </iconify-icon>
+
+                    <div>
+                        <p class="text-xs text-black font-semibold">
+                            {{ $stat['label']}}
+                        </p>
+
+                        <p class="text-xl font-semibold text-black">
+                            {{ $stat['value'] }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+       
+    </thead>
+    <thead>
         <tr class="bg-gray-50 border-y border-gray-200">
             <th class="px-4 py-3 text-left font-medium text-gray-500">
                 <input type="checkbox">

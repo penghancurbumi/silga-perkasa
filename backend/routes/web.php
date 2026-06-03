@@ -3,13 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard;
 use App\Livewire\Content;
+use App\Livewire\ContentCreate;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ContentController;
 
 Route::get('/', Dashboard::class)->name('dashboard');
 
-Route::get('/content', ([PostController::class, 'index']))->name('content');
-Route::get('/content/create', ([PostController::class, 'create']))
-    ->name('content.create');
+//content pages
+Route::get('/content', Content::class)->name('content');
+Route::get('/content/create', ContentCreate ::class)->name('content.create');
+Route::get('/content/export', [ContentController::class, 'export'])->name('content.export');
+
+Route::get('/content/{id}/edit', ContentCreate ::class)->name('content.create');
+Route::get('/content/{id}/preview', ContentCreate ::class)->name('content.create');
+Route::get('/content/{id}', ContentCreate ::class)->name('content.create');
 
 Route::get('/lowongan', Content::class)->name('lowongan');
 

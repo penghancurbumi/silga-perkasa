@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Post;
 
 class Content extends Component
 {
@@ -10,7 +11,8 @@ class Content extends Component
     
     public function render()
     {
-        return view('pages.content')
-            ->layout('layouts.app');
+        return view('pages.content', [
+            'posts' => Post::with(['author','ctegory'])->paginate(10)
+        ]) ->layout('layouts.app');
     }
 }
