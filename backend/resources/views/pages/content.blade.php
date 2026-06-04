@@ -59,7 +59,7 @@
                     ],
                 ];
             @endphp
-        <div class="grid grid-cols-4 gap-2">        
+        <div class="grid grid-cols-4 gap-2 mb-3">        
         @foreach($stats as $stat)
             <div class="bg-white rounded border border-gray-300 px-4 py-3 flex items-center">
                 <div class="flex items-center justify-center rounded-lg gap-2">
@@ -81,11 +81,101 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-       
+            @endforeach
+        </div>
+
+        {{-- Filter & search --}}
+        <div class="flex flex-row gap-2">
+            <div class="relative">
+                <iconify-icon 
+                    icon="material-symbols:search"
+                    width="20"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                </iconify-icon>
+
+                <input type="text"
+                       name="search"
+                       placeholder="Search Article..."
+                       class="w-64 bg-white border border-gray-300 rounded h-10 pl-10 pr-4 text-[12px]">
+            </div>
+
+            <div class="relative">
+                <button id="dropdownButton" 
+                    class="nav-link flex items-center w-full px-4 h-10 gap-3 bg-white border border-gray-300 rounded cursor-pointer">
+
+                <span class="sidebar-text text-[12px] font-semibold">Semua Kategori</span>
+
+                    <iconify-icon
+                        id="dropdownArrow"
+                        icon="fe:arrow-up"
+                        width="20"
+                        class="ml-auto transition-transform duration-200"
+                    ></iconify-icon>
+                </button>
+
+                <ul id="dropdownMenu" 
+                class="absolute left-0 w-full bg-white border border-gray-200 rounded shadow-lg py-2 space-y-1 z-50 hidden">
+                    <li>
+                        <a href="#"
+                           class="block px-3 py-2 text-[12px] hover:bg-gray-100">
+                           Semua Kategori
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                           class="block px-3 py-2 text-[12px] hover:bg-gray-100">
+                           Teknologi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                           class="block px-3 py-2 text-[12px] hover:bg-gray-100">
+                           Bisnis
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                           class="block px-3 py-2 text-[12px] hover:bg-gray-100">
+                           Pendidikan
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+  
+            <div class="relative">
+                <button id="dropdownButton" 
+                class="nav-link flex items-center px-4 h-10 gap-3 bg-white border border-gray-300 rounded cursor-pointer">
+
+                <span class="sidebar-text text-[12px] font-semibold">Terbaru</span>
+
+                <iconify-icon
+                    icon="fe:arrow-up"
+                    width="20"
+                    class="ml-auto transition-transform duration-300"
+                ></iconify-icon>
+                </button>
+
+                <ul class="absolute left-0 w-full bg-white border border-gray-300 rounded shadow-lg py-2 space-y-1 z-50 hidden">
+                    <li>
+                        <a href="#"
+                           class="block px-3 py-2 text-[12px] hover:bg-gray-300">
+                            Terbaru
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                           class="block px-3 py-2 text-[12px] hover:bg-gray-300">
+                            Terlama
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
     </thead>
     <thead>
-        <tr class="bg-gray-50 border-y border-gray-200">
+        <tr class="bg-white border-y border-gray-300">
             <th class="px-4 py-3 text-left font-medium text-gray-500">
                 <input type="checkbox">
             </th>

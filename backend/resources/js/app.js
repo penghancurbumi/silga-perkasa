@@ -1,5 +1,6 @@
 import './bootstrap';
 import './sidebar'
+import './dropdown';
 import Alphine from 'alpinejs'
 
 window.Alphine = Alphine
