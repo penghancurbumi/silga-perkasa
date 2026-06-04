@@ -8,6 +8,7 @@
         const collapsedLogo = document.getElementById('logoCollapsed')
         const sidebarTexts = document.querySelectorAll('.sidebar-text') 
         const sidebarLinks = document.querySelectorAll('.nav-link')
+        const dropdownArrow = document.querySelectorAll('.dropdown-arrow')
 
         sidebarState.expanded = localStorage.getItem('sidebar-expanded')
             ?  localStorage.getItem('sidebar-expanded') === 'true'
@@ -20,12 +21,20 @@
                 sidebar.classList.replace('w-20','w-64')
                 expandedLogo.classList.remove('hidden')
                 collapsedLogo.classList.add('hidden')
+                toggleBtn.classList.remove('hidden')
+
+                sidebarTexts.forEach(el=> el.classList.remove("hidden"))
+                dropdownArrow.forEach(el=> el.classList.remove("hidden"))
 
             } else {
 
                 sidebar.classList.replace('w-64', 'w-20')
                 expandedLogo.classList.add('hidden')
                 collapsedLogo.classList.remove('hidden')
+                toggleBtn.classList.add('hidden')
+
+                sidebarTexts.forEach(el=> el.classList.add("hidden"))
+                dropdownArrow.forEach(el=> el.classList.add("hidden"))
             }
 
             localStorage.setItem('sidebar-expanded', sidebarState.expanded)

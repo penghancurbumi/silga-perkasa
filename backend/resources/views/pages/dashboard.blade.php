@@ -4,7 +4,7 @@
     <div class="grid grid-cols-4 gap-4 mt-4">
 
         {{--Widget Pelamar--}}
-        <div class="bg-white p-3 rounded shadow">
+        <div class="bg-white p-3 rounded border border-gray-200">
             <div class="flex flex-col">
                 <div class="flex flex-col gap-1">
                     <div class="flex flex-row items-center gap-1 border-b border-gray-200 pb-1">
@@ -26,7 +26,7 @@
         </div>
         
         {{--Widget Pelamar diterima--}}
-        <div class="bg-white p-3 rounded shadow ">
+        <div class="bg-white p-3 rounded border border-gray-200 ">
             <div class="flex flex-col">
                 <div class="flex flex-col gap-1">
                     <div class="flex flex-row items-center gap-1 border-b border-gray-200 pb-1">
@@ -49,7 +49,7 @@
         </div>
         
         {{--Widget Pelamar ditolak--}}
-        <div class="bg-white p-3 rounded shadow ">
+        <div class="bg-white p-3 rounded border border-gray-200 ">
             <div class="flex flex-col">
                 <div class="flex flex-col gap-1">
                     <div class="flex flex-row items-center gap-1 border-b border-gray-200 pb-1">
@@ -71,7 +71,7 @@
         </div>
 
         {{--Widget Lowongan aktif--}}
-        <div class="bg-white p-3 rounded shadow ">
+        <div class="bg-white p-3 rounded border border-gray-200">
             <div class="flex flex-col">
                 <div class="flex flex-col gap-1">
                     <div class="flex flex-row items-center gap-1 border-b border-gray-200 pb-1">
@@ -93,15 +93,15 @@
     </div>
 
     <div class="grid grid-cols-4 gap-4 mt-4">      
-        <div class="bg-white col-span-3 p-4 rounded shadow">
+        <div class="bg-white col-span-3 p-4 rounded border border-gray-200">
             Chart
         </div>
-        <div class="bg-white col-span-1 p-4 rounded shadow">
+        <div class="bg-white col-span-1 p-4 rounded border border-gray-200">
             <div id="calendar" class="flex-1"></div>
         </div>
     </div>
 
-    <div class="bg-white h-[300px] shadow mt-4 flex-1 min-h-0">
+    <div class="bg-white h-[300px] border border-gray-200 mt-4 flex-1 min-h-0">
         activity
     </div>
 </div>

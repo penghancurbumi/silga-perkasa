@@ -68,7 +68,7 @@
                         onclick="return false"
                     @endif
                     class="nav-link flex items-center
-                           px-4 gap-3 rounded
+                           px-3 gap-3 rounded
                            py-2 font-semibold text-[15px]
                            transition-colors duration-200
 
@@ -98,7 +98,7 @@
                         onclick="return false"
                     @endif
                     class="nav-link flex items-center
-                           px-4 gap-3 rounded
+                           px-3 gap-3 rounded
                            py-2 font-semibold text-[15px]
                            transition-colors duration-200
 
@@ -128,7 +128,7 @@
                         onclick="return false"
                     @endif
                     class="nav-link flex items-center
-                           px-4 gap-3 rounded
+                           px-3 gap-3 rounded
                            py-2 font-semibold text-[15px]
                            transition-colors duration-200
 
@@ -150,15 +150,13 @@
                 </a>
             </li>
 
-            {{-- DROPDOWN --}}
-            <li>
-
+            {{-- Lamaran --}}
+            <li class="dropdown-wrapper">
                 <button
-                    id="dropdownButton"
                     type="button"
 
-                    class="nav-link flex items-center
-                           w-full px-4 gap-3 rounded
+                    class="dropdown-button nav-link flex items-center
+                           w-full px-3 gap-3 rounded
                            py-2 font-semibold text-[15px]
                            hover:bg-[#1f2733]
                            transition-colors duration-200"
@@ -175,34 +173,27 @@
                     </span>
 
                     <iconify-icon
-                        id="dropdownArrow"
                         icon="fe:arrow-up"
                         width="20"
-                        class="ml-auto transition-transform duration-200"
+                        class="dropdown-arrow ml-auto transition-transform duration-200"
                     ></iconify-icon>
 
                 </button>
 
                 {{-- SUBMENU --}}
                 <ul
-                    id="dropdownMenu"
-                    class="py-2 space-y-2 hidden"
+                    class="dropdown-menu py-2 space-y-2 ml-7 border-l border-gray-800 hidden"
                 >
 
                     <li>
                         <a
                             href="#"
                             class="flex items-center
-                                   w-full pl-10 gap-2
+                                   w-full pl-4 gap-2
                                    p-2 rounded
                                    font-semibold text-gray-400
                                    hover:bg-[#1f2733]"
                         >
-
-                            <iconify-icon
-                                icon="ic:baseline-log-in"
-                                width="20"
-                            ></iconify-icon>
 
                             <span class="sidebar-text">
                                 Lamaran Masuk
@@ -215,17 +206,11 @@
                         <a
                             href="#"
                             class="flex items-center
-                                   w-full pl-10 gap-2
+                                   w-full pl-4 gap-2
                                    p-2 rounded
                                    font-semibold text-gray-400
                                    hover:bg-[#1f2733]"
                         >
-
-                            <iconify-icon
-                                icon="material-symbols:manage-accounts"
-                                width="20"
-                            ></iconify-icon>
-
                             <span class="sidebar-text">
                                 Kelola Lamaran
                             </span>
@@ -245,7 +230,7 @@
                         onclick="return false"
                     @endif
                     class="nav-link flex items-center
-                           px-4 gap-3 rounded
+                           px-3 gap-3 rounded
                            py-2 font-semibold text-[15px]
                            transition-colors duration-200
 

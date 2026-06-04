@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function closeDropdown() {
             menu.classList.add('hidden');
-            arrow.classList.remove('rotate-180'); // ✅ fix bug lama
+            arrow.classList.remove('rotate-180');
         }
 
         button.addEventListener('click', (e) => {
-            e.stopPropagation(); // cegah event bubble ke document
+            e.stopPropagation();
 
             if (!sidebarState.expanded) {
                 sidebarState.expanded = true;
@@ -31,8 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             arrow.classList.toggle('rotate-180');
         });
 
-        // Tutup dropdown kalau klik di luar
-                document.addEventListener('click', (e) => {
+        document.addEventListener('click', (e) => {
             if (!wrapper.contains(e.target)) {
                 closeDropdown();
             }

@@ -1,4 +1,4 @@
-<nav class="bg-white shadow px-6 py-2 flex items-center justify-between">
+<nav class="bg-white border-b border-gray-200 px-6 py-2 flex items-center justify-between">
 
     {{-- Left --}}
     <div class="flex flex-row items-center gap-1">

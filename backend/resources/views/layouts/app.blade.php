@@ -9,7 +9,7 @@
     @livewireStyles
 </head>
     
-<body class="bg-[#f5f5f5]">
+<body class="bg-white">
     
     <div class="flex h-screen">
         @include('partials.sidebar')
@@ -25,32 +25,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('sidebarState', () => ({
-                expanded: true,
-                openDropdown: false,
-
-                init() {
-                    const saved = localStorage.getItem('sidebar-expanded')
-                    this.expanded = saved === null ? true : JSON.parse(saved)
-
-                    this.$watch('expanded', value => {
-                        localStorage.setItem('sidebar-expanded', value)
-                    })
-                },
-
-                toggleDropdown() {
-                    if (!this.expanded) {
-                        this.expanded = true
-                        this.openDropdown = true
-                    } else {
-                        this.openDropdown = !this.openDropdown
-                    }
-                }
-            }))
-        })
-        </script>
     @livewireScripts
     @livewireScriptConfig
 
