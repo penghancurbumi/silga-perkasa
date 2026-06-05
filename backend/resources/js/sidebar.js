@@ -1,57 +1,85 @@
- import { sidebarState } from './sidebarState'
- 
- document.addEventListener('DOMContentLoaded', () => {
+import {
+    sidebarState,
+    registerUpdateSidebar
+} from './sidebarState';
 
-        const sidebar = document.getElementById('sidebar')
-        const toggleBtn = document.getElementById('toggleSidebar')
-        const expandedLogo = document.getElementById('logoExpanded')
-        const collapsedLogo = document.getElementById('logoCollapsed')
-        const sidebarTexts = document.querySelectorAll('.sidebar-text') 
-        const sidebarLinks = document.querySelectorAll('.nav-link')
-        const dropdownArrow = document.querySelectorAll('.dropdown-arrow')
+document.addEventListener('DOMContentLoaded', () => {
 
-        sidebarState.expanded = localStorage.getItem('sidebar-expanded')
-            ?  localStorage.getItem('sidebar-expanded') === 'true'
-            : true
+    const sidebar = document.getElementById('sidebar');
 
-        function updateSidebar() {
+    const toggleBtn = document.getElementById('toggleSidebar');
 
-            if (sidebarState.expanded) {
+    const expandedLogo = document.getElementById('logoExpanded');
+    const collapsedLogo = document.getElementById('logoCollapsed');
 
-                sidebar.classList.replace('w-20','w-64')
-                expandedLogo.classList.remove('hidden')
-                collapsedLogo.classList.add('hidden')
-                toggleBtn.classList.remove('hidden')
+    const sidebarTexts = document.querySelectorAll('.sidebar-text');
+    const dropdownArrows = document.querySelectorAll('.dropdown-arrow');
 
-                sidebarTexts.forEach(el=> el.classList.remove("hidden"))
-                dropdownArrow.forEach(el=> el.classList.remove("hidden"))
+    function renderSidebar() {
 
-            } else {
+        if (sidebarState.expanded) {
 
-                sidebar.classList.replace('w-64', 'w-20')
-                expandedLogo.classList.add('hidden')
-                collapsedLogo.classList.remove('hidden')
-                toggleBtn.classList.add('hidden')
+            sidebar.classList.remove('w-20');
+            sidebar.classList.add('w-64');
 
-                sidebarTexts.forEach(el=> el.classList.add("hidden"))
-                dropdownArrow.forEach(el=> el.classList.add("hidden"))
-            }
+            expandedLogo.classList.remove('hidden');
+            collapsedLogo.classList.add('hidden');
 
-            localStorage.setItem('sidebar-expanded', sidebarState.expanded)
-            document.dispatchEvent(new CustomEvent('sidebar:update'))
+            toggleBtn.classList.remove('hidden');
+
+            sidebarTexts.forEach(text => {
+                text.classList.remove('hidden');
+            });
+
+            dropdownArrows.forEach(arrow => {
+                arrow.classList.remove('hidden');
+            });
+
+        } else {
+
+            sidebar.classList.remove('w-64');
+            sidebar.classList.add('w-20');
+
+            expandedLogo.classList.add('hidden');
+            collapsedLogo.classList.remove('hidden');
+
+            toggleBtn.classList.add('hidden');
+
+            sidebarTexts.forEach(text => {
+                text.classList.add('hidden');
+            });
+
+            dropdownArrows.forEach(arrow => {
+                arrow.classList.add('hidden');
+            });
+
+            // tutup semua dropdown
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.add('hidden');
+            });
+
+            document.querySelectorAll('.dropdown-arrow').forEach(arrow => {
+                arrow.classList.remove('rotate-180');
+            });
         }
+    }
 
-        //Toggle manual
-        toggleBtn.addEventListener('click', () => {
+    registerUpdateSidebar(renderSidebar);
 
-           sidebarState.expanded = !sidebarState.expanded
-            updateSidebar()
-        });
+    toggleBtn.addEventListener('click', () => {
 
-        collapsedLogo.addEventListener('click', () => {
-            sidebarState.expanded = true;
-            updateSidebar()
-        })
+        sidebarState.expanded = false;
 
-        updateSidebar()
-    })
+        renderSidebar();
+    });
+
+    collapsedLogo.addEventListener('click', () => {
+
+        sidebarState.expanded = true;
+
+        renderSidebar();
+    });
+
+    renderSidebar();
+
+});

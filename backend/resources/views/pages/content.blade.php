@@ -99,21 +99,21 @@
                        class="w-64 bg-white border border-gray-200 rounded h-10 pl-10 pr-4 text-[12px]">
             </div>
 
-            <div class="relative dropdown-wrapper">
+            <div class="relative filter-wrapper">
                 <button  
-                    class="dropdown-button nav-link flex items-center w-full px-4 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
+                    class="filter-button flex items-center w-48 px-4 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
 
-                <span class="sidebar-text text-[12px] font-semibold">Semua Kategori</span>
+                <span class="text-[12px] font-semibold">Semua Kategori</span>
 
                     <iconify-icon
                         icon="fe:arrow-up"
                         width="20"
-                        class="dropdown-arrow ml-auto transition-transform duration-200"
+                        class="filter-arrow ml-auto transition-transform duration-200"
                     ></iconify-icon>
                 </button>
 
                 <ul 
-                class="dropdown-menu absolute left-0 w-full bg-white border border-gray-200 rounded shadow-lg py-2 space-y-1 z-50 hidden">
+                class="filter-menu absolute left-0 w-full bg-white border border-gray-200 rounded shadow-lg py-2 space-y-1 z-50 hidden">
                     <li>
                         <a href="#"
                            class="block px-3 py-2 text-[12px] hover:bg-gray-100">
@@ -142,20 +142,20 @@
             </div>
 
   
-            <div class="relative dropdown-wrapper">
+            <div class="relative filter-wrapper">
                 <button
-                class="dropdown-button nav-link flex items-center px-4 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
+                class="filter-button flex items-center w-48 px-4 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
 
-                <span class="sidebar-text text-[12px] font-semibold">Terbaru</span>
+                <span class="text-[12px] font-semibold">Terbaru</span>
 
                 <iconify-icon
                     icon="fe:arrow-up"
                     width="20"
-                    class="dropdown-arrow ml-auto transition-transform duration-300"
+                    class="filter-arrow ml-auto transition-transform duration-300"
                 ></iconify-icon>
                 </button>
 
-                <ul class="dropdown-menu absolute left-0 w-full bg-white border border-gray-200 rounded shadow-lg py-2 space-y-1 z-50 hidden">
+                <ul class="filter-menu absolute left-0 w-full bg-white border border-gray-200 rounded shadow-lg py-2 space-y-1 z-50 hidden">
                     <li>
                         <a href="#"
                            class="block px-3 py-2 text-[12px] hover:bg-gray-300">
@@ -359,9 +359,9 @@
                         <span class="text-sm font-semibold">Kategori</span>
                         <div class="relative dropdown-wrapper">
                             <button
-                                class="dropdown-button nav-link flex items-center w-full p-2 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
+                                class="dropdown-button flex items-center w-full p-2 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
 
-                                <span class="sidebar-text text-[12px] font-semibold">Teknologi</span>
+                                <span class="text-[12px] font-semibold">Teknologi</span>
 
                                 <iconify-icon
                                     icon="fe:arrow-up"
@@ -432,4 +432,4 @@
                 </div>
             </div>
     </div>
-</div>    
+</div>
