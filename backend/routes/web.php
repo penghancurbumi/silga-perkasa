@@ -13,6 +13,7 @@ Route::get('/', Dashboard::class)->name('dashboard');
 Route::get('/content', Content::class)->name('content');
 Route::get('/content/create', ContentCreate ::class)->name('content.create');
 Route::get('/content/export', [ContentController::class, 'export'])->name('content.export');
+Route::delete('/content/delete', [ContentController::class, 'destroy'])->name('content.destroy');
 
 Route::get('/content/{id}/edit', ContentCreate ::class)->name('content.edit');
 Route::get('/content/{id}/preview', ContentCreate ::class)->name('content.preview');

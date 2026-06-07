@@ -332,7 +332,9 @@
                 <div class="flex flex-col gap-3">
                     <div class="flex flex-col gap-2">
                         <span class="text-sm font-semibold">Judul</span>
-                        <input type="text"
+                        <input 
+                            type="text"
+                            wire:model.live="title"
                             class="bg-white border border-gray-200 px-4 py-2 rounded">
                     </div>
 
@@ -343,6 +345,7 @@
 
                             <input 
                                 type="text"
+                                wire:model.live="slug"
                                 class="flex-1 px-3 py-2 text-gray-400"
                                 placeholder="slug-artikel">
                         </div>
@@ -350,8 +353,10 @@
 
                     <div class="flex flex-col">
                         <span class="text-sm font-semibold">konten</span>
-                        <textarea type="text"
-                               class="bg-white border border-gray-200 w-full h-[200px] rounded resize-none"
+                        <textarea 
+                            type="text"
+                            wire:model.live="content"
+                            class="bg-white border border-gray-200 w-full h-[200px] rounded resize-none"
                         ></textarea>
                     </div>
 

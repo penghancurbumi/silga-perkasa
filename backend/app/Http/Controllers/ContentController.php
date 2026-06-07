@@ -30,4 +30,12 @@ class ContentController extends Controller
 
     return response()->stream($callback, 200, $headers);
     }
+
+    public function destroy()
+    {
+        $post = Post::findOrfail($id);
+        $post->delete();
+
+        return redirect()->route('content')->with('success', 'Artikel berhasil di hapus');
+    }
 }
