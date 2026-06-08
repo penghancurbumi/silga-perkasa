@@ -40,34 +40,20 @@
             <div class="flex flex-row gap-2">
                 <div class="flex flex-col gap-2 flex-1">
                     <span class="text-sm font-semibold">Kategori</span>
-                    <div class="relative dropdown-wrapper">
-                        <button
-                            class="dropdown-button flex items-center w-full p-2 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
-
-                            <span class="text-[12px] font-semibold">Teknologi</span>
+                        <select wire:model="category_id"
+                            class="bg-white border border-gray-200 px-3 h-10 text-[12px] rounded cursor-pointer">
+                            
+                            <option value="">Pilih Kategori</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
 
                             <iconify-icon
                                 icon="fe:arrow-up"
                                 width="20"
                                 class="dropdown-arrow ml-auto transition-transform duration-300"
                             ></iconify-icon>
-                        </button>
-                            
-                        <ul class="dropdown-menu absolute left-0 w-full bg-white border border-gray-200 rounded shadow-lg py-2 space-y-1 z-50 hidden">
-                            <li>
-                                <a href="#"
-                                    class="block px-3 h-10 text-[12px] hover:text-gray-600">
-                                    Teknologi
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="block px-3 h-10 text-[12px] hover:text-gray-600">
-                                    Teknologi
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                        </select>
                 </div>
 
                 <div class="flex flex-col gap-2 mb-2 flex-1">
@@ -81,10 +67,17 @@
             <div class="flex flex-col gap-2">
                 <span class="text-sm font-semibold">thumbnail</span>
                 <div class="flex items-center justify-center w-full">
-                    <div class="flex flex-col items-center justify-center w-full h-56 bg-white border border-dashed border-gray-200
+
+                <input type="file" id="thumbnailInput" accept="image/*" class="hidden">
+
+                    <div onclick="document.getElementById('thumbnailInput').click()"
+                    id="uploadArea"
+                    class="flex flex-col items-center justify-center w-full h-56 bg-white border border-dashed border-gray-200
                     rounded cursor-pointer hover:bg-gray-50 ">
 
-                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <img id="thumbnailPreview" src="" alt="preview" class="hidden w-full h-full object-cover rounded">
+
+                        <div id="uploadPlaceholder" class="flex flex-col items-center justify-center pt-5 pb-6">
                             <iconify-icon icon="humbleicons:upload" width="40" class="text-gray-300"></iconify-icon>
                             <p class="mb-2 text-[12px] text-gray-300"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                             <p class="text-[10px] text-gray-300">SVG, PNG, JPG or GIF (MAX. 5MB)</p>
@@ -94,20 +87,25 @@
             </div>
 
             <div class="flex flex-col gap-2">
-                <button class="inline-flex items-center gap-2 justify-center w-full h-10 bg-white border border-gray-200 
+
+                <button wire:click="save('publish')" 
+                class="inline-flex items-center gap-2 justify-center w-full h-10 bg-white border border-gray-200 
                     py-3 text-sm rounded font-semibold hover:bg-gray-50 cursor-pointer">
                     <iconify-icon icon="tabler:send" width="15"></iconify-icon>
                     Publikasi
                 </button>
 
                 <div class="flex flex-row items-center gap-2">
-                    <button class="inline-flex items-center gap-2 justify-center w-full h-10 bg-white border border-gray-200 
+
+                    <button wire:click="save('schedule')" 
+                    class="inline-flex items-center gap-2 justify-center w-full h-10 bg-white border border-gray-200 
                         py-3 text-sm rounded font-semibold hover:bg-gray-50 cursor-pointer">
                         <iconify-icon icon="mdi:clock-outline" width="15"></iconify-icon>
                         Jadwalkan   
                     </button>
 
-                    <button class="inline-flex items-center gap-2 justify-center w-full h-10 bg-white border border-gray-200 
+                    <button wire:click="save('saveDraft')" 
+                    class="inline-flex items-center gap-2 justify-center w-full h-10 bg-white border border-gray-200 
                         py-3 text-sm rounded font-semibold hover:bg-gray-50 cursor-pointer">
                         <iconify-icon icon="ri:draft-line" width="15"></iconify-icon>
                         Simpan Draft
@@ -117,7 +115,7 @@
         </div>
 
         {{--Preview Aritcle--}}
-        <div class="w-1/2 bg-white border border-gray-200 p-4 rounded flex flex-col">
+        <div class="w-1/2 bg-gray-50 border border-gray-200 p-4 rounded flex flex-col">
             <h3 class="text-medium font-semibold mb-3">Preview</h3>
 
             <div class="flex-1 bg-white border border-gray-200 rounded">
@@ -173,6 +171,12 @@
                         </p>
 
                          <p class="text-[10px] text-black leading-relaxed">Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
+                            In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla 
+                            lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel 
+                            class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+                        </p>
+
+                          <p class="text-[10px] text-black leading-relaxed">Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
                             In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla 
                             lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel 
                             class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.

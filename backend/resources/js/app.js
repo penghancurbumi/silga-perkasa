@@ -1,6 +1,7 @@
 import './sidebar'
 import './modal';
 import './filterButton';
+import './contentCreate'
 
 document.querySelectorAll('a[wire\\:navigate]').forEach(link => {
     link.addEventListener('click',(e) => {
