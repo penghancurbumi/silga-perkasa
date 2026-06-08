@@ -11,13 +11,13 @@ Route::get('/', Dashboard::class)->name('dashboard');
 
 //content pages
 Route::get('/content', Content::class)->name('content');
-Route::get('/content/create', ContentCreate ::class)->name('content.create');
+Route::get('/content/create', ContentCreate::class)->name('content.create');
 Route::get('/content/export', [ContentController::class, 'export'])->name('content.export');
 Route::delete('/content/delete', [ContentController::class, 'destroy'])->name('content.destroy');
 
-Route::get('/content/{id}/edit', ContentCreate ::class)->name('content.edit');
-Route::get('/content/{id}/preview', ContentCreate ::class)->name('content.preview');
-Route::get('/content/{id}', ContentCreate ::class)->name('content.create');
+Route::get('/content/{id}/edit', Content ::class)->name('content.edit');
+Route::get('/content/{id}/preview', Content ::class)->name('content.preview');
+Route::get('/content/{id}', Content ::class)->name('content.create');
 
 Route::get('/lowongan', Content::class)->name('lowongan');
 

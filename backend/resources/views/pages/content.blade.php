@@ -18,7 +18,7 @@
                         Export
                 </a>
                 
-                <button type="button" onclick="openModal()"
+                <a type="button" href="{{ route('content.create')}}"
                 class="inline-flex items-center gap-2 px-4 py-2 bg-white text-black rounded hover:bg-gray-50 
                     border border-gray-200 transition cursor-pointer text-[15px]">
                     <iconify-icon
@@ -26,7 +26,7 @@
                         width="20">
                     </iconify-icon>
                         Artikel Baru
-                </button>
+                </a>
             </div>
         </div>
 
@@ -313,128 +313,4 @@
         {{ $posts->links() }}
     </div>
     @endif
-
-    {{--Modal Content--}}
-    <div id="modal" style="display:none"
-        class="fixed inset-0 z-50 flex justify-center items-start overflow-y-auto py-6 bg-black/50">
-            <div class="bg-white p-6 rounded-lg shadow-lg w-[800px] ">
-
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-2">
-                        <iconify-icon icon="grommet-icons:article" width="20"></iconify-icon>
-                        <h2 class="text-lg font-semibold">Editor Artikel</h2>
-                    </div>
-                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer">
-                        <iconify-icon icon="material-symbols:close" width="20"></iconify-icon>
-                    </button>
-                </div>
-
-                <div class="flex flex-col gap-3">
-                    <div class="flex flex-col gap-2">
-                        <span class="text-sm font-semibold">Judul</span>
-                        <input 
-                            type="text"
-                            wire:model.live="title"
-                            class="bg-white border border-gray-200 px-4 py-2 rounded">
-                    </div>
-
-                    <div class="flex flex-col gap-2">
-                        <span class="text-sm font-semibold">Slug</span>
-                        <div class="flex items-center bg-white border border-gray-200 rounded overflow-hidden">
-                            <span class="px-3 py-2 bg-gray-100 text-gray-500">https://domain.com/</span>
-
-                            <input 
-                                type="text"
-                                wire:model.live="slug"
-                                class="flex-1 px-3 py-2 text-gray-400"
-                                placeholder="slug-artikel">
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col">
-                        <span class="text-sm font-semibold">konten</span>
-                        <textarea 
-                            type="text"
-                            wire:model.live="content"
-                            class="bg-white border border-gray-200 w-full h-[200px] rounded resize-none"
-                        ></textarea>
-                    </div>
-
-                    <div class="flex flex-col gap-2">
-                        <span class="text-sm font-semibold">Kategori</span>
-                        <div class="relative dropdown-wrapper">
-                            <button
-                                class="dropdown-button flex items-center w-full p-2 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
-
-                                <span class="text-[12px] font-semibold">Teknologi</span>
-
-                                <iconify-icon
-                                    icon="fe:arrow-up"
-                                    width="20"
-                                    class="dropdown-arrow ml-auto transition-transform duration-300"
-                                ></iconify-icon>
-                            </button>
-                            
-                            <ul class="dropdown-menu absolute left-0 w-full bg-white border border-gray-200 rounded shadow-lg py-2 space-y-1 z-50 hidden">
-                                <li>
-                                    <a href="#"
-                                    class="block px-3 py-2 text-[12px] hover:text-gray-600">
-                                    Teknologi
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                    class="block px-3 py-2 text-[12px] hover:text-gray-600">
-                                    Teknologi
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-2">
-                        <span class="text-sm font-semibold">thumbnail</span>
-                        <div class="flex items-center justify-center w-full">
-                            <div class="flex flex-col items-center justify-center w-full h-56 bg-white border border-dashed border-gray-200
-                            rounded cursor-pointer hover:bg-gray-50 ">
-
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <iconify-icon icon="humbleicons:upload" width="40" class="text-gray-300"></iconify-icon>
-                                    <p class="mb-2 text-sm text-gray-300"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                    <p class="text-[10px] text-gray-300">SVG, PNG, JPG or GIF (MAX. 5MB)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-2 mb-2">
-                            <span class="text-sm font-semibold">Tanggal Publikasi</span>
-                            <input type="datetime-local"
-                                   class="bg-white border border-gray-200 px-4 py-2 rounded text-sm text-gray-500 cursor-pointer">
-                    </div>
-
-                    <div class="flex flex-col gap-2">
-                        <button class="inline-flex items-center gap-2 justify-center w-full bg-white border border-gray-200 
-                            py-3 text-sm rounded font-semibold hover:bg-gray-50 cursor-pointer">
-                            <iconify-icon icon="tabler:send" width="15"></iconify-icon>
-                            Publikasi
-                        </button>
-
-                        <div class="flex flex-row items-center gap-2">
-                            <button class="inline-flex items-center gap-2 justify-center w-full bg-white border border-gray-200 
-                                py-3 text-sm rounded font-semibold hover:bg-gray-50 cursor-pointer">
-                                <iconify-icon icon="mdi:clock-outline" width="15"></iconify-icon>
-                                Jadwalkan   
-                            </button>
-
-                            <button class="inline-flex items-center gap-2 justify-center w-full bg-white border border-gray-200 
-                                py-3 text-sm rounded font-semibold hover:bg-gray-50 cursor-pointer">
-                                <iconify-icon icon="ri:draft-line" width="15"></iconify-icon>
-                                Simpan Draft
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </div>
 </div>
