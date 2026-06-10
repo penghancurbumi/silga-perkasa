@@ -19,10 +19,31 @@ class ContentController extends Controller
 
     $callback = function () use ($contents) {
         $file = fopen('php://output', 'w');
-        fputcsv($file, ['ID', 'Title', 'Body', 'Created At']); // headers row
+        fputcsv($file, [
+                        'ID', 
+                        'Title', 
+                        'Slug', 
+                        'Content', 
+                        'Thumbnail',
+                        'Status',
+                        'Category',
+                        'Author',
+                        'Views',
+                        'Published At']); // headers row
 
         foreach ($contents as $content) {
-            fputcsv($file, [$content->id, $content->title, $content->body, $content->created_at]);
+            fputcsv($file, [
+                $content->id, 
+                $content->title, 
+                $content->slug,
+                $content->content,
+                $content->thumbnail,
+                $content->status,
+                $content->category,
+                $content->author_id,
+                $content->views, 
+                $content->published_at
+            ]);
         }
 
         fclose($file);

@@ -18,18 +18,19 @@ class Content extends Component
     public $content;
     public $category_id;
     public $status;
-    public $visibility;
     public $thumbnail;
     public $published_at;
     public $scheduled_at;
+    public $filterKategori ='';
+    public $filterUrutan = 'terbaru';
 
-    public function store($status = 'draft')
+    public function store($status)
     {
         $this->validate([
             'title' => 'required|string|max:255',
             'slug' => 'required|string|unique:posts,slug',
             'content' => 'nullable|string',
-            'category' => 'nullable|exists:category,id',
+            'category_id' => 'nullable|exists:categories,id',
             'thumbnail' => 'nullable|image|max:5120'
         ]);
 
@@ -53,15 +54,7 @@ class Content extends Component
 
         $this->reset();
         $this->dispatch('postCreated');
-        session()->flash('Success', 'Artikel sudah di simpan');
-    }
-
-    public function render()
-    {
-        return view('pages.content',[
-            'posts' => Post::with(['author', 'category'])->paginate(10),
-            'categories' => Category::orderBy('name')->get()
-        ])->layout('layouts.app');
+        session()->flash('success', 'Artikel sudah di simpan');
     }
 
     public string $activeTab = 'semua';
@@ -70,4 +63,38 @@ class Content extends Component
     {
         $this->activeTab = $tab;
     }
+
+    public function render()
+    {   
+        $query = Post::with(['author', 'category']);
+
+        //filter category
+        if($this->filterKategori){
+            $query->where('category_id', $this->filterKategori);
+        }
+
+        //filter Terbaru 
+        if($this->filterUrutan === 'Terbaru'){
+            $query->latest();
+        }elseif($this->filterUrutan === 'Terlama'){
+            $query->oldest();
+        }
+
+        match($this->activeTab) {
+            'terpublikasi' => $query->where('status', 'published'),
+            'draft'        => $query->where('status', 'draft'),
+            'terjadwal'    =>$query->where('status', 'scheduled'),
+            default        => null,
+        };
+       
+        return view('pages.content',[
+            'posts' => $query->paginate(5),
+            'categories' => Category::orderBy('name')->get(),
+            'totalPosts' => Post::count(),
+            'totalPublished' => Post::where('status', 'published')->count(),
+            'totalDraft' => Post::where('status', 'draft')->count(),
+            'totalViews' => Post::sum('views'),
+        ])->layout('layouts.app');
+    }
+
 }

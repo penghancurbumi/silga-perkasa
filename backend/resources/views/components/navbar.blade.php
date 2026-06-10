@@ -40,12 +40,14 @@
         </div>
         
 
-        <div class="relative flex w-8 h-8 items-center justify-center rounded-lg hover:bg-gray-200 cursor-pointer text-gray-500 hover:text-gray-900 transition" >
+        <button class="relative flex w-8 h-8 items-center justify-center rounded-lg hover:bg-gray-200 cursor-pointer text-gray-500 hover:text-gray-900 transition" >
             <iconify-icon
                 icon="iconamoon:notification"
                 width="18">
             </iconify-icon>
-        </div>
+        </button>
+
+        <div></div>
 
         <div class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-200 cursor-pointer text-gray-500 hover:text-gray-900 transition">
             <iconify-icon

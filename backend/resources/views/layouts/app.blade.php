@@ -12,10 +12,10 @@
 <body class="bg-white">
     
     <div class="flex h-screen">
-        @include('partials.sidebar')
+        @include('components.sidebar')
 
         <div class="flex flex-col flex-1">
-            @include('partials.navbar')
+            @include('components.navbar')
 
             <main class="px-5 py-4 overflow-y-auto flex flex-col flex-1 min-h-0">
                 {{ $slot }}
