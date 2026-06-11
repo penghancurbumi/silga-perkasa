@@ -1,9 +1,13 @@
-const modal = document.getElementById('modal');
-
 window.openModal = function(){
-    modal.style.display= 'flex';
+    const modal = document.getElementById('modal');
+    if (modal) {
+        modal.style.display= 'flex';
+    }
 }
 
 window.closeModal= function(){
-    modal.style.display= 'none'
+    const modal = document.getElementById('modal');
+    if (modal) {
+        modal.style.display= 'none';
+    }
 }

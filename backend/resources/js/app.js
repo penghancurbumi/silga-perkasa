@@ -1,7 +1,9 @@
 import './sidebar'
 import './modal';
 import './filterButton';
-import './contentCreate'
+import './contentCreate';
+import './passwordWrapper';
+import './carouselWrapper';
 
 document.querySelectorAll('a[wire\\:navigate]').forEach(link => {
     link.addEventListener('click',(e) => {

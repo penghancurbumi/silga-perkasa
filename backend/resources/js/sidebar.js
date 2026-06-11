@@ -3,7 +3,7 @@ import {
     registerUpdateSidebar
 } from './sidebarState';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('livewire:navigated', () => {
 
     const sidebar = document.getElementById('sidebar');
 
@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sidebarTexts = document.querySelectorAll('.sidebar-text');
     const dropdownArrows = document.querySelectorAll('.dropdown-arrow');
+
+    if (!sidebar || !toggleBtn || !expandedLogo || !collapsedLogo) {
+        return;
+    }
 
     function renderSidebar() {
 

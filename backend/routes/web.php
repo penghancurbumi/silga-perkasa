@@ -5,8 +5,13 @@ use App\Livewire\Dashboard;
 use App\Livewire\Content;
 use App\Livewire\ContentCreate;
 use App\Livewire\ContentEdit;
+use App\Livewire\AuthLogin;
+use App\Livewire\AuthRegister;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ContentController;
+
+Route::get('/login', AuthLogin::class)->name('login');
+Route::get('/register', AuthRegister::class)->name('Register');
 
 Route::get('/', Dashboard::class)->name('dashboard');
 

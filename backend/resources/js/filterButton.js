@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('livewire:navigated', () => {
 
     const dropdownWrappers = document.querySelectorAll('.filter-wrapper')
 
@@ -7,19 +7,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const menu = wrapper.querySelector('.filter-menu')
         const arrow = wrapper.querySelector('.filter-arrow')
 
-        button.addEventListener('click', () => {
-            const isOpen =!menu.classList.contains('hidden');
-            isOpen ? closeDropdown(menu, arrow) : openDropdown(menu, arrow)
-        })
+        if (button && menu) {
+            button.addEventListener('click', () => {
+                const isOpen = !menu.classList.contains('hidden');
+                isOpen ? closeDropdown(menu, arrow) : openDropdown(menu, arrow)
+            })
+        }
     })
 
     function openDropdown(menu, arrow) {
         menu.classList.remove('hidden')
-        arrow?.classList.add('rotate-180')
+        if (arrow) arrow.classList.add('rotate-180')
     }
 
     function closeDropdown(menu, arrow) {
         menu.classList.add('hidden')
-        arrow?.classList.remove('rotate-180')
+        if (arrow) arrow.classList.remove('rotate-180')
     }
 })
