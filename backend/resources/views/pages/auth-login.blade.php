@@ -87,7 +87,8 @@
 
     <!-- Kanan -->
     <div class="w-2/5 flex items-center justify-center bg-white p-8">
-        <form class="w-full max-w-md space-y-4">
+        <form wire:submit="store" 
+            class="w-full max-w-md space-y-4">
 
             <div class="flex flex-col gap-2">  
                 <h1 class="text-3xl font-semibold">Wellcome Back!</h1>
@@ -97,9 +98,11 @@
             <div class="space-y-4">
                 <div class="flex flex-col gap-2">
                     <span class="text-[15px] font-semibold">Email</span>
-                    <input type="text"
-                    placeholder="Masukan Email..."
-                    class="px-4 py-3 text-[12px] bg-white rounded border border-gray-300">
+                    <input 
+                        wire:model="email"
+                        type="text"
+                        placeholder="Masukan Email..."
+                        class="px-4 py-3 text-[12px] bg-white rounded border border-gray-300">
                 </div>
 
                 <div class="flex flex-col gap-2">
@@ -107,6 +110,7 @@
 
                     <div class="relative">
                         <input 
+                            wire:model="password"
                             id="password"
                             type="password"
                             placeholder="Masukan Password..."
@@ -137,8 +141,10 @@
             <a  href="/forgot-password"
                 class="font-semibold text-black hover:text-gray-500 transition text-[15px] mb-2">Forgot Password?</a>
           
-            <button class="w-full bg-black font-semibold text-white py-3 rounded-md mt-2 hover:bg-[#2e2e2e] transition cursor-pointer">
-                Login
+            <button 
+                type="submit"
+                class="w-full bg-black font-semibold text-white py-3 rounded-md mt-2 hover:bg-[#2e2e2e] transition cursor-pointer">
+                    Login
             </button>
 
             <p class="flex items-center justify-center text-gray-500 text-[12px] gap-1">
