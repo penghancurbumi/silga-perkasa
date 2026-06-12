@@ -2,20 +2,83 @@
     <!-- Kiri -->
     <div class="relative w-3/5 overflow-hidden">
         <div id="carouselWrapper" class="flex transition-transform duration-700 ease-in-out h-full">
-            <div class="min-w-full h-full">
-                <img src="/images/Kamar Besar.jpg" alt="kamar haha" class="w-full h-full object-cover">
+
+            <!--Image 1-->
+            <div class="relative min-w-full h-full">
+
+                <div class="absolute inset-0 z-10"> 
+                    <div class="flex flex-col justify-between h-full px-10 py-12">
+
+                        <img src="/images/collapse.png" alt="logo silga perkasa"
+                            class="w-[180px] h-auto">
+
+                        <div class="flex flex-col gap-4 mb-12">
+                            <span class="text-white font-semibold text-5xl">Lorem ipsum dolor sit amet consectetur adipiscing elit. </span>
+                            <p class="text-white text-[15px]">Pellentesque ultricies fringilla arcu eget efficitur. Aenean dignissim elit et purus volutpat, <br> sit amet pretium mauris pharetra</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-black/40 z-[5]"></div>
+                
+                <img src="/images/picture.jpg" alt="kamar haha" class="w-full h-full object-cover">
             </div>
 
-            <div class="min-w-full h-full">
-                <img src="/images/Kamar Besar.jpg" alt="kamar haha" class="w-full h-full object-cover">
+            <!--Image 2-->
+            <div class="relative min-w-full h-full">
+                <div class="absolute inset-0 z-10">
+
+                    <div class="flex flex-col justify-between h-full px-10 py-12">
+                        <img src="/images/collapse.png" alt="logo silga perkasa"
+                            class="w-[180px] h-auto">
+
+                        <div class="flex flex-col gap-4 mb-12">
+                            <span class="text-white font-semibold text-5xl">Lorem ipsum dolor sit amet consectetur adipiscing elit. </span>
+                            <p class="text-white text-[15px]">Pellentesque ultricies fringilla arcu eget efficitur. Aenean dignissim elit et purus volutpat, <br> sit amet pretium mauris pharetra</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-black/40 z-[5]"></div>
+                <img src="/images/picture(1).jpg" alt="kamar haha" class="w-full h-full object-cover">
             </div>
 
-            <div class="min-w-full h-full">
-                <img src="/images/Kamar Besar.jpg" alt="kamar haha" class="w-full h-full object-cover">
+            <!--Image 3-->
+            <div class="relative min-w-full h-full">
+                <div class="absolute inset-0 z-10">
+
+                    <div class="flex flex-col justify-between h-full px-10 py-12">
+                        <img src="/images/collapse.png" alt="logo silga perkasa"
+                            class="w-[180px] h-auto">
+
+                        <div class="flex flex-col gap-4 mb-12">
+                            <span class="text-white font-semibold text-5xl">Lorem ipsum dolor sit amet consectetur adipiscing elit. </span>
+                            <p class="text-white text-[15px]">Pellentesque ultricies fringilla arcu eget efficitur. Aenean dignissim elit et purus volutpat, <br> sit amet pretium mauris pharetra</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-black/40 z-[5]"></div>
+                <img src="/images/picture(2).jpg" alt="kamar haha" class="w-full h-full object-cover">
             </div>
 
-            <div class="min-w-full h-full">
-                <img src="/images/Kamar Besar.jpg" alt="kamar haha" class="w-full h-full object-cover">
+            <!--Image 4-->
+            <div class="relative min-w-full h-full">
+                <div class="absolute inset-0 z-10">
+
+                    <div class="flex flex-col justify-between h-full px-10 py-12">
+                        <img src="/images/collapse.png" alt="logo silga perkasa"
+                            class="w-[180px] h-auto">
+
+                        <div class="flex flex-col gap-4 mb-12">
+                            <span class="text-white font-semibold text-5xl">Lorem ipsum dolor sit amet consectetur adipiscing elit. </span>
+                            <p class="text-white text-[15px]">Pellentesque ultricies fringilla arcu eget efficitur. Aenean dignissim elit et purus volutpat, <br> sit amet pretium mauris pharetra</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-black/40 z-[5]"></div>
+                <img src="/images/picture(3).jpg" alt="kamar haha" class="w-full h-full object-cover">
             </div>
         </div>
 

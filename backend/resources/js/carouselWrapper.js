@@ -19,14 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
     Array.from({length:total}).forEach((_,i) => {
         const dot = document.createElement('button');
         dot.className = i === 0
-            ? 'w-3 h-3 rounded-full bg-white'
-            : 'w-3 h-3 rounded-full bg-white/50';
+            ? 'w-2 h-2 rounded-full bg-white'
+            : 'w-2 h-2 rounded-full bg-white/50';
         dot.addEventListener('click', () => {goTo(i); resetAutoPlay(); });
         indicator.appendChild(dot);
     });
 
     //core 
     function goTo(index){
+
+        if (index > total) index = total;
+        if (index < 0) index = total -1;
+
         current = index;
         wrapper.style.transition = `transform 700ms ease-in-out`
         wrapper.style.transform = `translateX(-${current * 100}%)`;
@@ -36,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDots() {
         Array.from(indicator.children).forEach((dot, i) => {
             dot.className = i === current % total
-                ? 'w-3 h-3 rounded-full bg-white'
-                : 'w-3 h-3 rounded-full bg-white/50'
+                ? 'w-2 h-2 rounded-full bg-white'
+                : 'w-2 h-2 rounded-full bg-white/50'
         })
     }
 
@@ -72,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function startAutoPlay() {
-        autoplayTimer = setInterval(() => goTo(current + 1), 4000)
+        autoplayTimer = setInterval(() => goTo(current + 1), 10000)
     }
 
     function resetAutoPlay(){
