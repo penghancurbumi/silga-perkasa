@@ -12,6 +12,11 @@ class AuthLogin extends Component
     public $email;
     public $password;
 
+    protected $messages = [
+        'email.required' => 'Email is required',
+        'password.required' => 'Password is required',
+    ];
+
     public function store()
     {
         $this->validate([
@@ -25,8 +30,12 @@ class AuthLogin extends Component
         ])) {
             
             session()->regenerate();
+            
+            $this->reset(['email','password']);
 
-            return redirect()->to('/');
+            $this->dispatch('login-success');
+
+            return;
         }
 
         session()->flash('error', 'email dan password kamu salah');

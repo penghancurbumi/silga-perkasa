@@ -44,30 +44,63 @@ class ContentCreate extends Component
 
     public function save($status)
     {
+        
+        // error-2 validasi gagal
+        try{
+             $this->validate([
+                'title' => 'required|string|max:255',
+                'slug' => 'required|unique:posts,slug',
+                'content' => 'required',
+                'category_id' => 'required|exists:categories,id',
+                'thumbnail' => 'required|image|max:5120',
+                'published_at' => 'required'
+            ]);
+        }catch(\Illuminate\Validation\ValidationException $e){
+            if($status === 'published'){
+                $this->dispatch('published-error-2');
+            }elseif($status === 'draft'){
+                $this->dispatch('draft-error-2');
+            }elseif($status === 'scheduled'){
+                $this->dispatch('scheduled-error-2');
+            }
+            throw $e;
+        }
+        
+        //error-1 gagal simpan ke database
+        try{
+             $thumbnailPath = $this->thumbnail?->store('thumbnails', 'public');
 
-        $this->validate([
-            'title' => 'required|string|max:255',
-            'slug' => 'required|unique:posts,slug',
-            'content' => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'thumbnail' => 'required|image|max:5120',
-            'published_at' => 'required'
-        ]);
+            Post::create([
+                'title' => $this->title,
+                'slug' => $this->slug,
+                'content' => $this->content,
+                'category_id' => $this->category_id,
+                'published_at' => $this->published_at,
+                'status' => $status,
+                'author_id' => auth()->id(),
+                'thumbnail' => $thumbnailPath
+            ]);
 
-        $thumbnailPath = $this->thumbnail?->store('thumbnails', 'public');
+            $this->reset(['title','slug','content','category_id','thumbnail','published_at']);
 
-        Post::create([
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'content' => $this->content,
-            'category_id' => $this->category_id,
-            'published_at' => $this->published_at,
-            'status' => $status,
-            'author_id' => auth()->id(),
-            'thumbnail' => $thumbnailPath
-        ]);
+            if($status === 'published'){
+                $this->dispatch('published-success');
+            }elseif($status === 'draft'){
+                $this->dispatch('draft-success');
+            }elseif($status === 'scheduled'){
+                $this->dispatch('scheduled-success');
+            }
 
-        return redirect()->route('content');
+        }catch(\Exception $e) {
+            if($status === 'published'){
+                $this->dispatch('published-error-1');
+            }elseif($status === 'draft'){
+                $this->dispatch('draft-error-1');
+            }elseif($status === 'scheduled'){
+                $this->dispatch('scheduled-error-1');
+            }
+        }
+       
     }
 
     public function render()

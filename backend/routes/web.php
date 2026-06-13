@@ -13,7 +13,9 @@ use App\Http\Controllers\ContentController;
 Route::get('/login', AuthLogin::class)->name('login');
 Route::get('/register', AuthRegister::class)->name('Register');
 
-Route::get('/', Dashboard::class)->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', Dashboard::class)->name('dashboard');
 
 //content pages
 Route::get('/content', Content::class)->name('content');
@@ -26,5 +28,5 @@ Route::get('/content/{id}/preview', Content ::class)->name('content.preview');
 Route::get('/content/{id}', Content ::class)->name('content.create');
 
 Route::get('/lowongan', Content::class)->name('lowongan');
-
 Route::get('/settings', Content::class)->name('settings');
+});

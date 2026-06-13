@@ -84,6 +84,7 @@ class ContentEdit extends Component
             'thumbnail' => $thumbnailPath
         ]);
 
+        session()->flash('edit-success', true);
         return redirect()->route('content');
     }
 

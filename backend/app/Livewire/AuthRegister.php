@@ -14,6 +14,7 @@ class AuthRegister extends Component
     public $password_confirmation;
 
     protected $messages = [
+        'email.unique' => 'Email already exists',
         'email.required' => 'This field is required',
         'password.required' => 'This field is required',
         'password.confirmed' => 'Password does not match',
@@ -32,7 +33,9 @@ class AuthRegister extends Component
             'password' =>Hash::make($this->password)
         ]);
 
-        return redirect()->to('/login');
+        $this->reset(['email','password','password_confirmation']);
+
+        $this->dispatch('register-success');
     }
 
     public function render()

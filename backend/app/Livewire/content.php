@@ -24,6 +24,67 @@ class Content extends Component
     public $filterKategori ='';
     public $filterUrutan = 'terbaru';
 
+    //edit
+    public $editId = null;
+    public $editTitle;
+    public $editSlug;
+    public $editContent;
+    public $editCategoryId;
+    public $editThumbnail;
+    public $editPublishedAt;
+    
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+
+        $this->editId       = $post->id;
+        $this->editTitle    = $post->title;
+        $this->editSlug     = $post->slug;
+        $this->editContent  = $post->content;
+        $this->editCategoryId = $post->category_id;
+        $this->editPublishedAt = $post->published_at;
+    }
+
+    public function update()
+    {
+        try{
+            $this->validate([
+                'editTitle' => 'required|string|max:255',
+                'editSlug' => 'required|string|unique:posts,slug,id,' . $this->editId,
+                'editContent' => 'nullable|string',
+                'editCategoryId' => 'nullable|exists:categories,id',
+                'editThumbnail' => 'nullable|image|max:5120'
+            ]);
+
+            $post = Post::findOrFail($this->editId);
+
+            $thumbnailPath = $post->thumbnail;
+            if ($this->editThumbnail) {
+                $thumbnailPath = $this->editThumbnail->store('thumbnails', 'public');
+            }
+
+            $post->update([
+                'title'         => $this->editTitle,
+                'slug'          => $this->editSlug,
+                'content'       => $this->editContent,
+                'category_id'   => $this->editCategoryId,
+                'thumbnail'     => $thumbnailPath,
+                'published_at'  => $this->editPublishedAt,  
+            ]);
+
+            $this->reset(['editId','editTitle', 'editSlug', 'editContent', 'editCategoryId', 'editThumbnail', 'editPublishedAt']);
+
+            $this->dispatch('edit-success');
+        
+        }catch (\Illuminate\Validation\ValidationException $e){
+            $this->dispatch('edit-error');
+            throw $e;
+
+        }catch (\Exception $e){
+            $this->dispatch('edit-error');
+        }
+    }
+
     public function store($status)
     {
         $this->validate([
@@ -96,5 +157,4 @@ class Content extends Component
             'totalViews' => Post::sum('views'),
         ])->layout('layouts.app');
     }
-
 }

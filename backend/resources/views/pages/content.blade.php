@@ -5,6 +5,55 @@
             <span class="text-[13px] text-gray-400">Pusat kendali untuk mengelola dan memantau konten blog secara efisien</span>
         </div>
 
+        <!--alert edit-->
+        <div id="alert-edit" class="hidden absolute top-14 right-5 bg-white rounded-lg shadow p-4 border border-gray-200">
+            <div class="flex flex-row space-x-3">
+                
+                <iconify-icon
+                    icon="mdi:tick"
+                    width="15"
+                    class="text-green-500 border border-gray-200 rounded-lg p-2 bg-green-100"
+                ></iconify-icon>
+
+                <div class="flex flex-col">
+                    <p class="text-[12px] font-semibold">Changes saved</p>
+                    <p class="text-[10px] font-semibold text-gray-400">Your article has been updated.</p>
+                </div>
+
+                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
+                    <iconify-icon
+                        icon="gridicons:cross"
+                        width="15"
+                    ></iconify-icon>
+                </button>
+            </div>
+        </div>
+
+        <!--alert edit error-->
+        <div id="alert-edit-error" class="hidden absolute top-14 right-5 bg-white rounded-lg p-4 border border-gray-200">
+            <div class="flex flex-row space-x-3">
+                <iconify-icon
+                    icon="gridicons:cross"
+                    width="15"
+                    class="text-red-500 borde border-gray-200 rounded-lg p-2 bg-red-100"
+                ></iconify-icon>
+
+                <div class="flex flex-col">
+                    <p class="text-[12px] font-semibold">Update failed</p>
+                    <p class="text-[10px] font-semibold text-gray-400">Your changes could not be saved.</p>
+                </div>
+
+                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
+                    <iconify-icon
+                        icon="gridicons:cross"
+                        width="15"
+                    ></iconify-icon>
+                </button>
+
+            </div>
+        </div>
+
+
         <div class="flex items-center gap-2">
 
             <a href="{{ route('content.export', 'csv')}}"
@@ -275,4 +324,16 @@
         </p>
         {{ $posts->links() }}
     </div>
+
+    @if(session('edit-success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const alert = document.getElementById('alert-edit');
+                if(alert) {
+                    alert.classList.remove('hidden');
+                    setTimeout(() => alert.classList.add('hidden'), 5000);
+                }
+            });
+        </script>
+    @endif
 </div>
