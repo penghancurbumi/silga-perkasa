@@ -1,13 +1,2 @@
-export let sidebarState = {
-  expanded: true
-}
-
-let _updateSidebar = null;
-
-export function registerUpdateSidebar (fn) {
-  _updateSidebar = fn
-}
-
-export function updateSidebar (){
-  _updateSidebar?.()
-}
+// sidebarState.js — tidak lagi digunakan.
+// State sidebar sekarang dikelola oleh Alpine.js $persist di sidebar.blade.php

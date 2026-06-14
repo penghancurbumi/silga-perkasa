@@ -5,55 +5,6 @@
             <span class="text-[13px] text-gray-400">Pusat kendali untuk mengelola dan memantau konten blog secara efisien</span>
         </div>
 
-        <!--alert edit-->
-        <div id="alert-edit" class="hidden absolute top-14 right-5 bg-white rounded-lg shadow p-4 border border-gray-200">
-            <div class="flex flex-row space-x-3">
-                
-                <iconify-icon
-                    icon="mdi:tick"
-                    width="15"
-                    class="text-green-500 border border-gray-200 rounded-lg p-2 bg-green-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Changes saved</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Your article has been updated.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-            </div>
-        </div>
-
-        <!--alert edit error-->
-        <div id="alert-edit-error" class="hidden absolute top-14 right-5 bg-white rounded-lg p-4 border border-gray-200">
-            <div class="flex flex-row space-x-3">
-                <iconify-icon
-                    icon="gridicons:cross"
-                    width="15"
-                    class="text-red-500 borde border-gray-200 rounded-lg p-2 bg-red-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Update failed</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Your changes could not be saved.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-
-            </div>
-        </div>
-
-
         <div class="flex items-center gap-2">
 
             <a href="{{ route('content.export', 'csv')}}"
@@ -141,10 +92,11 @@
                 class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
             </iconify-icon>
 
-            <input type="text"
-                    name="search"
-                    placeholder="Search Article..."
-                    class="w-64 bg-white border border-gray-200 rounded h-10 pl-10 pr-4 text-[12px]">
+            <input wire:model.live="search"
+                type="text"
+                name="search"
+                placeholder="Search Article..."
+                class="w-64 bg-white border border-gray-200 rounded h-10 pl-10 pr-4 text-[12px]">
         </div>
 
         <div class="relative filter-wrapper">
@@ -169,8 +121,8 @@
             <select  wire:model.live="filterUrutan"
             class="filter-button flex items-center w-48 px-4 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
 
-                <option value="">Terbaru</option>
-                <option value="">Terlama</option>
+                <option value="terbaru">Terbaru</option>
+                <option value="terlama">Terlama</option>
 
                 <iconify-icon
                     icon="fe:arrow-up"
@@ -275,15 +227,15 @@
                     </td>
                     <td class="px-4 py-3">
                         <div class="flex items-center gap-1">
-                            <a href="{{ route('content.edit', $post->id) }}"
+                            <button wire:click="edit({{ $post->id }})"
                             class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100">
                                 <iconify-icon icon="material-symbols:edit-outline" width="16"></iconify-icon>
-                            </a>
+                            </button>
 
-                            <a href="{{ route('content.preview', $post->id) }}" target="_blank"
+                            <button wire:click="preview{{ $post->id }}" target="_blank"
                             class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100">
                                 <iconify-icon icon="material-symbols:visibility-outline" width="16"></iconify-icon>
-                            </a>
+                            </button>
 
                             <form action="{{ route('content.destroy', $post->id) }}" method="POST"
                                 onsubmit="return confirm('Yakin ingin menghapus?')">
@@ -324,16 +276,4 @@
         </p>
         {{ $posts->links() }}
     </div>
-
-    @if(session('edit-success'))
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const alert = document.getElementById('alert-edit');
-                if(alert) {
-                    alert.classList.remove('hidden');
-                    setTimeout(() => alert.classList.add('hidden'), 5000);
-                }
-            });
-        </script>
-    @endif
 </div>

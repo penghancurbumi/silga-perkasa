@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Livewire\Dashboard;
 use App\Livewire\Content;
 use App\Livewire\ContentCreate;
@@ -9,8 +10,21 @@ use App\Livewire\AuthLogin;
 use App\Livewire\AuthRegister;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ContentController;
+use App\Models\ActivityLog;
 
 Route::get('/login', AuthLogin::class)->name('login');
+Route::post('/logout', function () {
+    ActivityLog::create([
+        'user_id'=>Auth::id(),
+        'type'=>'logout',
+        'description'=>'User logged out',
+        'ip_address'=>request()->ip(),
+    ]);
+    Auth::logout();
+    session()->regenerate();
+    return redirect()->route('login');
+})->name('logout');
+
 Route::get('/register', AuthRegister::class)->name('Register');
 
 

@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\ActivityLog;
+use App\Notifications\ArticleNotification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -58,38 +61,67 @@ class ContentEdit extends Component
     public function save($status)
     {
 
-        $this->validate([
-            'title' => 'required|string|max:255',
-            'slug' => 'required|unique:posts,slug,' . $this->postId,
-            'content' => 'required',
-            'category_id' => 'nullable|exists:categories,id',
-            'thumbnail' => 'nullable|image|max:5120',
-            'published_at' => 'nullable'
-        ]);
+        try{
+            $this->validate([
+                'title' => 'required|string|max:255',
+                'slug' => 'required|unique:posts,slug,' . $this->postId,
+                'content' => 'required',
+                'category_id' => 'nullable|exists:categories,id',
+                'thumbnail' => 'nullable|image|max:5120',
+                'published_at' => 'nullable'
+            ]);
 
-        $thumbnailPath = $this->existingThumbnail;
-        if ($this->thumbnail){
-            $thumbnailPath = $this->thumbnail?->store('thumbnails', 'public');
+            $thumbnailPath = $this->existingThumbnail;
+            if ($this->thumbnail){
+                $thumbnailPath = $this->thumbnail?->store('thumbnails', 'public');
+            }
+
+            $post = Post::findOrFail($this->postId);
+            $post->update([
+                'title'      => $this->title,
+                'slug'       => $this->slug,
+                'content'    => $this->content,
+                'category_id'=> $this->category_id,
+                'published_at'=> $this->published_at,
+                'status'    => $status,
+                'author_id' => auth()->id(),
+                'thumbnail' => $thumbnailPath
+            ]);
+
+            $statusLabel = match($status) {
+                'published' => 'dipublikasikan',
+                'draft'     => 'disimpan sebagai draft',
+                'scheduled' => 'dijadwalkan',
+                default     => $status,
+            };
+
+            ActivityLog::create([
+                'user_id'     => Auth::id(),
+                'type'        => 'edit_post',
+                'description' => 'Artikel "' . $this->title . '" diedit dan ' . $statusLabel,
+                'ip_address'  => request()->ip(),
+            ]);
+
+            auth()->user()->notify(new ArticleNotification(
+                message: 'Artikel "' . $post->title . '" diedit dan' . $statusLabel,
+                type : 'edit_post',
+                post: $post,
+            ));
+
+            $this->dispatch('edit-success');
+
+        }catch(\Illuminate\Validation\ValidationException $e){
+            $this->dispatch('edit-error');
+            throw $e;
+        }catch(\Exception $e){
+            $this->dispatch('edit-error');
         }
-
-        $post = Post::findOrFail($this->postId);
-        $post->update([
-            'title'      => $this->title,
-            'slug'       => $this->slug,
-            'content'    => $this->content,
-            'category_id'=> $this->category_id,
-            'published_at'=> $this->published_at,
-            'status'    => $status,
-            'author_id' => auth()->id(),
-            'thumbnail' => $thumbnailPath
-        ]);
-
-        session()->flash('edit-success', true);
-        return redirect()->route('content');
     }
 
     public function render()
     {
-        return view('pages.content-create');
+        return view('pages.content-edit',[
+            'categories' => Category::orderBy('name')->get(),
+        ])->layout('layouts.app');
     }
 }

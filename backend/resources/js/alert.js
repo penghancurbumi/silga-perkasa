@@ -1,11 +1,11 @@
 document.addEventListener('livewire:init', () => {
 
-    function showAlert(id, redirect = null){
-        const alert= document.getElementById(id);
+    function showAlert(id, redirect = null) {
+        const alert = document.getElementById(id);
 
         alert.classList.remove('hidden');
 
-        if(redirect){
+        if (redirect) {
             setTimeout(() => {
                 window.location.href = redirect;
             }, 5000)
@@ -13,11 +13,11 @@ document.addEventListener('livewire:init', () => {
     }
 
     //AUth
-    Livewire.on('login-success', () => showAlert('alert','/'));
+    Livewire.on('login-success', () => showAlert('alert', '/'));
     Livewire.on('register-success', () => showAlert('alert', '/login'));
 
     //published 
-    Livewire.on('published-success', () => showAlert('alert-published','/content'));
+    Livewire.on('published-success', () => showAlert('alert-published', '/content'));
     Livewire.on('published-error-1', () => showAlert('alert-published-error-1'));
     Livewire.on('published-error-2', () => showAlert('alert-published-error-2'));
 
@@ -32,12 +32,12 @@ document.addEventListener('livewire:init', () => {
     Livewire.on('scheduled-error-2', () => showAlert('alert-scheduled-error-2'));
 
     //edit 
-    Livewire.on('edit-success', () =>showAlert('alert-edit'));
+    Livewire.on('edit-success', () => showAlert('alert-edit', '/content'));
     Livewire.on('edit-error', () => showAlert('alert-edit-error'));
 });
 
-function closeAlert(){
-    document.querySelectorAll('[id^="alert"]').forEach(el =>{
+window.closeAlert = function () {
+    document.querySelectorAll('[id^="alert"]').forEach(el => {
         el.classList.add('hidden');
-    })     
+    })
 }

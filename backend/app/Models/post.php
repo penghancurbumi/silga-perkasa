@@ -18,19 +18,11 @@ class Post extends Model
         'title',
         'slug',
         'content',
-        'excerpt',
         'thumbnail',
-        'status',          // draft | published | scheduled
-        'visibility',      // public | private | password
-        'meta_title',
-        'meta_description',
+        'status',         
         'category_id',
         'author_id',
         'published_at',
-        'scheduled_at',
-        'read_time',
-        'views_count',
-        'seo_score',
     ];
 
     

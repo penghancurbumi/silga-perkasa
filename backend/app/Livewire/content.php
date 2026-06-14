@@ -23,66 +23,11 @@ class Content extends Component
     public $scheduled_at;
     public $filterKategori ='';
     public $filterUrutan = 'terbaru';
+    public $search = "";    
 
-    //edit
-    public $editId = null;
-    public $editTitle;
-    public $editSlug;
-    public $editContent;
-    public $editCategoryId;
-    public $editThumbnail;
-    public $editPublishedAt;
-    
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
-
-        $this->editId       = $post->id;
-        $this->editTitle    = $post->title;
-        $this->editSlug     = $post->slug;
-        $this->editContent  = $post->content;
-        $this->editCategoryId = $post->category_id;
-        $this->editPublishedAt = $post->published_at;
-    }
-
-    public function update()
-    {
-        try{
-            $this->validate([
-                'editTitle' => 'required|string|max:255',
-                'editSlug' => 'required|string|unique:posts,slug,id,' . $this->editId,
-                'editContent' => 'nullable|string',
-                'editCategoryId' => 'nullable|exists:categories,id',
-                'editThumbnail' => 'nullable|image|max:5120'
-            ]);
-
-            $post = Post::findOrFail($this->editId);
-
-            $thumbnailPath = $post->thumbnail;
-            if ($this->editThumbnail) {
-                $thumbnailPath = $this->editThumbnail->store('thumbnails', 'public');
-            }
-
-            $post->update([
-                'title'         => $this->editTitle,
-                'slug'          => $this->editSlug,
-                'content'       => $this->editContent,
-                'category_id'   => $this->editCategoryId,
-                'thumbnail'     => $thumbnailPath,
-                'published_at'  => $this->editPublishedAt,  
-            ]);
-
-            $this->reset(['editId','editTitle', 'editSlug', 'editContent', 'editCategoryId', 'editThumbnail', 'editPublishedAt']);
-
-            $this->dispatch('edit-success');
-        
-        }catch (\Illuminate\Validation\ValidationException $e){
-            $this->dispatch('edit-error');
-            throw $e;
-
-        }catch (\Exception $e){
-            $this->dispatch('edit-error');
-        }
+        return redirect()->route('content.edit', $id);
     }
 
     public function store($status)
@@ -129,15 +74,23 @@ class Content extends Component
     {   
         $query = Post::with(['author', 'category']);
 
+        //search input
+        if($this->search){
+            $query->where(function($q) {
+                $q->where('title', 'like', '%' . $this->search . '%')
+                ->orWhere('content', 'like', '%' . $this->search . '%');
+            });
+        }
+
         //filter category
         if($this->filterKategori){
             $query->where('category_id', $this->filterKategori);
         }
 
         //filter Terbaru 
-        if($this->filterUrutan === 'Terbaru'){
+        if($this->filterUrutan === 'terbaru'){
             $query->latest();
-        }elseif($this->filterUrutan === 'Terlama'){
+        }elseif($this->filterUrutan === 'terlama'){
             $query->oldest();
         }
 

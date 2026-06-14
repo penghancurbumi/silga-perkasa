@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\ActivityLog;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -82,6 +84,26 @@ class ContentCreate extends Component
             ]);
 
             $this->reset(['title','slug','content','category_id','thumbnail','published_at']);
+
+            $statusLabel = match($status) {
+                'published' => 'dipublikasikan',
+                'draft'     => 'disimpan sebagai draft',
+                'scheduled' => 'dijadwalkan',
+                default     => $status,
+            };
+
+            ActivityLog::create([
+                'user_id'     => Auth::id(),
+                'type'        => 'create_post',
+                'description' => 'Artikel "' . $this->title . '" ' . $statusLabel,
+                'ip_address'  => request()->ip(),
+            ]);
+
+            auth()->user()->notify(new ArticleNotification(
+                message: 'Artikel "' . $this->title . '" berhasil ' . $statusLabel,
+                type: $status,
+                post: $post,
+            ));
 
             if($status === 'published'){
                 $this->dispatch('published-success');

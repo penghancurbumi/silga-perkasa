@@ -1,3 +1,6 @@
+/* Sembunyikan elemen Alpine.js sebelum diinisialisasi (mencegah flash) */
+[x-cloak] { display: none !important; }
+
 /* Toolbar */
 #calendar .fc-toolbar {
     margin-bottom: 4px !important;
@@ -31,12 +34,12 @@
 /* Tinggi baris — ini yang bikin kotak besar */
 #calendar .fc-daygrid-day-frame {
     min-height: 20px !important;
-    max-height: 20px !important;
+    max-height: 30px !important;
     overflow: hidden !important;
 }
 
 #calendar .fc-daygrid-body tr {
-    height: 25px !important;
+    height: 20px !important;
 }
 
 #calendar .fc-daygrid-body {
@@ -46,7 +49,7 @@
 /* Batasi tinggi keseluruhan kalender */
 #calendar .fc-view-harness {
     height: auto !important;
-    max-height: 200px !important;
+    max-height: 250px !important;
 }
 
 #calendar {

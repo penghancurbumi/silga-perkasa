@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -34,8 +35,8 @@ class ArticleNotification extends Notification
         return[
             'message'   => $this->message,
             'type'      => $this->type,
-            'post_id'   => $this->post_id,
-            'post_title'=> $this->post_title
+            'post_id'   => $this->post?->id,
+            'post_title'=> $this->post?->title
        ];
     }
 }

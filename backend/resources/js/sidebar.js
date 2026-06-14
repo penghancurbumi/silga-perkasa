@@ -1,89 +1,24 @@
-import {
-    sidebarState,
-    registerUpdateSidebar
-} from './sidebarState';
+// Update active nav link berdasarkan URL saat navigasi wire:navigate
+// (@persist menjaga DOM sidebar, sehingga Blade active state tidak diperbarui otomatis)
+function updateActiveLink() {
+    const currentPath = window.location.pathname;
 
-document.addEventListener('livewire:navigated', () => {
+    document.querySelectorAll('#sidebar .nav-link').forEach(link => {
+        const linkPath = link.pathname;
+        if (!linkPath) return;
 
-    const sidebar = document.getElementById('sidebar');
+        const isActive = linkPath === '/'
+            ? currentPath === '/'
+            : currentPath === linkPath || currentPath.startsWith(linkPath + '/');
 
-    const toggleBtn = document.getElementById('toggleSidebar');
-
-    const expandedLogo = document.getElementById('logoExpanded');
-    const collapsedLogo = document.getElementById('logoCollapsed');
-
-    const sidebarTexts = document.querySelectorAll('.sidebar-text');
-    const dropdownArrows = document.querySelectorAll('.dropdown-arrow');
-
-    if (!sidebar || !toggleBtn || !expandedLogo || !collapsedLogo) {
-        return;
-    }
-
-    function renderSidebar() {
-
-        if (sidebarState.expanded) {
-
-            sidebar.classList.remove('w-20');
-            sidebar.classList.add('w-64');
-
-            expandedLogo.classList.remove('hidden');
-            collapsedLogo.classList.add('hidden');
-
-            toggleBtn.classList.remove('hidden');
-
-            sidebarTexts.forEach(text => {
-                text.classList.remove('hidden');
-            });
-
-            dropdownArrows.forEach(arrow => {
-                arrow.classList.remove('hidden');
-            });
-
+        if (isActive) {
+            link.classList.add('bg-white', 'text-black');
+            link.classList.remove('text-white', 'hover:bg-[#1f2733]');
         } else {
-
-            sidebar.classList.remove('w-64');
-            sidebar.classList.add('w-20');
-
-            expandedLogo.classList.add('hidden');
-            collapsedLogo.classList.remove('hidden');
-
-            toggleBtn.classList.add('hidden');
-
-            sidebarTexts.forEach(text => {
-                text.classList.add('hidden');
-            });
-
-            dropdownArrows.forEach(arrow => {
-                arrow.classList.add('hidden');
-            });
-
-            // tutup semua dropdown
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.add('hidden');
-            });
-
-            document.querySelectorAll('.dropdown-arrow').forEach(arrow => {
-                arrow.classList.remove('rotate-180');
-            });
+            link.classList.remove('bg-white', 'text-black');
+            link.classList.add('text-white', 'hover:bg-[#1f2733]');
         }
-    }
-
-    registerUpdateSidebar(renderSidebar);
-
-    toggleBtn.addEventListener('click', () => {
-
-        sidebarState.expanded = false;
-
-        renderSidebar();
     });
+}
 
-    collapsedLogo.addEventListener('click', () => {
-
-        sidebarState.expanded = true;
-
-        renderSidebar();
-    });
-
-    renderSidebar();
-
-});
+document.addEventListener('livewire:navigated', updateActiveLink);

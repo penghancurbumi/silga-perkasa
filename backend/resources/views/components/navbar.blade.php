@@ -1,10 +1,29 @@
 <nav class="bg-white border-b border-gray-200 px-6 py-2 flex items-center justify-between">
+@php
+    $pageMap = [
+        'dashboard'  => ['label' => 'Dashboard',  'icon' => 'material-symbols:dashboard'],
+        'content'    => ['label' => 'Content',     'icon' => 'wordpress:post-content'],
+        'lowongan*'  => ['label' => 'Lowongan',    'icon' => 'eos-icons:job'],
+        'settings*'  => ['label' => 'Settings',    'icon' => 'ep:setting'],
+    ];
+
+    $currentLabel = 'Dashboard';
+    $currentIcon  = 'material-symbols:dashboard';
+
+    foreach ($pageMap as $route => $page) {
+        if (request()->routeIs($route)) {
+            $currentLabel = $page['label'];
+            $currentIcon  = $page['icon'];
+            break;
+        }
+    }
+@endphp
 
     {{-- Left --}}
     <div class="flex flex-row items-center gap-1">
 
         <iconify-icon
-            icon="material-symbols:dashboard"
+            icon="{{ $currentIcon }}"
             width="20"
             class="text-gray-400">
         </iconify-icon>
@@ -19,7 +38,7 @@
             class="text-gray-400">
         </iconify-icon>
 
-        <span class="text-sm font-semibold text-black">Dashboard</span>
+        <span class="text-sm font-semibold text-black">{{ $currentLabel }}</span>
     </div>
 
     {{-- Right--}}
@@ -39,13 +58,7 @@
             />
         </div>
         
-
-        <button class="relative flex w-8 h-8 items-center justify-center rounded-lg hover:bg-gray-200 cursor-pointer text-gray-500 hover:text-gray-900 transition" >
-            <iconify-icon
-                icon="iconamoon:notification"
-                width="18">
-            </iconify-icon>
-        </button>
+        <livewire:notification-bell/>
 
         <div></div>
 
