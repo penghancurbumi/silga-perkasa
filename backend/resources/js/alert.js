@@ -2,6 +2,7 @@ document.addEventListener('livewire:init', () => {
 
     function showAlert(id, redirect = null) {
         const alert = document.getElementById(id);
+        if (!alert) return;
 
         alert.classList.remove('hidden');
 
@@ -34,6 +35,15 @@ document.addEventListener('livewire:init', () => {
     //edit 
     Livewire.on('edit-success', () => showAlert('alert-edit', '/content'));
     Livewire.on('edit-error', () => showAlert('alert-edit-error'));
+
+    //settings
+    Livewire.on('settings-success', () => {
+        showAlert('alert-profile');
+        showAlert('alert-settings');
+        setTimeout(() => {
+            window.location.reload();
+        }, 1500);
+    });
 });
 
 window.closeAlert = function () {

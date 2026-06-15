@@ -222,6 +222,31 @@
                 </ul>
             </li>
 
+            {{-- ACTIVITY --}}
+            <li>
+                <a
+                    href="{{ route('activity') }}"
+                    wire:navigate
+                    class="nav-link flex items-center
+                           px-3 gap-3 rounded
+                           py-2 font-semibold text-[15px]
+                           transition-colors duration-200
+                    {{ request()->routeIs('activity*')
+                        ? 'bg-white text-black'
+                        : 'text-white hover:bg-[#1f2733]' }}"
+                >
+                    <iconify-icon
+                        icon="mynaui:activity-solid"
+                        width="25"
+                        class="flex-shrink-0"
+                    ></iconify-icon>
+
+                    <span x-show="expanded" x-cloak class="sidebar-text">
+                        Activity
+                    </span>
+                </a>
+            </li>
+
             {{-- SETTINGS --}}
             <li>
                 <a

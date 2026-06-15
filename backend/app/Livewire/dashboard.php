@@ -44,7 +44,7 @@ class Dashboard extends Component
         // === Aktivitas Terbaru ===
         $recentActivity = ActivityLog::with('user')
             ->orderBy('created_at', 'desc')
-            ->take(5)
+            ->take(3)
             ->get();
 
         return view('pages.dashboard', [

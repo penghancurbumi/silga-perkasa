@@ -100,7 +100,7 @@
                 <span class="text-sm font-semibold">thumbnail</span>
                 <div class="flex items-center justify-center w-full">
 
-                    <label id="thumbnailInput"
+                    <label for="thumbnailInput"
                         class="flex flex-col items-center justify-center w-full h-56 bg-white border border-dashed border-gray-200
                         rounded cursor-pointer hover:bg-gray-50 
                         {{ $errors->has('thumbnail') ? 'border-red-500' : 'border-gray-200' }}">
@@ -117,7 +117,7 @@
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <iconify-icon icon="humbleicons:upload" width="40" class="text-gray-300"></iconify-icon>
                             <p class="mb-2 text-[12px] text-gray-300"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                            <p class="text-[10px] text-gray-300">SVG, PNG, JPG or GIF (MAX. 5MB)</p>
+                            <p class="text-[10px] text-gray-300">SVG, PNG, JPG or GIF (MAX. 10MB)</p>
                         </div>
 
                         @endif

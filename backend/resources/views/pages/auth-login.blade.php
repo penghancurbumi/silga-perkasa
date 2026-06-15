@@ -127,7 +127,7 @@
                         type="text"
                         placeholder="Masukan Email..."
                         class="px-4 py-3 text-[12px] bg-white rounded 
-                        {{ $errors->has('email') ? 'border border-red-500' : 'border border-gray-300'}}">
+                        {{ $errors->any() ? 'border border-red-500' : 'border border-gray-300'}}">
                     
                         @error('email')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -144,7 +144,7 @@
                             type="password"
                             placeholder="Masukan Password..."
                             class="w-full px-4 py-3 text-[12px] bg-white rounded 
-                            {{ $errors->has('password') ? 'border border-red-500' : 'border border-gray-300'}}">
+                            {{ $errors->any() ? 'border border-red-500' : 'border border-gray-300'}}">
 
                         <button 
                             type="button"

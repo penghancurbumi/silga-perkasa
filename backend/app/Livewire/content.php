@@ -4,14 +4,16 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Str;
 
 class Content extends Component
 {
+    use WithFileUploads, WithPagination;
 
- use WithFileUploads;
+    protected $paginationTheme = 'tailwind';
 
     public $title;
     public $slug;
@@ -65,9 +67,25 @@ class Content extends Component
 
     public string $activeTab = 'semua';
 
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterKategori(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterUrutan(): void
+    {
+        $this->resetPage();
+    }
+
     public function setTab(string $tab): void
     {
         $this->activeTab = $tab;
+        $this->resetPage();
     }
 
     public function render()
@@ -102,7 +120,7 @@ class Content extends Component
         };
        
         return view('pages.content',[
-            'posts' => $query->paginate(5),
+            'posts' => $query->paginate(auth()->user()->getSetting('pagination_limit', 5)),
             'categories' => Category::orderBy('name')->get(),
             'totalPosts' => Post::count(),
             'totalPublished' => Post::where('status', 'published')->count(),

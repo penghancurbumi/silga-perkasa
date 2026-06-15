@@ -1,4 +1,4 @@
-<div class="flex flex-col flex-1 overflow-hidden">
+<div class="flex flex-col">
     <div class="flex flex-row items-center justify-between mb-2">
         <div class="flex flex-col">
             <h1 class="font-semibold text-[20px]">Content Management</h1>
@@ -160,45 +160,46 @@
     </div>
 
 
-    <div class="flex-1 min-h-0">   
-        <table class="w-full text-sm mt-2">
-            <thead>
-                <tr class="bg-white border-y border-gray-200">
-                    <th class="px-4 py-3 text-left font-medium text-gray-500">
-                        <input type="checkbox">
-                    </th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-500">Artikel</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-500">Kategori</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-500">Status</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-500">Penulis</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-500">Views</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-500">Tanggal</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-500">Aksi</th>
-                </tr>
-            </thead>
+    <div class="bg-white border border-gray-200 rounded-lg flex flex-col mt-3">
+        <div class="overflow-x-auto min-h-[350px]">   
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="bg-gray-50 border-b border-gray-200">
+                        <th class="px-4 py-3 text-left font-medium text-gray-500 w-12">
+                            <input type="checkbox">
+                        </th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500">Artikel</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500 w-36">Kategori</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500 w-36">Status</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500 w-32">Penulis</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500 w-24">Views</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500 w-32">Tanggal</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500 w-28">Aksi</th>
+                    </tr>
+                </thead>
             <tbody class="divide-y divide-gray-100">
                 @forelse($posts as $post)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-2">
                         <input type="checkbox" value="{{ $post->id }}">
                     </td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-2">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
                                 <iconify-icon icon="material-symbols:article-outline" width="20" class="text-gray-400"></iconify-icon>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-900 truncate max-w-[200px]">{{ $post->title }}</p>
-                                <p class="text-xs text-gray-400 font-mono truncate max-w-[200px]">/{{ $post->slug }}</p>
+                                <p class="font-medium text-gray-900 truncate max-w-[300px] md:max-w-[400px]">{{ $post->title }}</p>
+                                <p class="text-xs text-gray-400 font-mono truncate max-w-[300px] md:max-w-[400px]">/{{ $post->slug }}</p>
                             </div>
                         </div>
                     </td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-2">
                         <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
                             {{ $post->category->name ?? '—' }}
                         </span>
                     </td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-2">
                         @if($post->status === 'published')
                             <span class="flex items-center gap-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-1 rounded-full w-fit">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
@@ -216,16 +217,16 @@
                             </span>
                         @endif
                     </td>
-                    <td class="px-4 py-3 text-gray-600">
+                    <td class="px-4 py-2 text-gray-600">
                         {{ $post->author->name ?? '—' }}
                     </td>
-                    <td class="px-4 py-3 text-gray-600">
+                    <td class="px-4 py-2 text-gray-600">
                         {{ number_format($post->views_count ?? 0) }}
                     </td>
-                    <td class="px-4 py-3 text-gray-500 text-xs">
+                    <td class="px-4 py-2 text-gray-500 text-xs">
                         {{ $post->published_at?->format('d M Y') ?? '—' }}
                     </td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-2">
                         <div class="flex items-center gap-1">
                             <button wire:click="edit({{ $post->id }})"
                             class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100">
@@ -262,18 +263,19 @@
                 </tr>
                 @endforelse
             </tbody>
-        </table>
-    </div> 
+            </table>
+        </div> 
 
-    {{-- Pagination --}}
-    <div class="flex items-center justify-between px-4 py-2 border-t border-gray-100 flex-shrink-0 h-[52px]">
-        <p class="text-sm text-gray-500">
-            @if($posts->total() > 0)
-            Menampilkan {{ $posts->firstItem() }}–{{ $posts->lastItem() }} dari {{ $posts->total() }} artikel
-            @else
-            tidak ada Artikel
-            @endif
-        </p>
-        {{ $posts->links() }}
+        {{-- Pagination --}}
+        <div class="flex items-center justify-between px-4 py-2 border-t border-gray-100 flex-shrink-0 bg-white rounded-b-lg">
+            <p class="text-sm text-gray-500">
+                @if($posts->total() > 0)
+                Menampilkan {{ $posts->firstItem() }}–{{ $posts->lastItem() }} dari {{ $posts->total() }} artikel
+                @else
+                tidak ada Artikel
+                @endif
+            </p>
+            {{ $posts->links() }}
+        </div>
     </div>
 </div>

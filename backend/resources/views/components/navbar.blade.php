@@ -60,8 +60,6 @@
         
         <livewire:notification-bell/>
 
-        <div></div>
-
         <div class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-200 cursor-pointer text-gray-500 hover:text-gray-900 transition">
             <iconify-icon
                 icon="mi:message"
@@ -69,9 +67,7 @@
             </iconify-icon>
         </div>
 
-        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 text-[12px] font-semibold cursor-pointer">
-            A
-        </div>
+        <x-profile />
     </div>
 
 </nav>

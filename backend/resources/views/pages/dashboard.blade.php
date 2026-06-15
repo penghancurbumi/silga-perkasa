@@ -129,7 +129,7 @@
     <div class="bg-white border border-gray-200 mt-4 rounded">
         <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
             <p class="text-[13px] font-semibold text-gray-700">Aktivitas Terbaru</p>
-            <a href="{{ route('content') }}" wire:navigate class="text-[11px] text-blue-500 hover:underline">Lihat semua</a>
+            <a href="{{ route('activity') }}" wire:navigate class="text-[11px] text-blue-500 hover:underline">Lihat semua</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-[12px]">

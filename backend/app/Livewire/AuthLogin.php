@@ -41,12 +41,12 @@ class AuthLogin extends Component
             
             $this->reset(['email','password']);
 
-            $this->dispatch('login-success');
-
-            return;
+            // Langsung redirect dari backend agar tidak ada jeda "nyangkut"
+            return redirect()->intended('/');
         }
 
-        session()->flash('error', 'email dan password kamu salah');
+        // Tampilkan pesan error di bawah field email/password lewat validation message
+        $this->addError('password', 'Email atau password yang Anda masukkan salah.');
     }
 
     public function render()
