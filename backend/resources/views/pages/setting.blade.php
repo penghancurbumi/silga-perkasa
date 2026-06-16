@@ -26,7 +26,7 @@
     </div>
 
     <div class="mt-4 bg-white p-6 rounded-lg border border-gray-200 shadow-sm relative">
-        <form wire:submit.prevent="save" class="flex flex-col gap-6">
+        <form wire:submit.prevent="save" class="flex flex-col gap-4">
             
             {{-- Section 1: Regional --}}
             <div class="flex flex-col gap-4">
@@ -38,12 +38,15 @@
                 {{-- Zona Waktu --}}
                 <div class="flex flex-col gap-2">
                     <span class="text-[14px] font-semibold text-gray-700">Zona Waktu</span>
-                    <select wire:model.live="timezone" class="max-w-md w-full border border-gray-300 rounded px-4 py-2 text-sm outline-none focus:border-black focus:ring-1 focus:ring-black">
-                        <option value="Asia/Jakarta">WIB (Asia/Jakarta - UTC+7)</option>
-                        <option value="Asia/Makassar">WITA (Asia/Makassar - UTC+8)</option>
-                        <option value="Asia/Jayapura">WIT (Asia/Jayapura - UTC+9)</option>
-                        <option value="UTC">UTC</option>
-                    </select>
+                    <div class="relative max-w-md w-full">
+                        <select wire:model.live="timezone" class="w-full border border-gray-300 rounded pl-4 pr-10 py-2 text-sm outline-none focus:border-black focus:ring-1 focus:ring-black appearance-none bg-white cursor-pointer">
+                            <option value="Asia/Jakarta">WIB (Asia/Jakarta - UTC+7)</option>
+                            <option value="Asia/Makassar">WITA (Asia/Makassar - UTC+8)</option>
+                            <option value="Asia/Jayapura">WIT (Asia/Jayapura - UTC+9)</option>
+                            <option value="UTC">UTC</option>
+                        </select>
+                        <iconify-icon icon="mdi:chevron-down" width="16" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></iconify-icon>
+                    </div>
                     @error('timezone')
                         <span class="text-red-500 text-xs">{{ $message }}</span>
                     @enderror
@@ -59,8 +62,9 @@
 
                 <div class="flex flex-col gap-2">
                     <span class="text-[14px] font-semibold text-gray-700">Jumlah Data Per Halaman</span>
-                    <div class="flex items-center gap-2 max-w-md w-full">
-                        <select wire:model.live="pagination_limit" class="flex-1 border border-gray-300 rounded px-4 py-2 text-sm outline-none focus:border-black focus:ring-1 focus:ring-black">
+                    <div class="relative max-w-md w-full">
+                        <select wire:model.live="pagination_limit" class="w-full border border-gray-300 rounded pl-4 pr-10 py-2 text-sm outline-none focus:border-black focus:ring-1 focus:ring-black appearance-none bg-white cursor-pointer">
+                            <option value="">Normal</option>
                             <option value="5">5 baris</option>
                             <option value="10">10 baris</option>
                             <option value="12">12 baris</option>
@@ -68,9 +72,7 @@
                             <option value="20">20 baris</option>
                             <option value="25">25 baris</option>
                         </select>
-                        <button type="button" wire:click="resetPaginationLimit" class="bg-white hover:bg-gray-50 text-gray-700 font-semibold text-sm px-4 py-2 rounded transition cursor-pointer border border-gray-200">
-                            Reset
-                        </button>
+                        <iconify-icon icon="mdi:chevron-down" width="16" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></iconify-icon>
                     </div>
                     @error('pagination_limit')
                         <span class="text-red-500 text-xs">{{ $message }}</span>

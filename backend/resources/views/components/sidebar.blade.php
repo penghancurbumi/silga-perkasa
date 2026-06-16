@@ -162,64 +162,27 @@
 
             {{-- LAMARAN --}}
             <li>
-                <button
-                    type="button"
-                    @click="toggleLamaran()"
-                    class="flex items-center w-full
+                <a
+                    href="{{ route('lamaran') }}"
+                    wire:navigate
+                    class="nav-link flex items-center
                            px-3 gap-3 rounded
                            py-2 font-semibold text-[15px]
-                           text-white hover:bg-[#1f2733]
-                           transition-colors duration-200"
+                           transition-colors duration-200
+                    {{ request()->routeIs('activity*')
+                        ? 'bg-white text-black'
+                        : 'text-white hover:bg-[#1f2733]' }}"
                 >
                     <iconify-icon
-                        icon="iconamoon:profile-fill"
+                        icon="material-symbols:work-outline"
                         width="25"
                         class="flex-shrink-0"
                     ></iconify-icon>
 
                     <span x-show="expanded" x-cloak class="sidebar-text">
-                        Lamaran
+                        lamaran
                     </span>
-
-                    <iconify-icon
-                        x-show="expanded"
-                        x-cloak
-                        icon="fe:arrow-up"
-                        width="20"
-                        :class="lamaranOpen ? 'rotate-180' : ''"
-                        class="ml-auto transition-transform duration-200"
-                    ></iconify-icon>
-                </button>
-
-                {{-- SUBMENU Lamaran --}}
-                <ul
-                    x-show="lamaranOpen && expanded"
-                    x-cloak
-                    x-transition:enter="transition-all duration-200"
-                    x-transition:enter-start="opacity-0 -translate-y-1"
-                    x-transition:enter-end="opacity-100 translate-y-0"
-                    class="py-2 space-y-2 ml-7 border-l border-gray-800"
-                >
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center w-full pl-4 gap-2 p-2 rounded
-                                   font-semibold text-gray-400 hover:bg-[#1f2733]"
-                        >
-                            <span class="sidebar-text">Lamaran Masuk</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center w-full pl-4 gap-2 p-2 rounded
-                                   font-semibold text-gray-400 hover:bg-[#1f2733]"
-                        >
-                            <span class="sidebar-text">Kelola Lamaran</span>
-                        </a>
-                    </li>
-                </ul>
+                </a>
             </li>
 
             {{-- ACTIVITY --}}

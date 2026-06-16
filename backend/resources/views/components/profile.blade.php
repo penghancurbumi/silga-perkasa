@@ -53,7 +53,7 @@
         </form>
         
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
-           class="flex items-center gap-2 px-4 py-2 text-[12px] text-red-600 hover:bg-red-50 hover:text-red-700 transition font-medium">
+           class="flex items-center gap-2 px-4 py-2 text-[12px] text-gray-700 hover:bg-gray-50 hover:text-gray-700 transition font-medium">
             <iconify-icon icon="material-symbols:logout" width="18"></iconify-icon> Logout
         </a>
     </div>

@@ -50,7 +50,7 @@ class ContentEdit extends Component
 
         $this->published_at = $post->published_at
         ? Carbon::parse($post->published_at)->format('Y-m-d\TH:i')
-        : 'null';
+        : null;
     }
 
     public function updatedTitle($value)
@@ -114,6 +114,7 @@ class ContentEdit extends Component
             $this->dispatch('edit-error');
             throw $e;
         }catch(\Exception $e){
+            \Illuminate\Support\Facades\Log::error('Content Edit Error: ' . $e->getMessage());
             $this->dispatch('edit-error');
         }
     }

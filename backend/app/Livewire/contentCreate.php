@@ -128,6 +128,7 @@ class ContentCreate extends Component
             $this->dispatch($status . '-success');
 
         } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Content Create Error: ' . $e->getMessage());
             $this->dispatch($status . '-error-1');
         }
     }

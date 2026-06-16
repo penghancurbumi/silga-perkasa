@@ -86,7 +86,8 @@
     {{-- Filter & search --}}
     <div class="flex flex-row gap-2">
         <div class="relative">
-            <iconify-icon 
+            
+        <iconify-icon 
                 icon="material-symbols:search"
                 width="20"
                 class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
@@ -99,37 +100,42 @@
                 class="w-64 bg-white border border-gray-200 rounded h-10 pl-10 pr-4 text-[12px]">
         </div>
 
-        <div class="relative filter-wrapper">
-            <select wire:model.live="filterKategori"
-                class="filter-button flex items-center w-48 px-4 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
+        <div class="relative flex items-center">
 
+            <select wire:model.live="filterKategori"
+                class="w-48 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
+                
                 <option value="">Semua Kategori</option>
+                
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name}}</option>
                 @endforeach
 
-                <iconify-icon
-                    icon="fe:arrow-up"
-                    width="20"
-                    class="filter-arrow ml-auto transition-transform duration-200"
-                ></iconify-icon>
             </select>
+
+            <iconify-icon
+                icon="mdi:chevron-down"
+                width="16"
+                class="absolute right-3 text-gray-400 pointer-events-none"
+            ></iconify-icon>
+
         </div>
 
-
-        <div class="relative filter-wrapper">
-            <select  wire:model.live="filterUrutan"
-            class="filter-button flex items-center w-48 px-4 h-10 gap-3 bg-white border border-gray-200 rounded cursor-pointer">
-
+        <div class="relative flex items-center">
+            <select wire:model.live="filterUrutan"
+                class="w-48 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
+                
                 <option value="terbaru">Terbaru</option>
                 <option value="terlama">Terlama</option>
 
-                <iconify-icon
-                    icon="fe:arrow-up"
-                    width="20"
-                    class="filter-arrow ml-auto transition-transform duration-300"
-                ></iconify-icon>
             </select>
+
+            <iconify-icon
+                icon="mdi:chevron-down"
+                width="16"
+                class="absolute right-3 text-gray-400 pointer-events-none"
+            ></iconify-icon>
+
         </div>
     </div>
 

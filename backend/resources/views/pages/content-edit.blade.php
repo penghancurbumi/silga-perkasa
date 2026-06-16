@@ -18,7 +18,7 @@
                     class="bg-white border px-3 h-10 rounded text-[12px]
                     {{ $errors->has('title') ? 'border-red-500' : 'border-gray-200' }}">
                 
-                @error('editTitle')
+                @error('title')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
@@ -36,7 +36,7 @@
                         placeholder="slug-artikel"/>
                 </div>
                 
-                @error('editSlug')
+                @error('slug')
                 <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
@@ -51,7 +51,7 @@
                     {{ $errors->has('content') ? 'border-red-500' : 'border-gray-200' }}"
                 ></textarea>
 
-                @error('editContent')
+                @error('content')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
@@ -59,26 +59,24 @@
             <div class="flex flex-row gap-2">
                 <div class="flex flex-col gap-2 flex-1">
                     <span class="text-sm font-semibold">Kategori</span>
-                    <select wire:model.lazy="category_id"
-                        class="bg-white border pl-3 pr-5 h-10 text-[12px] rounded cursor-pointer
-                        {{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-200' }}">
-                        
-                        <option value="">Pilih Kategori</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
+                    <div class="relative w-full">
+                        <select wire:model.lazy="category_id"
+                            class="w-full bg-white border pl-3 pr-10 h-10 text-[12px] rounded cursor-pointer appearance-none outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors
+                            {{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-200' }}">
+                            
+                            <option value="">Pilih Kategori</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        <iconify-icon
+                            icon="mdi:chevron-down"
+                            width="16"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                        ></iconify-icon>
+                    </div>
 
-                    </select>
-
-                     <div class="pointer-events-none absolute inset-y-0 right-3 flex-items-center">
-                            <iconify-icon
-                                icon="fe:arrow-up"
-                                width="20"
-                                class="text-gray-400"
-                            ></iconify-icon>
-                     </div>
-
-                    @error('editCategoryId')
+                    @error('category_id')
                         <span class="text-red-500 text-xs">{{ $message }}</span>
                     @enderror 
                 </div>
@@ -90,7 +88,7 @@
                             class="bg-white border px-3 h-10 rounded text-sm text-gray-500 cursor-pointer text-[12px]
                              {{ $errors->has('published_at') ? 'border-red-500' : 'border-gray-200' }}"/>
 
-                    @error('editPublishedAt')
+                    @error('published_at')
                         <span class="text-red-500 text-xs">{{ $message }}</span>
                     @enderror 
                 </div>
@@ -126,7 +124,7 @@
                     </label>
                 </div>
 
-                @error('editThumbnail')
+                @error('thumbnail')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>

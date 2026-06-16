@@ -84,14 +84,19 @@ class SettingTest extends TestCase
             ]);
     }
 
-    public function test_user_can_reset_pagination_limit(): void
+    public function test_user_can_set_pagination_limit_to_normal(): void
     {
         $user = User::factory()->create();
 
         Livewire::actingAs($user)
             ->test(Setting::class)
             ->set('pagination_limit', 25)
-            ->call('resetPaginationLimit')
-            ->assertSet('pagination_limit', 12);
+            ->set('pagination_limit', null)
+            ->call('save')
+            ->assertHasNoErrors()
+            ->assertSet('pagination_limit', null);
+
+        $user->refresh();
+        $this->assertNull($user->getSetting('pagination_limit'));
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 use App\Livewire\Dashboard;
 use App\Livewire\Content;
 use App\Livewire\Setting;
@@ -9,11 +10,14 @@ use App\Livewire\ContentCreate;
 use App\Livewire\ContentEdit;
 use App\Livewire\AuthLogin;
 use App\Livewire\AuthRegister;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ContentController;
 use App\Models\ActivityLog;
 use App\Livewire\Activity;
 use App\Livewire\Profile;
+use App\Livewire\Lamaran;
+
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ContentController;
+
 
 Route::get('/login', AuthLogin::class)->name('login');
 Route::post('/logout', function () {
@@ -45,6 +49,7 @@ Route::get('/content/{id}/preview', Content ::class)->name('content.preview');
 Route::get('/content/{id}', Content ::class)->name('content.create');
 
 Route::get('/activity', Activity::class)->name('activity');
+Route::get('/lamaran', Lamaran::class)->name('lamaran');
 Route::get('/lowongan', Content::class)->name('lowongan');
 Route::get('/settings', Setting::class)->name('settings');
 Route::get('/profile', Profile::class)->name('profile');

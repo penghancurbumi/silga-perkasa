@@ -58,24 +58,22 @@
             <div class="flex flex-row gap-2">
                 <div class="flex flex-col gap-2 flex-1">
                     <span class="text-sm font-semibold">Kategori</span>
-                    <select wire:model.lazy="category_id"
-                        class="bg-white border pl-3 pr-5 h-10 text-[12px] rounded cursor-pointer
-                        {{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-200' }}">
-                        
-                        <option value="">Pilih Kategori</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-
-                    </select>
-
-                     <div class="pointer-events-none absolute inset-y-0 right-3 flex-items-center">
-                            <iconify-icon
-                                icon="fe:arrow-up"
-                                width="20"
-                                class="text-gray-400"
-                            ></iconify-icon>
-                     </div>
+                    <div class="relative w-full">
+                        <select wire:model.lazy="category_id"
+                            class="w-full bg-white border pl-3 pr-10 h-10 text-[12px] rounded cursor-pointer appearance-none outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors
+                            {{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-200' }}">
+                            
+                            <option value="">Pilih Kategori</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        <iconify-icon
+                            icon="mdi:chevron-down"
+                            width="16"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                        ></iconify-icon>
+                    </div>
 
                     @error('category_id')
                         <span class="text-red-500 text-xs">{{ $message }}</span>

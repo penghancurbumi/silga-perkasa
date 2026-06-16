@@ -37,7 +37,6 @@ class User extends Authenticatable
             'theme' => 'light',
             'notif_login' => true,
             'notif_publish' => true,
-            'pagination_limit' => 10,
         ];
 
         return $this->settings[$key] ?? ($defaults[$key] ?? $default);
