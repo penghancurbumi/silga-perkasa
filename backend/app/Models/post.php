@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Category;
-use App\Models\Tag;
 use App\Models\Comment;
 
 class Post extends Model
@@ -46,12 +45,6 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-
-    /*1 post bisa memliki banyak tag*/
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class)->withTimestamps();
-    }
 
     /*user post memiliki banyak komen*/
     public function comments()

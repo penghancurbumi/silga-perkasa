@@ -13,6 +13,7 @@ use App\Livewire\AuthRegister;
 use App\Models\ActivityLog;
 use App\Livewire\Activity;
 use App\Livewire\Profile;
+use App\Livewire\Lowongan;
 use App\Livewire\Lamaran;
 
 use App\Http\Controllers\PostController;
@@ -50,7 +51,7 @@ Route::get('/content/{id}', Content ::class)->name('content.create');
 
 Route::get('/activity', Activity::class)->name('activity');
 Route::get('/lamaran', Lamaran::class)->name('lamaran');
-Route::get('/lowongan', Content::class)->name('lowongan');
+Route::get('/lowongan', Lowongan::class)->name('lowongan');
 Route::get('/settings', Setting::class)->name('settings');
 Route::get('/profile', Profile::class)->name('profile');
 });

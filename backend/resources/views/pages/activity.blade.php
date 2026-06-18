@@ -38,9 +38,6 @@
     </div>
 
     <div class="bg-white border border-gray-200 mt-4 rounded-lg flex flex-col">
-        <div class="px-4 py-3 border-b border-gray-200 flex-shrink-0">
-            <p class="text-[13px] font-semibold text-gray-700">Daftar Aktivitas</p>
-        </div>
         <div class="overflow-x-auto">
             <table class="w-full text-[12px]">
                 <thead>

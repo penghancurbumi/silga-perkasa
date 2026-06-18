@@ -45,7 +45,7 @@ class Activity extends Component
             $query->where('type', $this->typeFilter);
         }
 
-        $activities = $query->paginate(auth()->user()->getSetting('pagination_limit', 12));
+        $activities = $query->paginate(auth()->user()->getSetting('pagination_limit', 13));
 
         return view('pages.activity', [
             'recentActivity' => $activities

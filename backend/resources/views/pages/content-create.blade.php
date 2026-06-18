@@ -84,7 +84,7 @@
                     <span class="text-sm font-semibold">Tanggal Publikasi</span>
                     <input type="datetime-local"
                             wire:model.live="published_at"
-                            class="bg-white border px-3 h-10 rounded text-sm text-gray-500 cursor-pointer text-[12px]
+                            class="bg-white border px-3 h-10 rounded text-gray-500 cursor-pointer text-[12px]
                              {{ $errors->has('published_at') ? 'border-red-500' : 'border-gray-200' }}"/>
 
                     @error('published_at')

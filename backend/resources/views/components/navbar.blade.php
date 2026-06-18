@@ -59,14 +59,7 @@
         </div>
         
         <livewire:notification-bell/>
-
-        <div class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-200 cursor-pointer text-gray-500 hover:text-gray-900 transition">
-            <iconify-icon
-                icon="mi:message"
-                width="18">
-            </iconify-icon>
-        </div>
-
+        
         <x-profile />
     </div>
 
