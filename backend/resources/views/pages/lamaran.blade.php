@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="flex flex-row items-center gap-3">
+    <div class="flex flex-row items-center gap-2">
 
         <div class="relative">
             <iconify-icon
@@ -34,6 +34,7 @@
             <input
                 type="text"
                 name="search"
+                wire:model.live.debounce.300ms="search"
                 placeholder="Cari pelamar..."
                 class="w-64 bg-white rounded border border-gray-200 h-10 text-[12px] pl-10 pr-4"
             >
@@ -55,8 +56,9 @@
         
 
         <div class="relative flex items-center">
-            <select class="w-32 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
+            <select wire:model.live="statusFilter" class="w-32 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
                 
+                <option value="filter">Filter</option>
                 <option value="pending">Pending</option>
                 <option value="review"> Review</option>
                 <option value="interview">Interview</option>
@@ -99,7 +101,7 @@
 
     </div>
 
-    <div class="bg-white flex-col">
+    <div class="bg-white flex flex-col">
         <div class="overflow-x-auto min-h-[400px]">
             <table class="w-full text-sm">
                 <thead>
@@ -116,39 +118,45 @@
                     </tr>
                 </thead>
             <tbody class="divide-y divide-gray-100">
+                @forelse($lamarans as $lamaran)
                 <tr class="hover:bg-gray-50"> 
 
                     <td class="px-4 py-2">
-                        <input type="checkbox">
+                        <input type="checkbox" value="{{ $lamaran->id }}">
                     </td>
 
                     <td class="px-4 py-2">
                         <div class="flex items-center">
-                            <p class="text-sm font-reguler text-black truncate">Muhammad reza</p>
+                            <p class="text-sm font-reguler text-black truncate">{{ $lamaran->applicant->fullname ?? 'Unknown' }}</p>
                         </div>
                     </td>
 
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black">m.alfakhreza@gmail.om</span>
+                        <span class="text-sm font-reguler text-black">{{ $lamaran->applicant->email ?? '-' }}</span>
                     </td>
 
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black">FullStack Developer</span>
+                        <span class="text-sm font-reguler text-black">{{ $lamaran->lowongan->title ?? 'Posisi Dihapus' }}</span>
                     </td>
 
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black">Cv_Reza.pdf</span>
+                        <span class="text-sm font-reguler text-black">{{ $lamaran->applicant->resume ?? '-' }}</span>
                     </td>
 
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black">Accepted</span>
+                        <span class="text-sm font-reguler text-black capitalize">{{ $lamaran->status }}</span>
                     </td>
 
                     
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black">Jun 17, 2026 • 09:24 AM</span>
+                        <span class="text-sm font-reguler text-black">{{ \Carbon\Carbon::parse($lamaran->applied_at)->format('M d, Y • h:i A') }}</span>
                     </td>
                 </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="px-4 py-8 text-center text-gray-500">Belum ada data lamaran.</td>
+                </tr>
+                @endforelse
             </tbody>
             </table>
         </div>

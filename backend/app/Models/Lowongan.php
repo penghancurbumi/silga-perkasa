@@ -13,10 +13,10 @@ class Lowongan extends Model
         'location',
         'minimum_experience',
         'employment_type',
-        'descripstion',
+        'description',
         'qualification',
         'posted_at',
-        'dealine',
+        'deadline',
         'status',
     ];
 

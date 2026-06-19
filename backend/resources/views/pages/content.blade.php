@@ -166,11 +166,11 @@
     </div>
 
 
-    <div class="bg-white border border-gray-200 rounded-lg flex flex-col mt-3">
+    <div class="bg-white flex flex-col ">
         <div class="overflow-x-auto min-h-[350px]">   
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="bg-gray-50 border-b border-gray-200">
+                    <tr class="border-b border-gray-200">
                         <th class="px-4 py-3 text-left font-medium text-gray-500 w-12">
                             <input type="checkbox">
                         </th>
