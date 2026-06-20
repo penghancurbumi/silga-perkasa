@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Lowongan as LowonganModel;
+use App\Models\Lowongan as Lowongans;
 
 class Lowongan extends Component
 {
@@ -20,7 +20,7 @@ class Lowongan extends Component
 
     public function render()
     {
-        $query = LowonganModel::query();
+        $query = Lowongans::query();
 
         if ($this->search) {
             $query->where('title', 'like', '%' . $this->search . '%')
@@ -33,7 +33,7 @@ class Lowongan extends Component
 
         $lowongans = $query->latest()->paginate(10);
 
-        return view('pages.lowongan', [
+        return view('livewire.lowongan', [
             'lowongans' => $lowongans
         ]);
     }

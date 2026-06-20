@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silga Perkasa Dashboard</title>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
     @vite(['resources/css/app.css', 'resources/css/calendar.css', 'resources/js/app.js', 'resources/js/calendar.js'])
     @livewireStyles
 </head>
@@ -20,11 +21,11 @@
             <main class="px-5 py-4 overflow-y-auto flex flex-col flex-1 min-h-0">
                 {{ $slot }}
             </main>
-            
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
     @livewireScripts
     @livewireScriptConfig
 

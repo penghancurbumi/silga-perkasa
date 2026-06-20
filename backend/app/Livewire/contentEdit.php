@@ -121,7 +121,7 @@ class ContentEdit extends Component
 
     public function render()
     {
-        return view('pages.content-edit',[
+        return view('livewire.content-edit',[
             'categories' => Category::orderBy('name')->get(),
         ])->layout('layouts.app');
     }

@@ -135,6 +135,6 @@ class ContentCreate extends Component
 
     public function render()
     {
-        return view('pages.content-create');
+        return view('livewire.content-create');
     }
 }

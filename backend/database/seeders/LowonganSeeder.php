@@ -24,7 +24,7 @@ class LowonganSeeder extends Seeder
         \App\Models\Lowongan::create([
             'user_id' => $u->id, 
             'title' => 'Software Engineer', 
-            'category' => 'IT', 
+            'job_category_id' => \App\Models\JobCategory::inRandomOrder()->first()->id, 
             'location' => 'Jakarta Raya', 
             'employment_type' => 'full_time', 
             'description' => 'Membangun aplikasi web yang luar biasa menggunakan Laravel. Bekerja dengan tim dinamis dan remote.', 
@@ -36,7 +36,7 @@ class LowonganSeeder extends Seeder
         \App\Models\Lowongan::create([
             'user_id' => $u->id, 
             'title' => 'UI/UX Designer', 
-            'category' => 'Design', 
+            'job_category_id' => \App\Models\JobCategory::inRandomOrder()->first()->id, 
             'location' => 'Bandung', 
             'employment_type' => 'freelance', 
             'description' => 'Mencari desainer untuk UI modern dan user friendly. Harus paham alur UX yang baik dan bisa memahami semua tools dan desain yang di kerjakan', 

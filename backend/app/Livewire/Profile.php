@@ -108,6 +108,6 @@ class Profile extends Component
 
     public function render()
     {
-        return view('pages.profile')->layout('layouts.app');
+        return view('livewire.profile')->layout('layouts.app');
     }
 }

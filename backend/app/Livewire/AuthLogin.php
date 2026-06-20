@@ -51,7 +51,7 @@ class AuthLogin extends Component
 
     public function render()
     {
-        return view('pages.auth-login')
+        return view('livewire.auth-login')
             ->layout('layouts.guest');
     }
 }

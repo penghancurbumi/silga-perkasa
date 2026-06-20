@@ -47,7 +47,7 @@ class Dashboard extends Component
             ->take(3)
             ->get();
 
-        return view('pages.dashboard', [
+        return view('livewire.dashboard', [
             'totalPost'          => $totalPost,
             'totalPublished'     => $totalPublished,
             'totalDraft'         => $totalDraft,

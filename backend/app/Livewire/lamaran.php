@@ -28,8 +28,8 @@ class Lamaran extends Component
 
         $lamarans = $query->latest('applied_at')->paginate(10);
 
-        return view('pages.lamaran', [
+        return view('livewire.lamaran', [
             'lamarans' => $lamarans
         ]);
     }
-}
+}

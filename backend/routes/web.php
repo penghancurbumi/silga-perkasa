@@ -14,6 +14,8 @@ use App\Models\ActivityLog;
 use App\Livewire\Activity;
 use App\Livewire\Profile;
 use App\Livewire\Lowongan;
+use App\Livewire\LowonganCreate;
+use App\Livewire\LowonganEdit;
 use App\Livewire\Lamaran;
 
 use App\Http\Controllers\PostController;
@@ -35,7 +37,6 @@ Route::post('/logout', function () {
 
 Route::get('/register', AuthRegister::class)->name('Register');
 
-
 Route::middleware('auth')->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
 
@@ -51,7 +52,12 @@ Route::get('/content/{id}', Content ::class)->name('content.create');
 
 Route::get('/activity', Activity::class)->name('activity');
 Route::get('/lamaran', Lamaran::class)->name('lamaran');
+
+//lowongan pages
 Route::get('/lowongan', Lowongan::class)->name('lowongan');
+Route::get('/lowongan/create', LowonganCreate::class)->name('lowongan.create');
+Route::get('/lowongan/edit', LowonganEdit::class)->name('lowongan.edit');
+
 Route::get('/settings', Setting::class)->name('settings');
 Route::get('/profile', Profile::class)->name('profile');
 });

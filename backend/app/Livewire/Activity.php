@@ -47,7 +47,7 @@ class Activity extends Component
 
         $activities = $query->paginate(auth()->user()->getSetting('pagination_limit', 13));
 
-        return view('pages.activity', [
+        return view('livewire.activity', [
             'recentActivity' => $activities
         ])->layout('layouts.app');
     }

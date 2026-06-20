@@ -119,7 +119,7 @@ class Content extends Component
             default        => null,
         };
        
-        return view('pages.content',[
+        return view('livewire.content',[
             'posts' => $query->paginate(auth()->user()->getSetting('pagination_limit', 5)),
             'categories' => Category::orderBy('name')->get(),
             'totalPosts' => Post::count(),

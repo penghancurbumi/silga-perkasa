@@ -19,7 +19,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('title');
-            $table->string('category');
+            $table->foreignId('job_category_id')->constrained()->cascadeOnDelete();
             $table->string('location');
 
             $table->unsignedTinyInteger('minimum_experience')

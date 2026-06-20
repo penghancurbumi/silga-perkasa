@@ -2,7 +2,7 @@
 <div >
 {{--Input New Aritcle--}}
     <div class="flex items-center mb-4">
-            <h2 class="text-[20px] font-semibold">Create New Article</h2>
+        <h1 class="text-[20px] font-semibold">Create New Article</h1>
     </div>
 
     <div class="flex flex-row gap-4">
@@ -59,20 +59,25 @@
                 <div class="flex flex-col gap-2 flex-1">
                     <span class="text-sm font-semibold">Kategori</span>
                     <div class="relative w-full">
+
                         <select wire:model.lazy="category_id"
                             class="w-full bg-white border pl-3 pr-10 h-10 text-[12px] rounded cursor-pointer appearance-none outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors
                             {{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-200' }}">
                             
                             <option value="">Pilih Kategori</option>
+
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
+
                         </select>
+
                         <iconify-icon
                             icon="mdi:chevron-down"
                             width="16"
                             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
                         ></iconify-icon>
+
                     </div>
 
                     @error('category_id')

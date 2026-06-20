@@ -40,7 +40,7 @@ class AuthRegister extends Component
 
     public function render()
     {
-        return view('pages.auth-register')
+        return view('livewire.auth-register')
             ->layout('layouts.guest');
     }
 }

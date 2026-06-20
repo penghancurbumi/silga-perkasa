@@ -64,6 +64,6 @@ class Setting extends Component
 
     public function render()
     {
-        return view('pages.setting')->layout('layouts.app');
+        return view('livewire.setting')->layout('layouts.app');
     }
 }

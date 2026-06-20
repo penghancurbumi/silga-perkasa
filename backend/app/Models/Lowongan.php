@@ -9,7 +9,7 @@ class Lowongan extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'category',
+        'job_category_id',
         'location',
         'minimum_experience',
         'employment_type',
@@ -34,5 +34,9 @@ class Lowongan extends Model
     public function applications()
     {
         return $this->hasMany(applications::class);
+    }
+    public function jobCategory()
+    {
+        return $this->belongsTo(JobCategory::class);
     }
 }
