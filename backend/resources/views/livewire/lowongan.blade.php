@@ -141,9 +141,9 @@
     </div>
 
    <!-- Layout Grid (Kotak-kotak) -->
-    <div x-cloak x-show="grid" class="mt-4 flex flex-wrap gap-4">
+    <div x-cloak x-show="grid" class="mt-4 grid grid-cols-3 gap-4">
         @forelse($lowongans as $lowongan)
-        <div class="bg-white p-4 rounded border border-gray-200 shadow-sm flex flex-col gap-2 w-[500px] h-[250px]">
+        <div class="bg-white p-4 rounded border border-gray-200 shadow-sm flex flex-col gap-2 w-full h-[250px]">
 
             <div class="flex flex-row justify-between gap-2 items-center">
                 <div class="flex flex-row gap-2">

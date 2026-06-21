@@ -24,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('job_categories');
+        Schema::enableForeignKeyConstraints();
     }
 };
