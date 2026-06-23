@@ -50,9 +50,14 @@
         </div>
 
         <div class="relative flex items-center">
-            <select class="w-42 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
+            <select wire:model.live="jobTypeFilter" class="w-42 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
 
-                <option value="filter">Filter</option>
+                <option value="filter">Filter Type</option>
+                <option value="full_time">Full time</option>
+                <option value="part_time">Part Time</option>
+                <option value="contract">Contract</option>
+                <option value="internship">Internship</option>
+                <option value="freelance">Freelance</option>
 
             </select>
 
@@ -83,23 +88,11 @@
         </div>
 
         <div class="relative flex items-center">
-            <select class="w-42 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
+            <select wire:model.live="filterUrutan"
+             class="w-42 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
 
-                <option value="filter">Filter</option>
-
-            </select>
-
-            <iconify-icon 
-                icon="mdi:chevron-down" 
-                width="20"
-                class="absolute right-3 text-gray-400 pointer-events-none"
-            ></iconify-icon>
-        </div>
-
-        <div class="relative flex items-center">
-            <select class="w-42 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
-
-                <option value="filter">Filter</option>
+                <option value="terbaru">Terbaru</option>
+                <option value="terlama">Terlama</option>
 
             </select>
 
@@ -143,7 +136,7 @@
    <!-- Layout Grid (Kotak-kotak) -->
     <div x-cloak x-show="grid" class="mt-4 grid grid-cols-3 gap-4">
         @forelse($lowongans as $lowongan)
-        <div class="bg-white p-4 rounded border border-gray-200 shadow-sm flex flex-col gap-2 w-full h-[250px]">
+        <div class="bg-white p-4 rounded border border-gray-200 shadow-sm flex flex-col gap-2 w-full h-[200px]">
 
             <div class="flex flex-row justify-between gap-2 items-center">
                 <div class="flex flex-row gap-2">
@@ -155,7 +148,7 @@
                             class="text-gray-500"
                         ></iconify-icon>
 
-                        <p class="text-xs text-gray-500">{{ $lowongan->category }}</p>
+                        <p class="text-[8px] text-gray-500">{{ $lowongan->jobCategory?->name ?? '-' }}</p>
                     </div>
                     
                     <div class="flex items-center gap-1">
@@ -165,7 +158,7 @@
                             class="text-gray-500"
                         ></iconify-icon>
 
-                        <p class="text-xs text-gray-500">{{ $lowongan->location }}</p>
+                        <p class="text-[8px] text-gray-500">{{ $lowongan->location }}</p>
                     </div>
                     
                     <div class="flex items-center gap-1">
@@ -175,7 +168,7 @@
                             class="text-gray-500"
                         ></iconify-icon>
 
-                        <p class="text-xs text-gray-500">{{ $lowongan->employment_type }}</p>
+                        <p class="text-[8px] text-gray-500">{{ $lowongan->employment_type }}</p>
                     </div>
                 </div>
                 
@@ -184,18 +177,14 @@
                         {{ $lowongan->status }}
                     </span>
 
-                    <iconify-icon
-                        icon="ri:more-line"
-                        width="20"
-                        class="cursor-pointer text-gray-400 hover:text-gray-700 transition-colors"
-                    ></iconify-icon>
+                    <x-kebab-menu :lowongan="$lowongan" />
+
                 </div>
-                
             </div>
 
             <div class="flex flex-col flex-grow justify-center">
-                <h3 class="text-lg font-semibold">{{ $lowongan->title }}</h3>
-                <span class="text-[12px] text-gray-400 mt-2">
+                <h3 class="text-base font-semibold">{{ $lowongan->title }}</h3>
+                <span class="text-[10px] text-gray-400 line-clamp-2">
                     {{ $lowongan->description }}
                 </span>
             </div>
@@ -242,7 +231,7 @@
                         </div>
                     </td>
                     <td class="px-4 py-2">
-                        <span class="text-xs text-gray-500">{{ $lowongan->category }}</span>
+                        <span class="text-xs text-gray-500">{{ $lowongan->jobCategory?->name ?? '-' }}</span>
                     </td>
                     <td class="px-4 py-2">
                         <span class="text-xs text-gray-500">{{ $lowongan->location }}</span>
@@ -267,8 +256,10 @@
         </div>
     </div>
 
-    <div class="mt-4">
-        {{ $lowongans->links() }}
-    </div>
+    @if ($lowongans->hasPages())
+        <div class="mt-4">
+            {{ $lowongans->links() }}
+        </div>
+    @endif
 
 </div>

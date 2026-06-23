@@ -33,7 +33,7 @@ class Lowongan extends Model
 
     public function applications()
     {
-        return $this->hasMany(applications::class);
+        return $this->hasMany(Application::class);
     }
     public function jobCategory()
     {

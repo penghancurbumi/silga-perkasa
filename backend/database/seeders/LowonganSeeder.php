@@ -21,68 +21,43 @@ class LowonganSeeder extends Seeder
             ]);
         }
 
-        // Pastikan ada job categories
-        $categories = [
-            ['name' => 'Teknologi Informasi', 'slug' => 'teknologi-informasi'],
-            ['name' => 'Desain & Kreatif',    'slug' => 'desain-kreatif'],
-            ['name' => 'Pemasaran',            'slug' => 'pemasaran'],
-            ['name' => 'Keuangan',             'slug' => 'keuangan'],
-            ['name' => 'Operasional',          'slug' => 'operasional'],
-        ];
-
-        foreach ($categories as $cat) {
-            \App\Models\JobCategory::firstOrCreate(
-                ['slug' => $cat['slug']],
-                ['name' => $cat['name']]
-            );
+        // Ambil semua kategori dari database (pastikan JobCategorySeeder sudah jalan)
+        $categories = \App\Models\JobCategory::all();
+        if ($categories->isEmpty()) {
+            $this->command->info('Job Categories kosong, menjalankan JobCategorySeeder...');
+            $this->call(JobCategorySeeder::class);
+            $categories = \App\Models\JobCategory::all();
         }
 
-        $itCategory     = \App\Models\JobCategory::where('slug', 'teknologi-informasi')->first();
-        $designCategory = \App\Models\JobCategory::where('slug', 'desain-kreatif')->first();
+        $employmentTypes = ['full_time', 'part_time', 'contract', 'internship', 'freelance'];
+        $locations = ['Jakarta', 'Surabaya', 'Bandung', 'Yogyakarta', 'Kalimantan', 'Medan', 'Makassar'];
+        
+        $jobTitles = [
+            'Staff Administrasi', 'Manager Operasional', 'Teknisi Farm', 'Dokter Hewan', 
+            'Marketing Executive', 'IT Support', 'Software Engineer', 'HR Staff',
+            'Akuntan', 'Quality Control', 'Supir Logistik', 'Sales Representative'
+        ];
 
-        // Lowongan 1 – Software Engineer
-        \App\Models\Lowongan::create([
-            'user_id'            => $u->id,
-            'title'              => 'Software Engineer',
-            'job_category_id'    => $itCategory->id,
-            'location'           => 'Jakarta Raya',
-            'minimum_experience' => 2,
-            'employment_type'    => 'full_time',
-            'description'        => 'Membangun aplikasi web yang luar biasa menggunakan Laravel. Bekerja dengan tim dinamis dan remote.',
-            'qualification'      => 'Pengalaman minimal 2 tahun. Menguasai PHP dan Laravel.',
-            'posted_at'          => now(),
-            'deadline'           => '2026-12-31',
-            'status'             => 'published',
-        ]);
-
-        // Lowongan 2 – UI/UX Designer
-        \App\Models\Lowongan::create([
-            'user_id'            => $u->id,
-            'title'              => 'UI/UX Designer',
-            'job_category_id'    => $designCategory->id,
-            'location'           => 'Bandung',
-            'minimum_experience' => 1,
-            'employment_type'    => 'freelance',
-            'description'        => 'Mencari desainer untuk UI modern dan user friendly. Harus paham alur UX yang baik dan bisa memahami semua tools dan desain yang dikerjakan.',
-            'qualification'      => 'Pengalaman dengan Figma dan Adobe XD minimal 1 tahun.',
-            'posted_at'          => now(),
-            'deadline'           => '2026-10-15',
-            'status'             => 'published',
-        ]);
-
-        // Lowongan 3 – Web Designer (draft)
-        \App\Models\Lowongan::create([
-            'user_id'            => $u->id,
-            'title'              => 'Web Designer',
-            'job_category_id'    => $designCategory->id,
-            'location'           => 'Jakarta',
-            'minimum_experience' => 0,
-            'employment_type'    => 'full_time',   // diperbaiki dari 'fulltime'
-            'description'        => 'Mencari web designer untuk UI modern dan user friendly. Harus paham alur UX yang baik dan bisa memahami semua tools dan desain yang dikerjakan.',
-            'qualification'      => 'Pengalaman dengan Figma dan HTML/CSS.',
-            'posted_at'          => null,
-            'deadline'           => '2027-04-13',
-            'status'             => 'draft',
-        ]);
+        // Buat 15 lowongan dummy dengan tipe yang berbeda-beda
+        for ($i = 0; $i < 15; $i++) {
+            $type = $employmentTypes[array_rand($employmentTypes)];
+            $cat  = $categories->random();
+            $loc  = $locations[array_rand($locations)];
+            $title = $jobTitles[array_rand($jobTitles)];
+            
+            \App\Models\Lowongan::create([
+                'user_id'            => $u->id,
+                'title'              => $title,
+                'job_category_id'    => $cat->id,
+                'location'           => $loc,
+                'minimum_experience' => rand(0, 5),
+                'employment_type'    => $type,
+                'description'        => "Dicari seorang $title yang kompeten untuk bekerja secara $type di $loc. Memiliki tanggung jawab penuh dan dedikasi tinggi terhadap perusahaan.",
+                'qualification'      => "Minimal pendidikan S1. Pengalaman kerja minimal " . rand(0,3) . " tahun. Mampu bekerja dalam tim.",
+                'posted_at'          => now()->subDays(rand(0, 30)),
+                'deadline'           => now()->addDays(rand(10, 60)),
+                'status'             => rand(1, 10) > 2 ? 'published' : 'draft',
+            ]);
+        }
     }
 }

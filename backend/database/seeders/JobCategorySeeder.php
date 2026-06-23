@@ -13,13 +13,19 @@ class JobCategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'HRD & Recruitment',
+            'Executive Management',
+            'Hatchery',
+            'Farm',
+            'Animal Health (Keswan)',
+            'Human Resources & General Affairs (HRGA)',
+            'Operations',
             'Finance & Accounting',
-            'IT & Software',
-            'Sales & Marketing',
-            'Operations & Logistics',
-            'Design & Creative',
-            'Customer Service'
+            'Tax',
+            'Marketing & Sales',
+            'Purchasing & Procurement',
+            'Information Technology (IT)',
+            'Maintenance & Engineering',
+            'Internal Control',
         ];
 
         foreach ($categories as $name) {

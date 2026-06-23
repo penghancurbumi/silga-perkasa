@@ -255,14 +255,11 @@
                                 <iconify-icon icon="material-symbols:visibility-outline" width="16"></iconify-icon>
                             </button>
 
-                            <form action="{{ route('content.destroy', $post->id) }}" method="POST"
-                                onsubmit="return confirm('Yakin ingin menghapus?')">
-                                @csrf @method('DELETE')
-                                <button type="submit"
-                                        class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-red-400 hover:bg-red-50 hover:border-red-200">
-                                    <iconify-icon icon="material-symbols:delete-outline" width="16"></iconify-icon>
-                                </button>
-                            </form>
+                            <a href="{{ route('content.destroy', $post->id) }}"
+                                onclick="return confirm('Yakin ingin menghapus?')"
+                                class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-red-400 hover:bg-red-50 hover:border-red-200">
+                                <iconify-icon icon="material-symbols:delete-outline" width="16"></iconify-icon>
+                            </a>
                         </div>
                     </td>
                 </tr>

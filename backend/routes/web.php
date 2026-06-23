@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/content', Content::class)->name('content');
 Route::get('/content/create', ContentCreate::class)->name('content.create');
 Route::get('/content/export', [ContentController::class, 'export'])->name('content.export');
-Route::delete('/content/delete', [ContentController::class, 'destroy'])->name('content.destroy');
+Route::get('/content/delete/{id}', [ContentController::class, 'destroy'])->name('content.destroy');
 
 Route::get('/content/{id}/edit', ContentEdit ::class)->name('content.edit');
 Route::get('/content/{id}/preview', Content ::class)->name('content.preview');
@@ -56,7 +56,8 @@ Route::get('/lamaran', Lamaran::class)->name('lamaran');
 //lowongan pages
 Route::get('/lowongan', Lowongan::class)->name('lowongan');
 Route::get('/lowongan/create', LowonganCreate::class)->name('lowongan.create');
-Route::get('/lowongan/edit', LowonganEdit::class)->name('lowongan.edit');
+Route::get('/lowongan/{id}/edit', LowonganEdit::class)->name('lowongan.edit');
+Route::get('/lowongan/delete/{id}', [LowonganController::class, 'destroy'])->name('lowongan.destroy');
 
 Route::get('/settings', Setting::class)->name('settings');
 Route::get('/profile', Profile::class)->name('profile');

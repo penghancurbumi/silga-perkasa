@@ -14,10 +14,14 @@ function initSalesChart() {
 
     // Ambil data dari atribut data-* yang di-pass dari blade
     const rawLabels = canvas.dataset.labels;
-    const rawData = canvas.dataset.values;
+    const rawPosts = canvas.dataset.posts;
+    const rawLowongans = canvas.dataset.lowongans;
+    const rawApplications = canvas.dataset.applications;
 
     const labels = rawLabels ? JSON.parse(rawLabels) : ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
-    const values = rawData ? JSON.parse(rawData) : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const posts = rawPosts ? JSON.parse(rawPosts) : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const lowongans = rawLowongans ? JSON.parse(rawLowongans) : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const applications = rawApplications ? JSON.parse(rawApplications) : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     salesChartInstance = new Chart(canvas, {
         type: "line",
@@ -26,7 +30,7 @@ function initSalesChart() {
             datasets: [
                 {
                     label: "Konten",
-                    data: values,
+                    data: posts,
                     borderColor: "#10b981",
                     backgroundColor: "rgba(16,185,129,0.12)",
                     pointBackgroundColor: "#10b981",
@@ -36,21 +40,21 @@ function initSalesChart() {
                     tension: 0.4
                 },
                 {
-                    label: "lowongan",
-                    data: values,
+                    label: "Lowongan",
+                    data: lowongans,
                     borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(16,185,129,0.12)',
-                    pointBackgroundColor: "#10b981",
+                    backgroundColor: 'rgba(59,130,246,0.12)',
+                    pointBackgroundColor: "#3b82f6",
                     pointRadius: 4,
                     pointHoverRadius: 6,
                     fill: true,
                     tension: 0.4
                 },
                 {
-                    label: 'lamaran',
-                    data: values,
+                    label: 'Lamaran',
+                    data: applications,
                     borderColor: '#f59e0b',
-                    backgroundColor: 'rgba(245,158,11,0.10',
+                    backgroundColor: 'rgba(245,158,11,0.12)',
                     pointBackgroundColor: "#f59e0b",
                     pointRadius: 4,
                     pointHoverRadius: 6,
@@ -97,15 +101,15 @@ function initSalesChart() {
 }
 
 // Update chart data tanpa destroy (lebih smooth)
-function updateSalesChart(labels, values) {
+function updateSalesChart(labels, postValues, lowonganValues, applicationValues) {
     if (!salesChartInstance) {
         initSalesChart();
         return;
     }
     salesChartInstance.data.labels = labels;
-    salesChartInstance.data.datasets.forEach(dataset => {
-        dataset.data = values;
-    });
+    salesChartInstance.data.datasets[0].data = postValues;
+    salesChartInstance.data.datasets[1].data = lowonganValues;
+    salesChartInstance.data.datasets[2].data = applicationValues;
     salesChartInstance.update('active');
 }
 
@@ -117,7 +121,7 @@ document.addEventListener('livewire:navigated', initSalesChart);
 
 // Terima data chart baru dari Livewire dispatch saat period berubah
 document.addEventListener('livewire:init', () => {
-    Livewire.on('chart-updated', ({ labels, values }) => {
-        updateSalesChart(labels, values);
+    Livewire.on('chart-updated', ({ labels, postValues, lowonganValues, applicationValues }) => {
+        updateSalesChart(labels, postValues, lowonganValues, applicationValues);
     });
 });

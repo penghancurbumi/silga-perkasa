@@ -41,9 +41,13 @@
         </div>
 
         <div class="relative flex items-center">
-            <select class="w-32 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
+            <select wire:model.live="categoryFilter" class="w-42 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
 
-                <option value="filter">Filter</option>
+                <option value="">Semua Posisi</option>
+
+                 @foreach($positionTitles as $title)
+                    <option value="{{ $title }}">{{ $title }}</option>
+                @endforeach
 
             </select>
 
@@ -58,7 +62,7 @@
         <div class="relative flex items-center">
             <select wire:model.live="statusFilter" class="w-32 pl-4 pr-10 h-10 bg-white border border-gray-200 rounded cursor-pointer appearance-none text-[12px] focus:outline-none focus:border-black transition-colors">
                 
-                <option value="filter">Filter</option>
+                <option value="filter">Select Status</option>
                 <option value="pending">Pending</option>
                 <option value="review"> Review</option>
                 <option value="interview">Interview</option>
@@ -78,18 +82,21 @@
         <div class="flex items-end gap-3">
             <div class="flex flex-row items-center gap-2">
                 <span class="text-sm font-semibold">From:</span>
-                <input type="datetime-local"
+                <input wire:model.live="dateFrom"
+                    type="datetime-local"
                     class="w-32 bg-white border border-gray-200 px-3 h-10 rounded text-gray-500 cursor-pointer text-[12px]">
             </div>
 
             <div class="flex flex-row items-center gap-2">
                 <span class="text-sm font-semibold">To:</span>
-                <input type="datetime-local"
+                <input wire:model.live="dateTo"
+                    type="datetime-local"
                     class="w-32 bg-white border border-gray-200 px-3 h-10 rounded text-gray-500 cursor-pointer text-[12px]">
             </div>
         </div>
 
-        <div class="flex flex-row items-center gap-2 p-2 cursor-pointer">
+        <div wire:click="resetFilters"
+        class="flex flex-row items-center gap-2 p-2 cursor-pointer">
             <iconify-icon
                 icon="material-symbols:refresh"
                 width="20"
@@ -127,29 +134,29 @@
 
                     <td class="px-4 py-2">
                         <div class="flex items-center">
-                            <p class="text-sm font-reguler text-black truncate">{{ $lamaran->applicant->fullname ?? 'Unknown' }}</p>
+                            <p class="text-xs font-reguler text-black truncate">{{ $lamaran->applicant->fullname ?? 'Unknown' }}</p>
                         </div>
                     </td>
 
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black">{{ $lamaran->applicant->email ?? '-' }}</span>
+                        <span class="text-xs font-reguler text-black">{{ $lamaran->applicant->email ?? '-' }}</span>
                     </td>
 
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black">{{ $lamaran->lowongan->title ?? 'Posisi Dihapus' }}</span>
+                        <span class="text-xs font-reguler text-black">{{ $lamaran->lowongan->title ?? 'Posisi Dihapus' }}</span>
                     </td>
 
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black">{{ $lamaran->applicant->resume ?? '-' }}</span>
+                        <span class="text-xs font-reguler text-black">{{ $lamaran->applicant->resume ?? '-' }}</span>
                     </td>
 
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black capitalize">{{ $lamaran->status }}</span>
+                        <span class="text-xs font-reguler text-black capitalize">{{ $lamaran->status }}</span>
                     </td>
 
                     
                     <td class="px-4 py-2">
-                        <span class="text-sm font-reguler text-black">{{ \Carbon\Carbon::parse($lamaran->applied_at)->format('M d, Y • h:i A') }}</span>
+                        <span class="text-xs font-reguler text-black">{{ \Carbon\Carbon::parse($lamaran->applied_at)->format('M d, Y • h:i A') }}</span>
                     </td>
                 </tr>
                 @empty

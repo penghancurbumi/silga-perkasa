@@ -112,6 +112,7 @@ class Content extends Component
             $query->oldest();
         }
 
+        //button
         match($this->activeTab) {
             'terpublikasi' => $query->where('status', 'published'),
             'draft'        => $query->where('status', 'draft'),

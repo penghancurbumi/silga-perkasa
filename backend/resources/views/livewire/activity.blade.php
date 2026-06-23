@@ -65,6 +65,8 @@
                                             'logout'      => ['label' => 'Logout',      'class' => 'bg-red-100 text-red-600'],
                                             'create_post' => ['label' => 'Buat Artikel', 'class' => 'bg-blue-100 text-blue-700'],
                                             'edit_post'   => ['label' => 'Edit Artikel', 'class' => 'bg-yellow-100 text-yellow-700'],
+                                            'create_lowongan' => ['label' => 'Buat Lowongan', 'class' => 'bg-purple-100 text-purple-700'],
+                                            'edit_lowongan'   => ['label' => 'Edit Lowongan', 'class' => 'bg-indigo-100 text-indigo-700'],
                                         ];
                                         $t = $typeMap[$log->type] ?? ['label' => ucfirst($log->type), 'class' => 'bg-gray-100 text-gray-600'];
                                     @endphp

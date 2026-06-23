@@ -1,6 +1,49 @@
 @use('Illuminate\Support\Facades\Storage')
  
-<div>
+<div x-data="{
+        alertVisible: false,
+        alertType: '',
+        alertTitle: '',
+        alertMessage: '',
+        showAlert(type, title, message) {
+            this.alertType = type;
+            this.alertTitle = title;
+            this.alertMessage = message;
+            this.alertVisible = true;
+            setTimeout(() => this.alertVisible = false, 4000);
+        }
+    }"
+    x-init="
+        Livewire.on('edit-success', () => showAlert('success', 'Berhasil!', 'Artikel berhasil diperbarui.'));
+        Livewire.on('edit-error', () => showAlert('error', 'Error!', 'Gagal menyimpan perubahan artikel.'));
+    "
+>
+
+    {{-- Alert Notification --}}
+    <div x-show="alertVisible" x-cloak
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-x-8"
+         x-transition:enter-end="opacity-100 translate-x-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-x-0"
+         x-transition:leave-end="opacity-0 translate-x-8"
+         class="fixed top-5 right-5 z-[9999] bg-white p-4 rounded-lg border border-gray-200 shadow-lg min-w-[320px]">
+        <div class="flex flex-row space-x-3">
+            <template x-if="alertType === 'success'">
+                <iconify-icon icon="mdi:tick" width="15" class="text-green-500 border border-gray-200 p-2 rounded-lg bg-green-100"></iconify-icon>
+            </template>
+            <template x-if="alertType === 'error'">
+                <iconify-icon icon="gridicons:cross" width="15" class="text-red-500 border border-gray-200 p-2 rounded-lg bg-red-100"></iconify-icon>
+            </template>
+            <div class="flex flex-col flex-1">
+                <p class="text-[12px] font-semibold" x-text="alertTitle"></p>
+                <p class="text-[10px] font-semibold text-gray-400" x-text="alertMessage"></p>
+            </div>
+            <button @click="alertVisible = false" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
+                <iconify-icon icon="gridicons:cross" width="15"></iconify-icon>
+            </button>
+        </div>
+    </div>
 {{--Input New Aritcle--}}
     <div class="flex items-center mb-4">
             <h2 class="text-[20px] font-semibold">Create New Article</h2>
@@ -154,54 +197,6 @@
                         Simpan Draft
                     </button>
                 </div>
-            </div>
-        </div>
-
-         <!--alert edit-->
-        <div id="alert-edit" class="hidden absolute top-14 right-5 bg-white rounded-lg shadow p-4 border border-gray-200">
-            <div class="flex flex-row space-x-3">
-                
-                <iconify-icon
-                    icon="mdi:tick"
-                    width="15"
-                    class="text-green-500 border border-gray-200 rounded-lg p-2 bg-green-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Changes saved</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Your article has been updated.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-            </div>
-        </div>
-
-        <!--alert edit error-->
-        <div id="alert-edit-error" class="hidden absolute top-14 right-5 bg-white rounded-lg p-4 border border-gray-200">
-            <div class="flex flex-row space-x-3">
-                <iconify-icon
-                    icon="gridicons:cross"
-                    width="15"
-                    class="text-red-500 borde border-gray-200 rounded-lg p-2 bg-red-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Update failed</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Your changes could not be saved.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-
             </div>
         </div>
 

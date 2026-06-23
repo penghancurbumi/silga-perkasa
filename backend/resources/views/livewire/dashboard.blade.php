@@ -16,11 +16,13 @@
                         </iconify-icon>
                         <h2 class="text-[12px] font-semibold text-black">Total Pelamar</h2>
                     </div>
-                    <span class="text-[25px] font-semibold text-black">0</span>
+                    <span class="text-[25px] font-semibold text-black">{{ number_format($totalPelamar) }}</span>
                 </div>
                
                 <div class="flex flex-row gap-2 items-center">
-                    <span class="text-[11px] font-bold text-green-600">+1</span>
+                    <span class="text-[11px] font-bold {{ $pelamarDiff >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                        {{ $pelamarDiff > 0 ? '+' : '' }}{{ $pelamarDiff }}
+                    </span>
                     <span class="text-[10px] font-semibold text-gray-500">Last Month</span>
                 </div>
             </div>
@@ -38,11 +40,13 @@
                         </iconify-icon>
                         <h2 class="text-[12px] font-semibold text-black">Pelamar Diterima</h2>
                     </div>
-                    <span class="text-[25px] font-semibold text-black">0</span>
+                    <span class="text-[25px] font-semibold text-black">{{ number_format($pelamarDiterima) }}</span>
                 </div>
 
-                <div class="flex flex-row gap-2">
-                    <span class="text-[11px] font-bold text-green-600">+0</span>
+                <div class="flex flex-row gap-2 items-center">
+                    <span class="text-[11px] font-bold {{ $diterimaDiff >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                        {{ $diterimaDiff > 0 ? '+' : '' }}{{ $diterimaDiff }}
+                    </span>
                     <span class="text-[10px] font-semibold text-gray-500">Last Month</span>
                 </div>
             </div>
@@ -60,11 +64,13 @@
                         </iconify-icon>
                         <h2 class="text-[12px] font-semibold text-black">Pelamar Ditolak</h2>
                     </div>
-                    <span class="text-[25px] font-semibold text-black">0</span>
+                    <span class="text-[25px] font-semibold text-black">{{ number_format($pelamarDitolak) }}</span>
                 </div>
 
-                <div class="flex flex-row gap-2">
-                    <span class="text-[11px] font-bold text-green-600">+0</span>
+                <div class="flex flex-row gap-2 items-center">
+                    <span class="text-[11px] font-bold {{ $ditolakDiff >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                        {{ $ditolakDiff > 0 ? '+' : '' }}{{ $ditolakDiff }}
+                    </span>
                     <span class="text-[10px] font-semibold text-gray-500">Last Month</span>
                 </div>
             </div>
@@ -82,10 +88,12 @@
                         </iconify-icon>
                         <h2 class="text-[12px] font-semibold text-black">Lowongan Aktif</h2>
                     </div>
-                    <span class="text-[25px] font-semibold text-black">0</span>
+                    <span class="text-[25px] font-semibold text-black">{{ number_format($lowonganAktif) }}</span>
                 </div>
                 <div class="flex flex-row items-center gap-2">
-                    <span class="text-[11px] font-bold text-green-600">+0</span>
+                    <span class="text-[11px] font-bold {{ $lowonganDiff >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                        {{ $lowonganDiff > 0 ? '+' : '' }}{{ $lowonganDiff }}
+                    </span>
                     <span class="text-[10px] font-semibold text-gray-500">Last Month</span>
                 </div>
             </div>
@@ -115,7 +123,9 @@
                 <canvas id="salesChart"
                     wire:ignore
                     data-labels="{{ json_encode($chartLabels) }}"
-                    data-values="{{ json_encode($chartValues) }}">
+                    data-posts="{{ json_encode($chartPostValues) }}"
+                    data-lowongans="{{ json_encode($chartLowonganValues) }}"
+                    data-applications="{{ json_encode($chartApplicationValues) }}">
                 </canvas>
             </div>
         </div>

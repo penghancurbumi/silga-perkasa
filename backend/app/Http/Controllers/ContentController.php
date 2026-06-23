@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Content;
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class ContentController extends Controller
 {
@@ -20,7 +21,7 @@ class ContentController extends Controller
     $callback = function () use ($contents) {
         $file = fopen('php://output', 'w');
         fputcsv($file, [
-                        'ID', 
+                        'id', 
                         'Title', 
                         'Slug', 
                         'Content', 
@@ -52,10 +53,16 @@ class ContentController extends Controller
     return response()->stream($callback, 200, $headers);
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        $post = Post::findOrfail($id);
+        $post = Post::findOrFail($id);
+        $title = $post->title;
         $post->delete();
+
+        auth()->user()->notify(new \App\Notifications\ArticleNotification(
+            message: 'Artikel "' . $title .'" berhasil di hapus', 
+            type: 'delete_post'
+        ));
 
         return redirect()->route('content')->with('success', 'Artikel berhasil di hapus');
     }

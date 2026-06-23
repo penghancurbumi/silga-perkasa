@@ -1,5 +1,61 @@
 @use('Illuminate\Support\Facades\Storage')
-<div >
+<div x-data="{
+        alertVisible: false,
+        alertType: '',
+        alertTitle: '',
+        alertMessage: '',
+        showAlert(type, title, message) {
+            this.alertType = type;
+            this.alertTitle = title;
+            this.alertMessage = message;
+            this.alertVisible = true;
+            setTimeout(() => this.alertVisible = false, 4000);
+        }
+    }"
+    x-init="
+        Livewire.on('published-success', () => showAlert('success', 'Published!', 'Artikel berhasil dipublikasikan.'));
+        Livewire.on('draft-success', () => showAlert('info', 'Draft Saved', 'Artikel disimpan sebagai draft.'));
+        Livewire.on('scheduled-success', () => showAlert('warning', 'Scheduled', 'Artikel berhasil dijadwalkan.'));
+        Livewire.on('published-error-1', () => showAlert('error', 'Error!', 'Gagal mempublikasikan artikel.'));
+        Livewire.on('published-error-2', () => showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.'));
+        Livewire.on('draft-error-1', () => showAlert('error', 'Error!', 'Gagal menyimpan draft.'));
+        Livewire.on('draft-error-2', () => showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.'));
+        Livewire.on('scheduled-error-1', () => showAlert('error', 'Error!', 'Gagal menjadwalkan artikel.'));
+        Livewire.on('scheduled-error-2', () => showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.'));
+    "
+>
+
+    {{-- Alert Notification --}}
+    <div x-show="alertVisible" x-cloak
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-x-8"
+         x-transition:enter-end="opacity-100 translate-x-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-x-0"
+         x-transition:leave-end="opacity-0 translate-x-8"
+         class="fixed top-5 right-5 z-[9999] bg-white p-4 rounded-lg border border-gray-200 shadow-lg min-w-[320px]">
+        <div class="flex flex-row space-x-3">
+            <template x-if="alertType === 'success'">
+                <iconify-icon icon="mdi:tick" width="15" class="text-green-500 border border-gray-200 p-2 rounded-lg bg-green-100"></iconify-icon>
+            </template>
+            <template x-if="alertType === 'error'">
+                <iconify-icon icon="gridicons:cross" width="15" class="text-red-500 border border-gray-200 p-2 rounded-lg bg-red-100"></iconify-icon>
+            </template>
+            <template x-if="alertType === 'info'">
+                <iconify-icon icon="material-symbols:draft" width="15" class="text-blue-500 border border-gray-200 p-2 rounded-lg bg-blue-100"></iconify-icon>
+            </template>
+            <template x-if="alertType === 'warning'">
+                <iconify-icon icon="gridicons:scheduled" width="15" class="text-orange-500 border border-gray-200 p-2 rounded-lg bg-orange-100"></iconify-icon>
+            </template>
+            <div class="flex flex-col flex-1">
+                <p class="text-[12px] font-semibold" x-text="alertTitle"></p>
+                <p class="text-[10px] font-semibold text-gray-400" x-text="alertMessage"></p>
+            </div>
+            <button @click="alertVisible = false" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
+                <iconify-icon icon="gridicons:cross" width="15"></iconify-icon>
+            </button>
+        </div>
+    </div>
 {{--Input New Aritcle--}}
     <div class="flex items-center mb-4">
         <h1 class="text-[20px] font-semibold">Create New Article</h1>
@@ -158,231 +214,6 @@
                         Simpan Draft
                     </button>
                 </div>
-            </div>
-        </div>
-
-        <!--alert publikasi-->
-        <div id="alert-published" class="hidden absolute bg-white top-15 right-5 p-4 rounded-lg border border-gray-200 shadow">
-            <div class="flex flex-row space-x-3">
-
-                <iconify-icon
-                    icon="mdi:tick"
-                    width="15"
-                    class="text-green-500 border border-gray-200 p-2 rounded-lg bg-green-100"
-                ></iconify-icon>
-
-               <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Publication successful</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Your article has been published</p>
-               </div>
-
-               <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-               </button>
-               
-            </div>
-        </div>
-
-         <!--alert published gagal 1-->
-        <div id="alert-published-error-1" class="hidden absolute bg-white top-15 right-5 rounded-lg p-4 border border-gray-200 shadow">
-            <div class="flex flex-row space-x-3">
-
-                <iconify-icon
-                    icon="gridicons:cross"
-                    width="15"
-                    class="text-red-500 border border-gray-200 p-2 rounded-lg bg-red-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Publication failed</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Unable to publish your article.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-
-            </div>
-        </div>
-
-        <!--alert published gagal 2-->
-        <div id="alert-published-error-2" class="hidden absolute bg-white top-15 right-5 rounded-lg p-4 border border-gray-200 shadow">
-            <div class="flex flex-row space-x-3">
-
-                <iconify-icon
-                    icon="gridicons:cross"
-                    width="15"
-                    class="text-red-500 border border-gray-200 p-2 rounded-lg bg-red-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Publication failed</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Please complete all required fields.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-
-            </div>
-        </div>
-
-        <!--alert draft-->
-        <div id="alert-draft" class="hidden absolute bg-white top-15 right-5 rounded-lg p-4 border border-gray-200 shadow ">
-            <div class="flex flex-row space-x-3">
-
-                <iconify-icon
-                    icon="material-symbols:draft"
-                    width="15"
-                    class="text-blue-500 border border-gray-200 p-2 rounded-lg bg-blue-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Draft saved</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Your changes have been saved as a draft.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>     
-
-            </div>
-        </div>
-
-        <!--alert draft gagal 1-->
-        <div id="alert-draft-error-1" class="hidden absolute bg-white top-15 right-5 rounded-lg p-4 border border-gray-200 shadow">
-            <div class="flex flex-row space-x-3">
-
-                <iconify-icon
-                    icon="gridicons:cross"
-                    width="15"
-                    class="text-red-500 border border-gray-200 p-2 rounded-lg bg-red-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Failed to save draft</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Your draft could not be saved.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-
-            </div>
-        </div>
-
-        <!--alert draft gagal 2-->
-        <div id="alert-draft-error-2" class="hidden absolute bg-white top-15 right-5 rounded-lg p-4 border border-gray-200 shadow">
-            <div class="flex flex-row space-x-3">
-
-                <iconify-icon
-                    icon="gridicons:cross"
-                    width="15"
-                    class="text-red-500 border border-gray-200 p-2 rounded-lg bg-red-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Failed to save draft</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Please Try again</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-
-            </div>
-        </div>
-
-        <!--alert terjadwalkan-->
-        <div id="alert-scheduled" class="hidden absolute bg-white top-15 right-5 rounded-lg p-4 border border-gray-200 shadow">
-            <div class="flex flex-row space-x-3">
-
-                <iconify-icon
-                    icon="gridicons:scheduled"
-                    width="15"
-                    class="text-orange-500 border border-gray-200 p-2 rounded-lg bg-orange-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Publication scheduled</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Your article is scheduled for publication.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-
-            </div>
-        </div>
-
-        <!--alert terjadwalkan gagal 1-->
-        <div id="alert-scheduled-error-1" class="hidden absolute bg-white top-15 right-5 rounded-lg p-4 border border-gray-200 shadow">
-            <div class="flex flex-row space-x-3">
-
-                <iconify-icon
-                    icon="gridicons:cross"
-                    width="15"
-                    class="text-red-500 border border-gray-200 p-2 rounded-lg bg-red-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Scheduling failed</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Your article could not be scheduled.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-
-            </div>
-        </div>
-
-         <!--alert terjadwalkan gagal 2-->
-        <div id="alert-scheduled-error-2" class="hidden absolute bg-white top-15 right-5 rounded-lg p-4 border border-gray-200 shadow">
-            <div class="flex flex-row space-x-3">
-
-                <iconify-icon
-                    icon="gridicons:cross"
-                    width="15"
-                    class="text-red-500 border border-gray-200 p-2 rounded-lg bg-red-100"
-                ></iconify-icon>
-
-                <div class="flex flex-col">
-                    <p class="text-[12px] font-semibold">Scheduling failed</p>
-                    <p class="text-[10px] font-semibold text-gray-400">Please select a valid future date and time.</p>
-                </div>
-
-                <button onclick="closeAlert()" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
-                    <iconify-icon
-                        icon="gridicons:cross"
-                        width="15"
-                    ></iconify-icon>
-                </button>
-
             </div>
         </div>
 

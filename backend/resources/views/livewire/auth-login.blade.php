@@ -1,5 +1,5 @@
 <div class="min-h-screen flex">
-    <!-- Kiri -->
+        <!-- Kiri -->
     <div class="relative w-3/5 overflow-hidden">
         <div id="carouselWrapper" class="flex transition-transform duration-700 ease-in-out h-full">
 
@@ -13,8 +13,8 @@
                             class="w-[180px] h-auto">
 
                         <div class="flex flex-col gap-4 mb-12">
-                            <span class="text-white font-semibold text-5xl">Lorem ipsum dolor sit amet consectetur adipiscing elit. </span>
-                            <p class="text-white text-[15px]">Pellentesque ultricies fringilla arcu eget efficitur. Aenean dignissim elit et purus volutpat, <br> sit amet pretium mauris pharetra</p>
+                            <span class="text-white font-semibold text-5xl">Premium Day Old Chick with Guaranteed Quality</span>
+                            <p class="text-white text-[15px]">Menghasilkan DOC berkualitas tinggi melalui proses breeding yang terstandarisasi, didukung <br> manajemen modern dan pengawasan mutu yang konsisten di setiap tahap produksi.</p>
                         </div>
                     </div>
                 </div>
@@ -33,8 +33,8 @@
                             class="w-[180px] h-auto">
 
                         <div class="flex flex-col gap-4 mb-12">
-                            <span class="text-white font-semibold text-5xl">Lorem ipsum dolor sit amet consectetur adipiscing elit. </span>
-                            <p class="text-white text-[15px]">Pellentesque ultricies fringilla arcu eget efficitur. Aenean dignissim elit et purus volutpat, <br> sit amet pretium mauris pharetra</p>
+                            <span class="text-white font-semibold text-5xl">Over Four Decades <br>of Trusted Poultry Excellence </span>
+                            <p class="text-white text-[15px]">Berpengalaman sejak tahun 1985 dalam menyediakan bibit ayam broiler berkualitas  dengan <br> komitmen terhadap inovasi, kepercayaan, dan kepuasan pelanggan.</p>
                         </div>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
                             class="w-[180px] h-auto">
 
                         <div class="flex flex-col gap-4 mb-12">
-                            <span class="text-white font-semibold text-5xl">Lorem ipsum dolor sit amet consectetur adipiscing elit. </span>
-                            <p class="text-white text-[15px]">Pellentesque ultricies fringilla arcu eget efficitur. Aenean dignissim elit et purus volutpat, <br> sit amet pretium mauris pharetra</p>
+                            <span class="text-white font-semibold text-5xl">Modern Farm Operations with Professional Management </span>
+                            <p class="text-white text-[15px]">Mengelola jaringan farm dan hatchery dengan sistem pemeliharaan modern, tenaga profesional, <br> serta standar kesehatan ternak untuk menjaga kualitas produksi.</p>
                         </div>
                     </div>
                 </div>
@@ -71,8 +71,8 @@
                             class="w-[180px] h-auto">
 
                         <div class="flex flex-col gap-4 mb-12">
-                            <span class="text-white font-semibold text-5xl">Lorem ipsum dolor sit amet consectetur adipiscing elit. </span>
-                            <p class="text-white text-[15px]">Pellentesque ultricies fringilla arcu eget efficitur. Aenean dignissim elit et purus volutpat, <br> sit amet pretium mauris pharetra</p>
+                            <span class="text-white font-semibold text-5xl">Building Long-Term Partnerships Through Outstanding Service</span>
+                            <p class="text-white text-[15px]">Membangun hubungan jangka panjang dengan pelanggan melalui pelayanan yang profesional, <br> komunikasi yang baik, serta komitmen dalam menyediakan produk berkualitas tinggi.</p>
                         </div>
                     </div>
                 </div>

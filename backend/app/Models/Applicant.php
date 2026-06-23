@@ -14,10 +14,10 @@ class Applicant extends Model
         'birth_place',
         'birth_date',
         'address',
-        'kelurahan',
-        'kecamatan',
-        'kota',
-        'provinsi',
+        'village',
+        'district',
+        'city',
+        'province',
         'postal_code',
         'referral_source',
     ];
@@ -38,6 +38,6 @@ class Applicant extends Model
 
     public function applications()
     {
-        return $this->hasMany(Applications::class);
+        return $this->hasMany(Application::class);
     }
 }

@@ -12,26 +12,50 @@ class Lowongan extends Component
 
     public $search = '';
     public $statusFilter = 'filter';
+    public $filterUrutan = 'terbaru';
+    public $jobTypeFilter = 'filter';
 
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
+    public function updatingStatusFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilterUrutan()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
-        $query = Lowongans::query();
+        $query = Lowongans::with('jobCategory');
 
         if ($this->search) {
             $query->where('title', 'like', '%' . $this->search . '%')
-                  ->orWhere('category', 'like', '%' . $this->search . '%');
+                  ->orWhereHas('jobCategory', function ($q) {
+                      $q->where('name', 'like', '%' . $this->search . '%');
+                  });
         }
 
         if ($this->statusFilter !== 'filter') {
             $query->where('status', $this->statusFilter);
         }
 
-        $lowongans = $query->latest()->paginate(10);
+        if ($this->jobTypeFilter !== 'filter') {
+            $query->where('employment_type', $this->jobTypeFilter);
+        }
+
+        if ($this->filterUrutan === 'terbaru') {
+            $query->latest();
+        } elseif ($this->filterUrutan === 'terlama') {
+            $query->oldest();
+        }
+
+        $lowongans = $query->paginate(6);
 
         return view('livewire.lowongan', [
             'lowongans' => $lowongans

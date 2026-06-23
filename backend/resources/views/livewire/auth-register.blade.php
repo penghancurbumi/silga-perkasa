@@ -1,7 +1,88 @@
 <div class="min-h-screen flex">
     <!-- Kiri -->
-    <div class="w-3/5 bg-gray-500 flex items-center justify-center">
-        <img src="/images/Kamar Besar.jpg" alt="kamar haha" class="w-full h-full object-cover">
+    <div class="relative w-3/5 overflow-hidden">
+        <div id="carouselWrapper" class="flex transition-transform duration-700 ease-in-out h-full">
+
+            <!--Image 1-->
+            <div class="relative min-w-full h-full">
+
+                <div class="absolute inset-0 z-10"> 
+                    <div class="flex flex-col justify-between h-full px-10 py-12">
+
+                        <img src="/images/collapse.png" alt="logo silga perkasa"
+                            class="w-[180px] h-auto">
+
+                        <div class="flex flex-col gap-4 mb-12">
+                            <span class="text-white font-semibold text-5xl">Premium Day Old Chick with Guaranteed Quality</span>
+                            <p class="text-white text-[15px]">Menghasilkan DOC berkualitas tinggi melalui proses breeding yang terstandarisasi, didukung <br> manajemen modern dan pengawasan mutu yang konsisten di setiap tahap produksi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-black/40 z-[5]"></div>
+                
+                <img src="/images/picture.jpg" alt="kamar haha" class="w-full h-full object-cover">
+            </div>
+
+            <!--Image 2-->
+            <div class="relative min-w-full h-full">
+                <div class="absolute inset-0 z-10">
+
+                    <div class="flex flex-col justify-between h-full px-10 py-12">
+                        <img src="/images/collapse.png" alt="logo silga perkasa"
+                            class="w-[180px] h-auto">
+
+                        <div class="flex flex-col gap-4 mb-12">
+                            <span class="text-white font-semibold text-5xl">Over Four Decades <br>of Trusted Poultry Excellence </span>
+                            <p class="text-white text-[15px]">Berpengalaman sejak tahun 1985 dalam menyediakan bibit ayam broiler berkualitas  dengan <br> komitmen terhadap inovasi, kepercayaan, dan kepuasan pelanggan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-black/40 z-[5]"></div>
+                <img src="/images/picture(1).jpg" alt="kamar haha" class="w-full h-full object-cover">
+            </div>
+
+            <!--Image 3-->
+            <div class="relative min-w-full h-full">
+                <div class="absolute inset-0 z-10">
+
+                    <div class="flex flex-col justify-between h-full px-10 py-12">
+                        <img src="/images/collapse.png" alt="logo silga perkasa"
+                            class="w-[180px] h-auto">
+
+                        <div class="flex flex-col gap-4 mb-12">
+                            <span class="text-white font-semibold text-5xl">Modern Farm Operations with Professional Management </span>
+                            <p class="text-white text-[15px]">Mengelola jaringan farm dan hatchery dengan sistem pemeliharaan modern, tenaga profesional, <br> serta standar kesehatan ternak untuk menjaga kualitas produksi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-black/40 z-[5]"></div>
+                <img src="/images/picture(2).jpg" alt="kamar haha" class="w-full h-full object-cover">
+            </div>
+
+            <!--Image 4-->
+            <div class="relative min-w-full h-full">
+                <div class="absolute inset-0 z-10">
+
+                    <div class="flex flex-col justify-between h-full px-10 py-12">
+                        <img src="/images/collapse.png" alt="logo silga perkasa"
+                            class="w-[180px] h-auto">
+
+                        <div class="flex flex-col gap-4 mb-12">
+                            <span class="text-white font-semibold text-5xl">Building Long-Term Partnerships Through Outstanding Service</span>
+                            <p class="text-white text-[15px]">Membangun hubungan jangka panjang dengan pelanggan melalui pelayanan yang profesional, <br> komunikasi yang baik, serta komitmen dalam menyediakan produk berkualitas tinggi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-black/40 z-[5]"></div>
+                <img src="/images/picture(3).jpg" alt="kamar haha" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <div id="indicators" class="absolute bottom-3 -translate-x-1/2 left-1/2 flex gap-2 z-10"></div>
     </div>
 
     <!-- Kanan -->
