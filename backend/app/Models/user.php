@@ -15,7 +15,8 @@ class User extends Authenticatable
         'name',
         'password',
         'avatar',
-        'settings'
+        'settings',
+        'is_admin',
     ];
 
     protected $hidden =[
@@ -25,6 +26,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'settings' => 'array',
+        'is_admin' => 'boolean',
     ];
 
     /**

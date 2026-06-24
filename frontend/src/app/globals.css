@@ -43,3 +43,7 @@ body {
 .nav:hover::after {
   width: 100%;
 }
+
+.nav-dark::after {
+  background: #003B65;
+}

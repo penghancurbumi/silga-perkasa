@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Carbon\Carbon; 
+use Mews\Purifier\Facades\Purifier;
 
 class ContentEdit extends Component
 {
@@ -71,6 +72,13 @@ class ContentEdit extends Component
                 'published_at' => 'nullable'
             ]);
 
+            $content = Purifier::clean($this->content, 'quill');
+
+            if (strip_tags($content) == '') {
+                $this->addError('content', 'Konten wajib diisi');
+                return;
+            }
+
             $thumbnailPath = $this->existingThumbnail;
             if ($this->thumbnail){
                 $thumbnailPath = $this->thumbnail?->store('thumbnails', 'public');
@@ -80,7 +88,7 @@ class ContentEdit extends Component
             $post->update([
                 'title'      => $this->title,
                 'slug'       => $this->slug,
-                'content'    => $this->content,
+                'content'    => $content,
                 'category_id'=> $this->category_id,
                 'published_at'=> $this->published_at,
                 'status'    => $status,

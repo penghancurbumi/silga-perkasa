@@ -1,11 +1,16 @@
 "use client"
 import Link from "next/link"
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { Icon } from "@iconify/react"
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false)
     const [mobileOpen, setMobileOpen] = useState(false)
+    const pathname = usePathname()
+
+    // Pages without dark hero should always show white navbar
+    const forceWhite = !["/", "/career"].includes(pathname)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -32,14 +37,14 @@ export default function Navbar() {
     ]
 
     return (
-        <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled || mobileOpen  // ✅ putih jika scroll ATAU menu terbuka
+        <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled || mobileOpen || forceWhite
             ? "bg-white shadow-sm"
             : "bg-transparent"
             }`}>
             <div className="flex items-center justify-between px-8 md:px-16 lg:px-24 h-20 w-full">
                 {/* Logo */}
                 <img
-                    src={scrolled || mobileOpen ? "/images/logo-icon.png" : "/images/white-logo.png"}
+                    src={scrolled || mobileOpen || forceWhite ? "/images/logo-icon.png" : "/images/white-logo.png"}
                     alt="silga perkasa logo"
                     width={200}
                     height={30}
@@ -51,8 +56,8 @@ export default function Navbar() {
                         <Link
                             key={item.name}
                             href={item.href}
-                            className={`nav text-[18px] font-medium ${scrolled
-                                ? "text-black hover:text-blue-800"
+                            className={`nav text-[18px] font-medium ${scrolled || forceWhite
+                                ? "text-black hover:text-gray-700"
                                 : "text-white hover:text-gray-300"
                                 }`}>
                             {item.name}
@@ -85,7 +90,7 @@ export default function Navbar() {
                             key={item.name}
                             href={item.href}
                             onClick={() => setMobileOpen(false)}
-                            className="nav py-1.5 w-fit text-[18px] font-medium text-black hover:text-blue-600 transition-colors"
+                            className="nav nav-dark py-1.5 w-fit text-[18px] font-medium text-black hover:text-blue-600 transition-colors"
                         >
                             {item.name}
                         </Link>

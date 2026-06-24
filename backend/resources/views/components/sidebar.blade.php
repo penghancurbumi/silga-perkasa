@@ -9,26 +9,15 @@
     id="sidebar"
     x-data="{
         expanded: $persist(true).as('sidebarExpanded'),
-        lamaranOpen: false,
 
         toggle() {
             this.expanded = !this.expanded;
-            if (!this.expanded) this.lamaranOpen = false;
             window.dispatchEvent(new CustomEvent('sidebarToggle'));
         },
 
         expand() {
             this.expanded = true;
             window.dispatchEvent(new CustomEvent('sidebarToggle'));
-        },
-
-        toggleLamaran() {
-            if (!this.expanded) {
-                this.expand();
-                this.$nextTick(() => { this.lamaranOpen = true; });
-            } else {
-                this.lamaranOpen = !this.lamaranOpen;
-            }
         }
     }"
     :class="expanded ? 'w-64' : 'w-20'"
@@ -43,9 +32,10 @@
     {{-- HEADER --}}
     <div class="relative flex items-center mb-8 px-2 min-h-[40px]">
 
-        {{-- Logo Besar (expanded) --}}
+        {{-- Logo Besar --}}
         <img
             x-show="expanded"
+            x-transition
             x-cloak
             src="{{ asset('images/collapse.png') }}"
             alt="logo"
@@ -53,9 +43,10 @@
             class="h-auto"
         >
 
-        {{-- Logo Kecil (collapsed, klik untuk expand) --}}
+        {{-- Logo Kecil --}}
         <img
             x-show="!expanded"
+            x-transition
             x-cloak
             @click="expand()"
             src="{{ asset('images/expand-logo.png') }}"
@@ -64,9 +55,10 @@
             class="h-auto cursor-pointer"
         >
 
-        {{-- Toggle button (hanya saat expanded) --}}
+        {{-- Toggle --}}
         <button
             x-show="expanded"
+            x-transition
             x-cloak
             @click="toggle()"
             class="ml-auto flex-shrink-0"
@@ -90,13 +82,7 @@
                 <a
                     href="{{ route('dashboard') }}"
                     wire:navigate
-                    class="nav-link flex items-center
-                           px-3 gap-3 rounded
-                           py-2 font-semibold text-[15px]
-                           transition-colors duration-200
-                    {{ request()->routeIs('dashboard')
-                        ? 'bg-white text-black'
-                        : 'text-white hover:bg-[#1f2733]' }}"
+                    class="nav-link flex items-center px-3 gap-3 rounded py-2 font-semibold text-[15px] transition-colors duration-200 text-white hover:bg-[#1f2733]"
                 >
                     <iconify-icon
                         icon="material-symbols:dashboard"
@@ -104,7 +90,7 @@
                         class="flex-shrink-0"
                     ></iconify-icon>
 
-                    <span x-show="expanded" x-cloak class="sidebar-text">
+                    <span x-show="expanded" x-transition x-cloak>
                         Dashboard
                     </span>
                 </a>
@@ -115,13 +101,7 @@
                 <a
                     href="{{ route('content') }}"
                     wire:navigate
-                    class="nav-link flex items-center
-                           px-3 gap-3 rounded
-                           py-2 font-semibold text-[15px]
-                           transition-colors duration-200
-                    {{ request()->routeIs('content')
-                        ? 'bg-white text-black'
-                        : 'text-white hover:bg-[#1f2733]' }}"
+                    class="nav-link flex items-center px-3 gap-3 rounded py-2 font-semibold text-[15px] transition-colors duration-200 text-white hover:bg-[#1f2733]"
                 >
                     <iconify-icon
                         icon="wordpress:post-content"
@@ -129,7 +109,7 @@
                         class="flex-shrink-0"
                     ></iconify-icon>
 
-                    <span x-show="expanded" x-cloak class="sidebar-text">
+                    <span x-show="expanded" x-transition x-cloak>
                         Content
                     </span>
                 </a>
@@ -140,13 +120,7 @@
                 <a
                     href="{{ route('lowongan') }}"
                     wire:navigate
-                    class="nav-link flex items-center
-                           px-3 gap-3 rounded
-                           py-2 font-semibold text-[15px]
-                           transition-colors duration-200
-                    {{ request()->routeIs('lowongan*')
-                        ? 'bg-white text-black'
-                        : 'text-white hover:bg-[#1f2733]' }}"
+                    class="nav-link flex items-center px-3 gap-3 rounded py-2 font-semibold text-[15px] transition-colors duration-200 text-white hover:bg-[#1f2733]"
                 >
                     <iconify-icon
                         icon="eos-icons:job"
@@ -154,7 +128,7 @@
                         class="flex-shrink-0"
                     ></iconify-icon>
 
-                    <span x-show="expanded" x-cloak class="sidebar-text">
+                    <span x-show="expanded" x-transition x-cloak>
                         Lowongan
                     </span>
                 </a>
@@ -165,13 +139,7 @@
                 <a
                     href="{{ route('lamaran') }}"
                     wire:navigate
-                    class="nav-link flex items-center
-                           px-3 gap-3 rounded
-                           py-2 font-semibold text-[15px]
-                           transition-colors duration-200
-                    {{ request()->routeIs('activity*')
-                        ? 'bg-white text-black'
-                        : 'text-white hover:bg-[#1f2733]' }}"
+                    class="nav-link flex items-center px-3 gap-3 rounded py-2 font-semibold text-[15px] transition-colors duration-200 text-white hover:bg-[#1f2733]"
                 >
                     <iconify-icon
                         icon="material-symbols:work-outline"
@@ -179,8 +147,8 @@
                         class="flex-shrink-0"
                     ></iconify-icon>
 
-                    <span x-show="expanded" x-cloak class="sidebar-text">
-                        lamaran
+                    <span x-show="expanded" x-transition x-cloak>
+                        Lamaran
                     </span>
                 </a>
             </li>
@@ -190,13 +158,7 @@
                 <a
                     href="{{ route('activity') }}"
                     wire:navigate
-                    class="nav-link flex items-center
-                           px-3 gap-3 rounded
-                           py-2 font-semibold text-[15px]
-                           transition-colors duration-200
-                    {{ request()->routeIs('activity*')
-                        ? 'bg-white text-black'
-                        : 'text-white hover:bg-[#1f2733]' }}"
+                    class="nav-link flex items-center px-3 gap-3 rounded py-2 font-semibold text-[15px] transition-colors duration-200 text-white hover:bg-[#1f2733]"
                 >
                     <iconify-icon
                         icon="mynaui:activity-solid"
@@ -204,7 +166,7 @@
                         class="flex-shrink-0"
                     ></iconify-icon>
 
-                    <span x-show="expanded" x-cloak class="sidebar-text">
+                    <span x-show="expanded" x-transition x-cloak>
                         Activity
                     </span>
                 </a>
@@ -215,13 +177,7 @@
                 <a
                     href="{{ route('settings') }}"
                     wire:navigate
-                    class="nav-link flex items-center
-                           px-3 gap-3 rounded
-                           py-2 font-semibold text-[15px]
-                           transition-colors duration-200
-                    {{ request()->routeIs('settings*')
-                        ? 'bg-white text-black'
-                        : 'text-white hover:bg-[#1f2733]' }}"
+                    class="nav-link flex items-center px-3 gap-3 rounded py-2 font-semibold text-[15px] transition-colors duration-200 text-white hover:bg-[#1f2733]"
                 >
                     <iconify-icon
                         icon="ep:setting"
@@ -229,7 +185,7 @@
                         class="flex-shrink-0"
                     ></iconify-icon>
 
-                    <span x-show="expanded" x-cloak class="sidebar-text">
+                    <span x-show="expanded" x-transition x-cloak>
                         Settings
                     </span>
                 </a>

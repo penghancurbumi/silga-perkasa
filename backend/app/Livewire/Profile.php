@@ -40,7 +40,7 @@ class Profile extends Component
         $passwordChanged = !empty($this->password);
 
         if ($passwordChanged) {
-            $rules['password'] = 'required|min:6';
+            $rules['password'] = ['required', \Illuminate\Validation\Rules\Password::min(8)->mixedCase()->numbers()];
         }
 
         $this->validate($rules);
@@ -73,6 +73,10 @@ class Profile extends Component
         }
 
         $user->save();
+
+        if ($passwordChanged) {
+            Auth::logoutOtherDevices($this->password);
+        }
 
         // Kirim notifikasi sistem ke pengguna
         $user->notify(new \App\Notifications\ProfileNotification('Profil Anda berhasil diperbarui.', 'success'));

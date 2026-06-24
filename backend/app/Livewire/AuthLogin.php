@@ -6,12 +6,19 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 
 class AuthLogin extends Component
 {
 
-    public $email;
-    public $password;
+    public string $email = '';
+    public string $password = '';
+
+    private function throttleKey(): string
+    {
+        return Str::lower(trim($this->email)).'|'.request()->ip();
+    }
 
     protected $messages = [
         'email.required' => 'Email is required',
@@ -20,16 +27,24 @@ class AuthLogin extends Component
 
     public function store()
     {
+        // 1. Cek Rate Limiting (Maksimal 5 kali percobaan)
+        if (RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            $seconds = RateLimiter::availableIn($this->throttleKey());
+            $this->addError('email', "Terlalu banyak percobaan. Silahkan coba lagi dalam {$seconds} detik.");
+            return;
+        }
+
+        // 2. Validasi Input
         $this->validate([
-            'email' => 'required|string',
-            'password' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|string'
         ]);
 
-       if(Auth::attempt([
-            'email' => $this->email,
-            'password' => $this->password
-        ])) {
-            
+        // 3. Proses Login
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+            // Bersihkan rate limiter jika berhasil
+            RateLimiter::clear($this->throttleKey());
+
             session()->regenerate();
 
             ActivityLog::create([
@@ -39,14 +54,17 @@ class AuthLogin extends Component
                 'ip_address' => request()->ip(),
             ]);
             
-            $this->reset(['email','password']);
+            $this->reset(['email', 'password']);
 
-            // Langsung redirect dari backend agar tidak ada jeda "nyangkut"
             return redirect()->intended('/');
         }
 
-        // Tampilkan pesan error di bawah field email/password lewat validation message
+        // 4. Jika gagal, catat percobaan (Hit) ke RateLimiter
+        RateLimiter::hit($this->throttleKey(), 60); // Blokir selama 60 detik jika mencapai limit
+
+        // Tampilkan pesan error ambigu
         $this->addError('password', 'Email atau password yang Anda masukkan salah.');
+        $this->reset('password');
     }
 
     public function render()

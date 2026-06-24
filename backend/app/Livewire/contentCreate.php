@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Carbon\Carbon; 
+use Mews\Purifier\Facades\Purifier;
 
 class ContentCreate extends Component
 {
@@ -76,13 +77,10 @@ class ContentCreate extends Component
             $this->messages
         );
 
-        if ($validator->fails()) {
-            // Set error ke Livewire supaya @error di blade tampil
-            $this->setErrorBag($validator->errors());
+        $content =Purifier::clean($this->content, 'quill');
 
-            // Tampilkan alert notifikasi sesuai status
-            $this->dispatch($status . '-error-2');
-
+        if (strip_tags($content) == ''){
+            $this->addError('content','Konten wajib diisi');
             return;
         }
 
@@ -92,7 +90,7 @@ class ContentCreate extends Component
             $post = Post::create([
                 'title'        => $this->title,
                 'slug'         => $this->slug,
-                'content'      => $this->content,
+                'content'      => $content,
                 'category_id'  => $this->category_id,
                 'published_at' => $this->published_at,
                 'status'       => $status,

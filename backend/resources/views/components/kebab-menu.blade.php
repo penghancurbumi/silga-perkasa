@@ -21,7 +21,7 @@
             </li>
             <li>
                 <a href="{{ route('lowongan.destroy', $lowongan->id)}}" wire:navigate
-                    onclick="return confim('yakin mau menghapus')"
+                    onclick="return confirm('yakin mau menghapus')"
                     class="flex items-center gap-2 px-4 py-2 text-[12px] text-red-500 hover:bg-red-50 transition">
                     <iconify-icon icon="material-symbols:delete-outline" width="14"></iconify-icon>
                     Hapus

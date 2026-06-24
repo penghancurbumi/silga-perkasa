@@ -6,9 +6,11 @@ use App\Models\JobCategory;
 use App\Models\Lowongan;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Mews\Purifier\Facades\Purifier;
 
 class LowonganEdit extends Component
 {
+    public $lowonganId;
     public $title          = '';
     public $job_category_id = '';
     public $employment_type = '';
@@ -19,6 +21,21 @@ class LowonganEdit extends Component
     public $deadline       = '';
     public $status         = '';
 
+    public function mount($id)
+    {
+        $lowongan = Lowongan::findOrFail($id);
+        $this->lowonganId = $lowongan->id;
+        $this->title = $lowongan->title;
+        $this->job_category_id = $lowongan->job_category_id;
+        $this->employment_type = $lowongan->employment_type;
+        $this->location = $lowongan->location;
+        $this->description = $lowongan->description;
+        $this->kualifikasi = $lowongan->qualification;
+        $this->posted_at = $lowongan->posted_at ? $lowongan->posted_at->format('Y-m-d\TH:i') : '';
+        $this->deadline = $lowongan->deadline ? \Carbon\Carbon::parse($lowongan->deadline)->format('Y-m-d\TH:i') : '';
+        $this->status = $lowongan->status;
+    }
+
     protected function rules(): array
     {
         return [
@@ -28,7 +45,7 @@ class LowonganEdit extends Component
             'location'        => 'required|string|max:255',
             'description'     => 'required|string',
             'kualifikasi'     => 'required|string',
-            'posted_at'       => 'required|date',
+            'posted_at'       => 'nullable|date',
             'deadline'        => 'required|date',
             'status'          => 'required|in:draft,published,closed',
         ];
@@ -51,9 +68,11 @@ class LowonganEdit extends Component
         'status.in'                => 'Status tidak valid.',
     ];
 
-    public function save($status): void
+    public function save($status = null): void
     {
-        $this->status = $status;
+        if ($status !== null) {
+            $this->status = $status;
+        }
 
         try {
             $this->validate();
@@ -62,18 +81,30 @@ class LowonganEdit extends Component
             throw $e;
         }
 
-        Lowongan::create([
-            'user_id'         => Auth::id(),
+        $deskripsi = Purifier::clean($this->description, 'quill');
+        $kualifikasi = Purifier::clean($this->kualifikasi, 'quill');
+
+        if (strip_tags($deskripsi) == '') {
+            $this->addError('description', 'Deskripsi wajib diisi');
+            return;
+        }
+
+        if (strip_tags($kualifikasi) == '') {
+            $this->addError('kualifikasi', 'Kualifikasi wajib diisi');
+            return;
+        }
+
+        $lowongan = Lowongan::findOrFail($this->lowonganId);
+        $lowongan->update([
             'title'           => $this->title,
             'job_category_id' => $this->job_category_id,
             'employment_type' => $this->employment_type,
             'location'        => $this->location,
-            'description'     => $this->description,
-            'qualification'   => $this->kualifikasi,
+            'description'     => $deskripsi,
+            'qualification'   => $kualifikasi,
             'posted_at'       => $this->status === 'published' ? now() : ($this->posted_at ?: null),
             'deadline'        => $this->deadline,
             'status'          => $this->status,
-            'minimum_experience' => 0,
         ]);
 
         $statusLabel = $this->status === 'published' ? 'dipublikasikan' : 'disimpan sebagai draft';
@@ -94,7 +125,7 @@ class LowonganEdit extends Component
     {
         $categories = JobCategory::orderBy('name')->get();
 
-        return view('livewire.lowongan-create', [
+        return view('livewire.lowongan-edit', [
             'categories' => $categories,
         ]);
     }

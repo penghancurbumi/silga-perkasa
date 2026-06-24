@@ -6,6 +6,7 @@ use App\Models\JobCategory;
 use App\Models\Lowongan;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Mews\Purifier\Facades\Purifier;
 
 class LowonganCreate extends Component
 {
@@ -28,7 +29,7 @@ class LowonganCreate extends Component
             'location'        => 'required|string|max:255',
             'description'     => 'required|string',
             'kualifikasi'     => 'required|string',
-            'posted_at'       => 'required|date',
+            'posted_at'       => 'nullable|date',
             'deadline'        => 'required|date',
             'status'          => 'required|in:draft,published,closed',
         ];
@@ -51,9 +52,11 @@ class LowonganCreate extends Component
         'status.in'                => 'Status tidak valid.',
     ];
 
-    public function save($status): void
+    public function save($status = null): void
     {
-        $this->status = $status;
+        if ($status !== null) {
+            $this->status = $status;
+        }
         
         try {
             $this->validate();
@@ -62,14 +65,27 @@ class LowonganCreate extends Component
             throw $e;
         }
 
+        $deskripsi = Purifier::clean($this->description,'quill');
+        $kualifikasi = Purifier::clean($this->kualifikasi,'quill');
+
+        if (strip_tags($deskripsi) == ''){
+            $this->addError('deskripsi','Deskripsi wajib diisi');
+            return;
+        }
+
+        if (strip_tags($kualifikasi) == ''){
+            $this->addError('kualifikasi','Kualifikasi wajib diisi');
+            return;
+        }
+
         Lowongan::create([
             'user_id'         => Auth::id(),
             'title'           => $this->title,
             'job_category_id' => $this->job_category_id,
             'employment_type' => $this->employment_type,
             'location'        => $this->location,
-            'description'     => $this->description,
-            'qualification'   => $this->kualifikasi,
+            'description'     => $description,
+            'qualification'   => $kualifikasi,
             'posted_at'       => $this->status === 'published' ? now() : ($this->posted_at ?: null),
             'deadline'        => $this->deadline,
             'status'          => $this->status,

@@ -3,7 +3,7 @@
 <div>
     <div class="flex flex-row items-center justify-between mb-4">
         <div class="flex items-center">
-            <h1 class="text-[20px] font-semibold">Create Lowongan</h1>
+            <h1 class="text-[20px] font-semibold">Edit Lowongan</h1>
         </div>
 
         <div class="flex items-center gap-2">
@@ -153,11 +153,11 @@
                     wire:model="description"
                     placeholder="Masukan deskripsi lowongan..."
                     class="w-150 h-64 bg-white border border-gray-200 px-4 py-2 rounded resize-none text-[12px]"></textarea>
+                </div>
+                @error('description')
+                    <p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>
+                @enderror
             </div>
-            @error('description')
-                <p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>
-             @enderror
-        </div>
 
         <div class="flex items-start justify-between pb-8 border-b border-gray-200 mt-4">
             <div class="flex flex-col">
@@ -165,12 +165,32 @@
                 <p class="mt-1 text-[10px] font-semibold text-gray-400">Tuliskan persyaratan, keterampilan, pengalaman, atau kriteria yang harus dipenuhi pelamar.</p>
             </div>
             
-            <div class="flex flex-col gap-4">
-                <textarea 
-                    type="text"
-                    placeholder="Masukan kualifikasi..."
-                    wire:model="kualifikasi"
-                    class="w-150 h-64 bg-white border border-gray-200 px-4 py-2 rounded resize-none text-[12px]"></textarea>
+            <div class="flex flex-col gap-1 w-150" wire:ignore>
+                <div x-data="{
+                    content: @entangle('kualifikasi'),
+                    quill: null,
+                    init() {
+                        this.quill = new Quill(this.$refs.quillEditor, {
+                            theme: 'snow',
+                            modules: {
+                                toolbar: [
+                                    ['bold', 'italic', 'underline'],
+                                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                    ['clean']
+                                ]
+                            }
+                        });
+                        this.quill.root.innerHTML = this.content || '';
+                        this.quill.on('text-change', () => {
+                            this.content = this.quill.root.innerHTML;
+                        });
+                    }
+                }">
+                    <div x-ref="quillEditor" class="bg-white"></div>
+                </div>
+                @error('kualifikasi')
+                    <p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>
+                @enderror
             </div>
         </div>
 
@@ -181,6 +201,7 @@
             </div>
             
             <input 
+                wire:model="posted_at"
                 type="datetime-local"
                 class="w-150 bg-white border border-gray-200 px-4 py-2 rounded text-gray-500 text-[12px]">
         </div>

@@ -183,15 +183,15 @@
             </div>
 
             <div class="flex flex-col flex-grow justify-center">
-                <h3 class="text-base font-semibold">{{ $lowongan->title }}</h3>
+                <h3 class="text-base font-semibold mb-2">{{ $lowongan->title }}</h3>
                 <span class="text-[10px] text-gray-400 line-clamp-2">
-                    {{ $lowongan->description }}
+                    {!! $lowongan->description !!}
                 </span>
             </div>
 
             <div class="mt-auto pt-4 border-t border-gray-200 flex justify-between items-center text-xs text-gray-500">
                 <span>Deadline: {{ $lowongan->deadline ? \Carbon\Carbon::parse($lowongan->deadline)->format('d M Y') : '-' }}</span>
-                <span class="text-gray-500 cursor-pointer">View Details</span>
+                <a href="{{ route('lowongan.edit', $lowongan->id) }}" wire:navigate class="text-[#003B65] hover:text-blue-800 font-medium cursor-pointer">View Details</a>
             </div>
 
         </div>

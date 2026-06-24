@@ -1,8 +1,10 @@
 "use client"
 import { useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Search, MapPin, Briefcase, ChevronDown } from "lucide-react"
 import Counter from "@/component/counter"
+import { jobs } from "@/lib/job"
 
 export default function Career() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -26,7 +28,7 @@ export default function Career() {
 
         {/* Hero Content */}
         <div className="relative z-[5] flex flex-col items-center justify-center h-full px-5 pt-28 md:pt-20">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-center mb-4 tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium text-white text-center mb-4 tracking-tight">
             Temukan Peluang Karier Anda
           </h1>
           <p className="text-sm md:text-md text-white/80 text-center mb-10 max-w-2xl">
@@ -79,7 +81,7 @@ export default function Career() {
               </div>
 
               {/* Search Button */}
-              <button className="px-8 py-3 bg-[#003B65] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap cursor-pointer">
+              <button className="px-8 py-3 bg-[#003B65] text-white font-semibold rounded-lg transition-all duration-300 shadow-md shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.0] active:scale-[0.98] whitespace-nowrap cursor-pointer">
                 Search Jobs
               </button>
             </div>
@@ -126,57 +128,8 @@ export default function Career() {
             <p className="text-gray-500 max-w-xl mx-auto">Explore our latest openings and find the perfect role for you</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Heavy Equipment Operator",
-                location: "Kalimantan Tengah",
-                type: "Full-time",
-                dept: "Operations",
-                posted: "2 days ago",
-                description: "Responsible for operating heavy machinery such as excavators, bulldozers, and dump trucks in coal mining operations. Must follow safety protocols and maintain equipment logs.",
-              },
-              {
-                title: "Site Engineer",
-                location: "Kalimantan Selatan",
-                type: "Full-time",
-                dept: "Engineering",
-                posted: "3 days ago",
-                description: "Oversee technical aspects of mining site operations, prepare engineering reports, and coordinate with project managers to ensure work is completed on schedule and within budget.",
-              },
-              {
-                title: "Safety Officer",
-                location: "Kalimantan Timur",
-                type: "Full-time",
-                dept: "HSE",
-                posted: "5 days ago",
-                description: "Monitor and enforce health, safety, and environmental standards on site. Conduct risk assessments, safety audits, and lead emergency response planning.",
-              },
-              {
-                title: "Finance Staff",
-                location: "Jakarta",
-                type: "Full-time",
-                dept: "Finance",
-                posted: "1 week ago",
-                description: "Handle financial reporting, budgeting, and bookkeeping activities. Support monthly closing processes and liaise with external auditors and tax consultants.",
-              },
-              {
-                title: "HR Recruitment",
-                location: "Jakarta",
-                type: "Full-time",
-                dept: "Human Resources",
-                posted: "1 week ago",
-                description: "Manage end-to-end recruitment processes including job posting, candidate screening, interviews, and onboarding. Build talent pipelines for operational and corporate roles.",
-              },
-              {
-                title: "Truck Driver",
-                location: "Kalimantan Tengah",
-                type: "Contract",
-                dept: "Operations",
-                posted: "3 days ago",
-                description: "Transport coal and materials between mining sites and loading points. Must hold a valid SIM B2 license and have experience driving heavy-duty trucks in off-road conditions.",
-              },
-            ].map((job, i) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {jobs.map((job, i) => (
               <div
                 key={i}
                 className="max-w-[500px] bg-white rounded-xl p-6 border border-gray-100 hover:shadow-sm transition-all duration-300 group cursor-pointer"
@@ -211,15 +164,17 @@ export default function Career() {
                     {job.title}
                   </h3>
 
-                  <p className="text-[10px] text-gray-500 line-clamp-3">
+                  <p className="text-[10px] text-gray-400 line-clamp-3">
                     {job.description}
                   </p>
                 </div>
 
                 <div className="mt-4">
-                  <span className="text-xs font-medium text-blue-600 ">
+                  <Link 
+                    href={`/career/${encodeURIComponent(job.id)}`}
+                    className="text-xs font-medium text-blue-600 hover:text-blue-800 transition-colors">
                     View Details →
-                  </span>
+                  </Link>
                 </div>
               </div>
             ))}

@@ -208,13 +208,29 @@
                 <p class="mt-1 text-[10px] font-semibold text-gray-400">Tuliskan persyaratan, keterampilan, pengalaman, atau kriteria yang harus dipenuhi pelamar.</p>
             </div>
             
-            <div class="flex flex-col gap-4">
-                <textarea 
-                    type="text"
-                    placeholder="Masukan kualifikasi..."
-                    wire:model="kualifikasi"
-                    class="w-150 h-64 bg-white border px-4 py-2 rounded resize-none text-[12px]
-                    {{ $errors->has('kualifikasi') ? 'border-red-500' : 'border-gray-200' }}"></textarea>
+            <div class="flex flex-col gap-1 w-150" wire:ignore>
+                <div x-data="{
+                    content: @entangle('kualifikasi'),
+                    quill: null,
+                    init() {
+                        this.quill = new Quill(this.$refs.quillEditor, {
+                            theme: 'snow',
+                            modules: {
+                                toolbar: [
+                                    ['bold', 'italic', 'underline'],
+                                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                    ['clean']
+                                ]
+                            }
+                        });
+                        this.quill.root.innerHTML = this.content || '';
+                        this.quill.on('text-change', () => {
+                            this.content = this.quill.root.innerHTML;
+                        });
+                    }
+                }">
+                    <div x-ref="quillEditor" class="bg-white"></div>
+                </div>
                 @error('kualifikasi')
                     <p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>
                 @enderror

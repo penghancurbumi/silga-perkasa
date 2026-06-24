@@ -179,13 +179,6 @@
                 class="w-full bg-black font-semibold text-white py-3 rounded-md mt-2 hover:bg-[#2e2e2e] transition cursor-pointer">
                     Login
             </button>
-
-            <p class="flex items-center justify-center text-gray-500 text-[12px] gap-1">
-                Don't have an account? 
-                <a href="/register" class="font-semibold text-black hover:text-gray-600 transition">
-                    Sign Up
-                </a>
-            </p>
         </form>
     </div>
 </div>

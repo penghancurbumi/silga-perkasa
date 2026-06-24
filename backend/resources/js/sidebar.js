@@ -1,24 +1,25 @@
-// Update active nav link berdasarkan URL saat navigasi wire:navigate
-// (@persist menjaga DOM sidebar, sehingga Blade active state tidak diperbarui otomatis)
 function updateActiveLink() {
     const currentPath = window.location.pathname;
 
     document.querySelectorAll('#sidebar .nav-link').forEach(link => {
-        const linkPath = link.pathname;
-        if (!linkPath) return;
+        const linkPath = new URL(link.href).pathname;
 
-        const isActive = linkPath === '/'
-            ? currentPath === '/'
-            : currentPath === linkPath || currentPath.startsWith(linkPath + '/');
+        const isActive =
+            currentPath === linkPath ||
+            currentPath.startsWith(linkPath + '/');
+
+        link.classList.toggle('bg-white', isActive);
+        link.classList.toggle('text-black', isActive);
 
         if (isActive) {
-            link.classList.add('bg-white', 'text-black');
             link.classList.remove('text-white', 'hover:bg-[#1f2733]');
+            link.classList.add('pointer-events-none');
         } else {
-            link.classList.remove('bg-white', 'text-black');
             link.classList.add('text-white', 'hover:bg-[#1f2733]');
+            link.classList.remove('pointer-events-none');
         }
     });
 }
 
+document.addEventListener('DOMContentLoaded', updateActiveLink);
 document.addEventListener('livewire:navigated', updateActiveLink);
