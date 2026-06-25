@@ -6,12 +6,19 @@
 
 <div
     x-data="{
+        value: @if($model) @entangle($model) @else '' @endif,
         search: '',
         selected: '',
         open: false,
         cities: [],
 
         init() {
+            // Load existing data if editing
+            if (this.value) {
+                this.search = this.value;
+                this.selected = this.value;
+            }
+
             fetch('/data/cities.json')
                 .then(r => r.json())
                 .then(data => { this.cities = data; });
@@ -31,19 +38,24 @@
         select(city, province) {
             this.selected = city + ', ' + province;
             this.search = this.selected;
+            this.value = this.selected;
             this.open = false;
-            @if($model)
-                $wire.set('{{ $model }}', this.selected);
-            @endif
         },
 
         clear() {
             this.search = '';
             this.selected = '';
+            this.value = '';
             this.open = true;
-            @if($model)
-                $wire.set('{{ $model }}', '');
-            @endif
+        },
+        
+        handleInput() {
+            this.open = true;
+            this.value = this.search;
+            // if they clear input manually, clear selected status
+            if(this.search === '') {
+                this.selected = '';
+            }
         }
     }"
     x-init="init()"
@@ -63,7 +75,7 @@
             name="{{ $name }}"
             x-model="search"
             @focus="open = true"
-            @input="open = true"
+            @input="handleInput()"
             placeholder="{{ $placeholder }}"
             autocomplete="off"
             class="w-full bg-white border pl-9 pr-9 py-2 rounded text-[12px]

@@ -17,6 +17,7 @@ class LowonganEdit extends Component
     public $location       = '';
     public $description    = '';
     public $kualifikasi    = '';
+    public $skills         = [];
     public $posted_at      = '';
     public $deadline       = '';
     public $status         = '';
@@ -31,6 +32,7 @@ class LowonganEdit extends Component
         $this->location = $lowongan->location;
         $this->description = $lowongan->description;
         $this->kualifikasi = $lowongan->qualification;
+        $this->skills = $lowongan->skills ?? [];
         $this->posted_at = $lowongan->posted_at ? $lowongan->posted_at->format('Y-m-d\TH:i') : '';
         $this->deadline = $lowongan->deadline ? \Carbon\Carbon::parse($lowongan->deadline)->format('Y-m-d\TH:i') : '';
         $this->status = $lowongan->status;
@@ -45,6 +47,8 @@ class LowonganEdit extends Component
             'location'        => 'required|string|max:255',
             'description'     => 'required|string',
             'kualifikasi'     => 'required|string',
+            'skills'          => 'nullable|array',
+            'skills.*'        => 'string|max:100',
             'posted_at'       => 'nullable|date',
             'deadline'        => 'required|date',
             'status'          => 'required|in:draft,published,closed',
@@ -102,6 +106,7 @@ class LowonganEdit extends Component
             'location'        => $this->location,
             'description'     => $deskripsi,
             'qualification'   => $kualifikasi,
+            'skills'          => $this->skills,
             'posted_at'       => $this->status === 'published' ? now() : ($this->posted_at ?: null),
             'deadline'        => $this->deadline,
             'status'          => $this->status,

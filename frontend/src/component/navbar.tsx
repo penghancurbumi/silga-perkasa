@@ -10,7 +10,7 @@ export default function Navbar() {
     const pathname = usePathname()
 
     // Pages without dark hero should always show white navbar
-    const forceWhite = !["/", "/career", "/contact"].includes(pathname)
+    const forceWhite = !["/", "/about", "/career", "/contact", "/commitment", "/location", "/product"].includes(pathname)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -30,9 +30,12 @@ export default function Navbar() {
 
     const navItem = [
         { name: "Home", href: "/" },
-        { name: "About Us", href: "/about" },
-        { name: "Career", href: "/career" },
-        { name: "Contact", href: "/contact" },
+        { name: "Tentang Kami", href: "/about" },
+        { name: "Lokasi Farm", href: "/location" },
+        { name: "Produk", href: "/product" },
+        { name: "Komitmen", href: "/commitment" },
+        { name: "Karir", href: "/career" },
+        { name: "Kontak", href: "/contact" },
     ]
 
     return (

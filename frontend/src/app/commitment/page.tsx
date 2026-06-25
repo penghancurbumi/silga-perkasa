@@ -1,11 +1,11 @@
 "use client"
+import Image from "next/image"
+import {motion} from "framer-motion"
 
-import Image from "next/image";
-import { motion } from "framer-motion";
-
-export default function About(){
+export default function commitment(){
+    
     return(
-         <div className="flex flex-col min-h-screen font-sans">
+        <div className="flex flex-col min-h-screen font-sans">
             <section className="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh]">
                 <div className="absolute inset-0">
                     <Image
@@ -22,7 +22,7 @@ export default function About(){
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     className="relative z-[5] flex items-center justify-center h-full">
-                    <span className="font-medium text-6xl text-white">Tentang Kami</span>
+                    <span className="font-medium text-6xl text-white">Commitment</span>
                 </motion.div>
             </section>
         </div>

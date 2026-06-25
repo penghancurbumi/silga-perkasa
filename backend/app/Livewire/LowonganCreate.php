@@ -16,6 +16,7 @@ class LowonganCreate extends Component
     public $location       = '';
     public $description    = '';
     public $kualifikasi    = '';
+    public $skills         = [];
     public $posted_at      = '';
     public $deadline       = '';
     public $status         = '';
@@ -29,6 +30,8 @@ class LowonganCreate extends Component
             'location'        => 'required|string|max:255',
             'description'     => 'required|string',
             'kualifikasi'     => 'required|string',
+            'skills'          => 'nullable|array',
+            'skills.*'        => 'string|max:100',
             'posted_at'       => 'nullable|date',
             'deadline'        => 'required|date',
             'status'          => 'required|in:draft,published,closed',
@@ -84,8 +87,9 @@ class LowonganCreate extends Component
             'job_category_id' => $this->job_category_id,
             'employment_type' => $this->employment_type,
             'location'        => $this->location,
-            'description'     => $description,
+            'description'     => $deskripsi,
             'qualification'   => $kualifikasi,
+            'skills'          => $this->skills,
             'posted_at'       => $this->status === 'published' ? now() : ($this->posted_at ?: null),
             'deadline'        => $this->deadline,
             'status'          => $this->status,

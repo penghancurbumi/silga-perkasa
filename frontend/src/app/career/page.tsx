@@ -1,16 +1,69 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Search, MapPin, Briefcase, ChevronDown } from "lucide-react"
+import { Search, MapPin, Briefcase, ChevronDown, Loader2 } from "lucide-react"
 import { motion } from "framer-motion"
 import Counter from "@/component/counter"
-import { jobs } from "@/lib/job"
+
+interface Job {
+  id: number;
+  title: string;
+  slug: string;
+  job_category_id: number;
+  job_category?: { id: number, name: string };
+  location: string;
+  employment_type: string;
+  description: string;
+  qualification: string;
+  skills?: string[];
+  deadline: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
 
 export default function Career() {
   const [searchQuery, setSearchQuery] = useState("")
   const [location, setLocation] = useState("")
   const [category, setCategory] = useState("")
+  const [jobs, setJobs] = useState<Job[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  const uniqueCategories = useMemo(() => {
+    const categories = new Set<string>();
+    jobs.forEach(job => {
+      if (job.job_category?.name) {
+        categories.add(job.job_category.name);
+      }
+    });
+    return Array.from(categories);
+  }, [jobs]);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/lowongan`);
+        if (!res.ok) {
+          throw new Error(`API error: ${res.status} ${res.statusText}`);
+        }
+
+        // Cek apakah response berupa JSON sebelum di parse
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          const result = await res.json();
+          setJobs(result.data || []);
+        } else {
+          throw new Error("Oops, API did not return JSON. Is the backend running properly?");
+        }
+      } catch (error) {
+        console.error("Failed to fetch jobs:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchJobs();
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen font-sans">
@@ -29,14 +82,14 @@ export default function Career() {
 
         {/* Hero Content */}
         <div className="relative z-[5] flex flex-col items-center justify-center h-full px-5 pt-28 md:pt-20">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-4xl md:text-5xl lg:text-6xl font-medium text-white text-center mb-4 tracking-tight">
             Temukan Peluang Karier Anda
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -45,7 +98,7 @@ export default function Career() {
           </motion.p>
 
           {/* Search Bar */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -84,13 +137,11 @@ export default function Career() {
                   className="flex-1 bg-transparent outline-none text-gray-700 text-sm appearance-none cursor-pointer"
                 >
                   <option value="">All Categories</option>
-                  <option value="engineering">Engineering</option>
-                  <option value="marketing">Marketing</option>
-                  <option value="finance">Finance</option>
-                  <option value="operations">Operations</option>
-                  <option value="hr">Human Resources</option>
+                  {uniqueCategories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
                 </select>
-                <ChevronDown className="w-4 h-4 text-gray-400 absolute right-4" />
+                <ChevronDown className="w-4 h-4 text-gray-400 absolute right-4 pointer-events-none" />
               </div>
 
               {/* Search Button */}
@@ -104,7 +155,7 @@ export default function Career() {
 
       {/* Stats Section */}
       <section className="bg-white border-b border-gray-100">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -140,66 +191,82 @@ export default function Career() {
 
       {/* Featured Jobs Preview */}
       <section className="bg-gray-50 flex-1">
-        <div className="max-w-[1200px] mx-auto py-14">
+        <div className="w-full mx-auto px-8 md:px-16 lg:px-24 py-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Featured Opportunities</h2>
             <p className="text-gray-500 max-w-xl mx-auto">Explore our latest openings and find the perfect role for you</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {jobs.map((job, i) => (
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                key={i}
-                className="max-w-[500px] bg-white rounded-xl p-6 border border-gray-100 hover:shadow-sm transition-all duration-300 group cursor-pointer"
-              >
-                <div className="flex items-start justify-between space-y-6">
+            {isLoading ? (
+              <div className="col-span-full flex justify-center py-10 text-[#003B65]">
+                <Loader2 className="w-8 h-8 animate-spin" />
+              </div>
+            ) : jobs.length > 0 ? (
+              jobs.filter(job => {
+                const matchQuery = job.title.toLowerCase().includes(searchQuery.toLowerCase()) || (job.description && job.description.toLowerCase().includes(searchQuery.toLowerCase()));
+                const matchLocation = location === "" || (job.location && job.location.toLowerCase().includes(location.toLowerCase()));
+                const matchCategory = category === "" || (job.job_category?.name && job.job_category.name.toLowerCase().includes(category.toLowerCase()));
+                return matchQuery && matchLocation && matchCategory;
+              }).map((job, i) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  key={job.id}
+                  className="h-full flex flex-col justify-between max-w-[600px] bg-white rounded-xl p-6 border border-gray-100 hover:shadow-sm transition-all duration-300 group cursor-pointer"
+                >
+                  <div className="flex items-start justify-between space-y-6">
 
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
-                    <span className="flex items-center gap-1 text-[8px]">
-                      <MapPin className="w-3.5 h-3.5" />
-                      {job.location}
-                    </span>
+                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <span className="flex items-center gap-1 text-[8px]">
+                        <MapPin className="w-3.5 h-3.5" />
+                        {job.location}
+                      </span>
 
-                    <span className="flex items-center gap-1 text-[8px]">
-                      <Briefcase className="w-3.5 h-3.5" />
-                      {job.type}
-                    </span>
+                      <span className="flex items-center gap-1 text-[8px] capitalize">
+                        <Briefcase className="w-3.5 h-3.5" />
+                        {job.employment_type?.replace('_', ' ')}
+                      </span>
 
-                    <span className="flex items-center gap-1 text-[8px]">
-                      <Briefcase className="w-3.5 h-3.5" />
-                      {job.dept}
+                      <span className="flex items-center gap-1 text-[8px]">
+                        <Briefcase className="w-3.5 h-3.5" />
+                        {job.job_category?.name}
+                      </span>
+
+                    </div>
+
+                    <span className="text-[10px] text-gray-400">
+                      {new Date(job.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
                     </span>
 
                   </div>
 
-                  <span className="text-[8px] text-gray-400">{job.posted}</span>
 
-                </div>
+                  <div className="mb-2">
+                    <h3 className="text-xl font-semibold text-gray-900  transition-colors mb-2">
+                      {job.title}
+                    </h3>
 
+                    <div className="text-[11px] text-gray-400 line-clamp-3" dangerouslySetInnerHTML={{ __html: job.description }}>
+                    </div>
+                  </div>
 
-                <div className="mb-2">
-                  <h3 className="text-xl font-semibold text-gray-900  transition-colors mb-2">
-                    {job.title}
-                  </h3>
-
-                  <p className="text-[10px] text-gray-400 line-clamp-3">
-                    {job.description}
-                  </p>
-                </div>
-
-                <div className="mt-4">
-                  <Link 
-                    href={`/career/${encodeURIComponent(job.id)}`}
-                    className="text-xs font-medium text-blue-600 hover:text-blue-800 transition-colors">
-                    View Details →
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="mt-4">
+                    <Link
+                      href={`/career/${job.slug}`}
+                      className="text-xs font-medium text-blue-600 hover:text-blue-800 transition-colors">
+                      View Details →
+                    </Link>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-10 text-gray-500">
+                Tidak ada lowongan tersedia saat ini.
+              </div>
+            )}
           </div>
 
           <div className="text-center mt-10">

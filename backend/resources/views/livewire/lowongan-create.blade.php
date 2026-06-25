@@ -237,9 +237,56 @@
             </div>
         </div>
 
+        <div class="flex items-start justify-between pb-8 border-b border-gray-200 mt-4">
+            <div class="flex flex-col">
+                <h2 class="text-[15px] font-semibold">Skill</h2>
+                <p class="mt-1 text-[10px] font-semibold text-gray-400">Tentukan skill yang dibutuhkan untuk lowongan yang akan dibuat.</p>
+            </div>
+
+            <div class="flex flex-col gap-2 w-150" x-data="{
+                newSkill: '',
+                skills: @entangle('skills').live,
+                addSkill() {
+                    let val = this.newSkill.trim();
+                    if (val !== '' && !this.skills.includes(val)) {
+                        this.skills.push(val);
+                    }
+                    this.newSkill = '';
+                },
+                removeSkill(index) {
+                    this.skills.splice(index, 1);
+                }
+            }">
+                <div class="flex gap-2">
+                    <input 
+                        type="text"
+                        x-model="newSkill"
+                        @keydown.enter.prevent="addSkill()"
+                        placeholder="Ketik nama skill lalu tekan Enter..."
+                        class="w-full bg-white border px-4 py-2 rounded text-[12px] focus:outline-none focus:border-gray-400 transition-colors {{ $errors->has('skills') ? 'border-red-500' : 'border-gray-200' }}"
+                    >
+                    <button type="button" @click="addSkill()" class="px-4 py-2 bg-black text-white text-[12px] rounded hover:bg-gray-800 transition">Add</button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2 mt-2" x-show="skills.length > 0" x-cloak>
+                    <template x-for="(skill, index) in skills" :key="index">
+                        <div class="flex items-center gap-1 bg-gray-100 border border-gray-200 px-3 py-1 rounded-full text-[11px] text-gray-700">
+                            <span x-text="skill"></span>
+                            <button type="button" @click="removeSkill(index)" class="text-gray-400 hover:text-red-500 transition-colors cursor-pointer ml-1">
+                                <iconify-icon icon="mdi:close" width="12"></iconify-icon>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+                @error('skills')
+                    <p class="text-[10px] text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+        </div>
+
          <div class="flex items-start justify-between pb-8 border-b border-gray-200 mt-4">
             <div class="flex flex-col">
-                <h3 class="text-[15px] font-semibold">Posted At</h3>
+                <h2 class="text-[15px] font-semibold">Posted At</h2>
                 <p class="mt-1 text-[10px] font-semibold text-gray-400">Tentukan tanggal mulai publikasi lowongan kepada calon pelamar.</p>
             </div>
             
@@ -257,7 +304,7 @@
         
          <div class="flex items-start justify-between pb-8 border-b border-gray-200 mt-4">
             <div class="flex flex-col">
-                <h3 class="text-[15px] font-semibold">Deadline</h3>
+                <h2 class="text-[15px] font-semibold">Deadline</h2>
                 <p class="mt-1 text-[10px] font-semibold text-gray-400">Pilih batas akhir penerimaan lamaran untuk posisi ini.</p>
             </div>
             
@@ -275,7 +322,7 @@
 
          <div class="flex items-start justify-between pb-8 mt-4">
             <div class="flex flex-col">
-                <h3 class="text-[15px] font-semibold">Status</h3>
+                <h2 class="text-[15px] font-semibold">Status</h2>
                 <p class="mt-1 text-[10px] font-semibold text-gray-400">Atur status lowongan, seperti aktif, draft, atau ditutup sesuai kebutuhan.</p>
             </div>
 

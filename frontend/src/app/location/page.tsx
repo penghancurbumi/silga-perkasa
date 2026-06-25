@@ -1,11 +1,11 @@
 "use client"
 
-import Image from "next/image";
-import { motion } from "framer-motion";
+import Image from "next/image"
+import { motion } from "framer-motion"
 
-export default function About(){
-    return(
-         <div className="flex flex-col min-h-screen font-sans">
+export default function Location() {
+    return (
+        <div className="flex flex-col min-h-screen font-sans">
             <section className="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh]">
                 <div className="absolute inset-0">
                     <Image
@@ -17,12 +17,12 @@ export default function About(){
                     <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
                 </div>
 
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     className="relative z-[5] flex items-center justify-center h-full">
-                    <span className="font-medium text-6xl text-white">Tentang Kami</span>
+                    <span className="font-medium text-6xl text-white">Location</span>
                 </motion.div>
             </section>
         </div>
