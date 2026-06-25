@@ -93,20 +93,20 @@ export async function POST(request: Request) {
             replyTo: email,
             subject: `Pesan baru dari ${nama}`,
             html: `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-</head>
-<body style="font-family: sans-serif; line-height: 1.5; color: #333;">
-  <h2>Pesan Baru dari Form Kontak</h2>
-  <table style="border-collapse:collapse;width:100%;max-width:600px;">
-    <tr><td style="padding:10px;border:1px solid #ddd;background-color:#f9f9f9;width:30%;"><strong>Nama</strong></td><td style="padding:10px;border:1px solid #ddd">${nama}</td></tr>
-    <tr><td style="padding:10px;border:1px solid #ddd;background-color:#f9f9f9;"><strong>Email</strong></td><td style="padding:10px;border:1px solid #ddd">${email}</td></tr>
-    <tr><td style="padding:10px;border:1px solid #ddd;background-color:#f9f9f9;"><strong>No. HP</strong></td><td style="padding:10px;border:1px solid #ddd">${noHp}</td></tr>
-    <tr><td style="padding:10px;border:1px solid #ddd;background-color:#f9f9f9;"><strong>Pesan</strong></td><td style="padding:10px;border:1px solid #ddd">${pesan}</td></tr>
-  </table>
-</body>
-</html>`,
+                <html>
+                <head>
+                <meta charset="utf-8">
+                </head>
+                <body style="font-family: sans-serif; line-height: 1.5; color: #333;">
+                <h2>Pesan Baru dari Form Kontak</h2>
+                <table style="border-collapse:collapse;width:100%;max-width:600px;">
+                    <tr><td style="padding:10px;border:1px solid #ddd;background-color:#f9f9f9;width:30%;"><strong>Nama</strong></td><td style="padding:10px;border:1px solid #ddd">${nama}</td></tr>
+                    <tr><td style="padding:10px;border:1px solid #ddd;background-color:#f9f9f9;"><strong>Email</strong></td><td style="padding:10px;border:1px solid #ddd">${email}</td></tr>
+                    <tr><td style="padding:10px;border:1px solid #ddd;background-color:#f9f9f9;"><strong>No. HP</strong></td><td style="padding:10px;border:1px solid #ddd">${noHp}</td></tr>
+                    <tr><td style="padding:10px;border:1px solid #ddd;background-color:#f9f9f9;"><strong>Pesan</strong></td><td style="padding:10px;border:1px solid #ddd">${pesan}</td></tr>
+                </table>
+                </body>
+                </html>`,
         })
 
         if (resendError) {
@@ -122,17 +122,17 @@ export async function POST(request: Request) {
                 to: [email],
                 subject: "Pesan Anda telah kami terima",
                 html: `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-</head>
-<body style="font-family: sans-serif; line-height: 1.5; color: #333;">
-  <p>Halo <strong>${nama}</strong>,</p>
-  <p>Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda.</p>
-  <br>
-  <p>Salam hangat,<br/><strong>PT Silga Perkasa</strong></p>
-</body>
-</html>`,
+                    <html>
+                    <head>
+                    <meta charset="utf-8">
+                    </head>
+                    <body style="font-family: sans-serif; line-height: 1.5; color: #333;">
+                    <p>Halo <strong>${nama}</strong>,</p>
+                    <p>Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda.</p>
+                    <br>
+                    <p>Salam hangat,<br/><strong>PT Silga Perkasa</strong></p>
+                    </body>
+                    </html>`,
             })
         } catch (ignoredError) {
             // Abaikan jika gagal mengirim ke email pengunjung
