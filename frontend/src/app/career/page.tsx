@@ -3,6 +3,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Search, MapPin, Briefcase, ChevronDown } from "lucide-react"
+import { motion } from "framer-motion"
 import Counter from "@/component/counter"
 import { jobs } from "@/lib/job"
 
@@ -28,15 +29,27 @@ export default function Career() {
 
         {/* Hero Content */}
         <div className="relative z-[5] flex flex-col items-center justify-center h-full px-5 pt-28 md:pt-20">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium text-white text-center mb-4 tracking-tight">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-medium text-white text-center mb-4 tracking-tight">
             Temukan Peluang Karier Anda
-          </h1>
-          <p className="text-sm md:text-md text-white/80 text-center mb-10 max-w-2xl">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-sm md:text-md text-white/80 text-center mb-10 max-w-2xl">
             Jelajahi berbagai lowongan yang tersedia dan gunakan pencarian di bawah untuk menemukan posisi yang sesuai dengan keahlian, minat, atau lokasi yang Anda inginkan.
-          </p>
+          </motion.p>
 
           {/* Search Bar */}
-          <div className="w-full max-w-5xl">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="w-full max-w-5xl">
             <div className="bg-white rounded-xl shadow-2xl p-3 flex flex-col md:flex-row gap-3">
               {/* Job Search Input */}
               <div className="flex items-center gap-3 flex-1 px-4 py-3 bg-gray-50 rounded-xl border border-gray-100 hover:border-blue-200 transition-colors group">
@@ -85,13 +98,18 @@ export default function Career() {
                 Search Jobs
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Stats Section */}
       <section className="bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
 
           <div className="text-center">
             <div className="text-4xl md:text-5xl font-bold text-[#003B65]">
@@ -117,7 +135,7 @@ export default function Career() {
             </div>
             <p className="text-gray-500 mt-2 font-medium">Year Experience</p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Featured Jobs Preview */}
@@ -130,7 +148,11 @@ export default function Career() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {jobs.map((job, i) => (
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
                 key={i}
                 className="max-w-[500px] bg-white rounded-xl p-6 border border-gray-100 hover:shadow-sm transition-all duration-300 group cursor-pointer"
               >
@@ -176,7 +198,7 @@ export default function Career() {
                     View Details →
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 

@@ -1,5 +1,6 @@
 "use client"
 import Image from "next/image"
+import { motion } from "framer-motion"
 
 export default function Home() {
     return (
@@ -20,13 +21,25 @@ export default function Home() {
                     <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 min-h-[30vh] md:min-h-[60vh]">
 
                         <div className="w-full text-center md:text-left">
-                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-light text-white mb-4 tracking-tight leading-[1.1]">
+                            <motion.h1 
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8 }}
+                                className="text-4xl md:text-5xl lg:text-7xl font-light text-white mb-4 tracking-tight leading-[1.1]">
                                 Building Quality Poultry
                                 <span className="font-medium block mt-1">for a Better Future</span>
-                            </h1>
-                            <p className="text-white text-[18px] mb-6 w-[80vh]">PT Silga Perkasa adalah perusahaan breeding broiler yang menghasilkan DOC berkualitas tinggi melalui standar mutu, manajemen modern, dan pelayanan terbaik sejak tahun 1985.</p>
+                            </motion.h1>
+                            <motion.p 
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                className="text-white text-[18px] mb-6 w-[80vh] max-w-full">PT Silga Perkasa adalah perusahaan breeding broiler yang menghasilkan DOC berkualitas tinggi melalui standar mutu, manajemen modern, dan pelayanan terbaik sejak tahun 1985.</motion.p>
 
-                            <div className="flex flex-row gap-4">
+                            <motion.div 
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
+                                className="flex flex-row gap-4">
                                 <button className="bg-[#003B65] hover:bg-blue-900 text-white px-8 py-2 md:px-10 md:py-3 min-w-[140px] md:min-w-[160px] text-[12px] font-medium rounded shadow-md hover:shadow-lg transition-all cursor-pointer">
                                     Lihat Produk Kami
                                 </button>
@@ -34,7 +47,7 @@ export default function Home() {
                                 <button className="bg-white hover:bg-gray-100 text-black px-8 py-2 md:px-10 md:py-3 min-w-[140px] md:min-w-[160px] text-[12px] font-medium rounded shadow-md hover:shadow-lg transition-all cursor-pointer">
                                     Tentang kami
                                 </button>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>

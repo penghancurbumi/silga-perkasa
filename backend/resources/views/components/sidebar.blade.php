@@ -73,9 +73,9 @@
     </div>
 
     {{-- NAVIGATION --}}
-    <nav class="flex-1 overflow-y-auto">
+    <nav class="flex-1 overflow-y-auto overflow-x-hidden">
 
-        <ul class="space-y-2">
+        <ul class="space-y-2 whitespace-nowrap">
 
             {{-- DASHBOARD --}}
             <li>
