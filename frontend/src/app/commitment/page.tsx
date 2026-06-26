@@ -76,8 +76,8 @@ export default function commitment() {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <h3 className="text-[25px] font-bold">Lorem ipsum</h3>
-                            <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <h3 className="text-[25px] font-bold">Integrity</h3>
+                            <p className="text-sm text-justify">Kami menjalankan setiap prinsip usaha dengan kejujuran dan tanggung jawab penuh. Setiap komitmen yang dijanjikan kepada pelanggan dan mitra bisnis akan selalu kami penuhi secara konsisten.</p>
                         </div>
 
                     </motion.div>
@@ -95,8 +95,8 @@ export default function commitment() {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <h3 className="text-[25px] font-bold">Lorem ipsum</h3>
-                            <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <h3 className="text-[25px] font-bold">Trust</h3>
+                            <p className="text-sm text-justify">Kepercayaan pelanggan adalah aset terbesar kami yang dibangun melalui konsistensi kualitas produk dan layanan, sehingga tercipta hubungan jangka panjang yang harmonis bersama seluruh pelanggan.</p>
                         </div>
 
                     </motion.div>
@@ -114,8 +114,8 @@ export default function commitment() {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <h3 className="text-[25px] font-bold">Lorem ipsum</h3>
-                            <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <h3 className="text-[25px] font-bold">Innovation</h3>
+                            <p className="text-sm text-justify">Kami terus mendorong inovasi berkelanjutan dengan menciptakan lingkungan kerja yang kondusif dan penerapan teknologi modern dalam menghasilkan DOC berkualitas tinggi.</p>
                         </div>
 
                     </motion.div>
@@ -133,8 +133,8 @@ export default function commitment() {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <h3 className="text-[25px] font-bold">Lorem ipsum</h3>
-                            <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <h3 className="text-[25px] font-bold">Grow</h3>
+                            <p className="text-sm text-justify">Kami terus bertumbuh dengan mengembangkan produk, sistem, dan kapasitas operasional berbasis manajemen modern demi memberikan nilai terbaik bagi pelanggan dan masyarakat sekitar.</p>
                         </div>
 
                     </motion.div>
@@ -152,8 +152,8 @@ export default function commitment() {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <h3 className="text-[25px] font-bold">Lorem ipsum</h3>
-                            <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <h3 className="text-[25px] font-bold">Quality</h3>
+                            <p className="text-sm text-justify">Setiap DOC (Day Old Chick) yang kami hasilkan melewati proses pemeliharaan ketat dengan standar kesehatan ternak terjaga, sebagai bukti nyata komitmen kami menghadirkan produk terbaik</p>
                         </div>
 
                     </motion.div>
@@ -171,8 +171,8 @@ export default function commitment() {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <h3 className="text-[25px] font-bold">Lorem ipsum</h3>
-                            <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <h3 className="text-[25px] font-bold">Performance</h3>
+                            <p className="text-sm text-justify">Kami mendorong setiap karyawan untuk terus berkembang dan berkontribusi optimal, sehingga PT Silga Perkasa mampu menjaga standar kinerja terbaik secara konsisten.</p>
                         </div>
 
                     </motion.div>

@@ -34,8 +34,9 @@ export default function Navbar() {
         { name: "Lokasi", href: "/location" },
         { name: "Produk", href: "/product" },
         { name: "Komitmen", href: "/commitment" },
-        { name: "Karir", href: "/career" },
         { name: "Kontak", href: "/contact" },
+        { name: "Karir", href: "/career" },
+        
     ]
 
     return (
