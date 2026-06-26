@@ -31,7 +31,7 @@ export default function Navbar() {
     const navItem = [
         { name: "Home", href: "/" },
         { name: "Tentang Kami", href: "/about" },
-        { name: "Lokasi Farm", href: "/location" },
+        { name: "Lokasi", href: "/location" },
         { name: "Produk", href: "/product" },
         { name: "Komitmen", href: "/commitment" },
         { name: "Karir", href: "/career" },

@@ -27,10 +27,43 @@ export default function commitment() {
                 </motion.div>
             </section>
 
-            <section className="bg:white">
-                <div className="w-full mx-auto px-8 md:px-16 lg:px-24 py-10 grid grid-cols-1 md:grid-cols-3 gap-5">
+            <section className="bg:white py-14 md:py-16">
+                <div className="w-full mx-auto px-8 md:px-16 lg:px-24 mb-12 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                    <div className="md:w-1/2">
+                        <motion.span
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-[#003B65] font-bold tracking-widest text-sm uppercase mb-3 block"
+                        >
+                            Tujuan Kami
+                        </motion.span>
+                        <motion.h2
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.15 }}
+                            className="text-3xl md:text-5xl font-medium leading-tight mb-3"
+                        >
+                            Membangun Kepercayaan Melalui Nilai & Komitmen Kami
+                        </motion.h2>
+                    </div>
 
-                    <motion.div 
+                    <motion.p
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="text-gray-600 md:w-1/3 text-justify"
+                    >
+                        Kami senantiasa memegang teguh prinsip-prinsip ini dalam setiap langkah dan layanan yang kami berikan untuk memastikan kepuasan mitra dan klien kami.
+                    </motion.p>
+                </div>
+
+                <div className="w-full mx-auto px-8 md:px-16 lg:px-24 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
@@ -49,7 +82,7 @@ export default function commitment() {
 
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
@@ -68,7 +101,7 @@ export default function commitment() {
 
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
@@ -87,7 +120,7 @@ export default function commitment() {
 
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
@@ -106,7 +139,7 @@ export default function commitment() {
 
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
@@ -125,7 +158,7 @@ export default function commitment() {
 
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
