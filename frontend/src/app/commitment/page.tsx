@@ -27,18 +27,25 @@ export default function commitment() {
                 </motion.div>
             </section>
 
-            <section className="bg:white py-14 md:py-16">
+            <section className="bg-white py-14 md:py-16">
                 <div className="w-full mx-auto px-8 md:px-16 lg:px-24 mb-12 flex flex-col md:flex-row md:items-center justify-between gap-8">
                     <div className="md:w-1/2">
-                        <motion.span
+
+                        <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
-                            className="text-[#003B65] font-bold tracking-widest text-sm uppercase mb-3 block"
-                        >
-                            Tujuan Kami
-                        </motion.span>
+                            className="flex items-center gap-3 mb-3">
+
+                            <div className="w-12 h-1 bg-[#003B65] rounded-full"></div>
+                            <span
+                                className="text-[#003B65] font-semibold tracking-widest text-sm uppercase"
+                            >
+                                Tujuan Kami
+                            </span>
+                        </motion.div>
+
                         <motion.h2
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}

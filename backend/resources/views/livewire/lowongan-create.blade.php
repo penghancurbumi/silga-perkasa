@@ -13,9 +13,8 @@
             setTimeout(() => this.alertVisible = false, 4000);
         }
     }"
-    x-init="
-        Livewire.on('lowongan-error', () => showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.'));
-    "
+    @lowongan-error.window="showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.');"
+    @lowongan-success.window="showAlert('success', 'Berhasil!', $event.detail[0]?.message || 'Lowongan berhasil dibuat.'); setTimeout(() => window.location.href = '/lowongan', 1500);"
 >
 
     {{-- Alert Notification --}}

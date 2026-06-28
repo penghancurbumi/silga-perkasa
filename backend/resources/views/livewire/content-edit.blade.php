@@ -13,10 +13,8 @@
             setTimeout(() => this.alertVisible = false, 4000);
         }
     }"
-    x-init="
-        Livewire.on('edit-success', () => showAlert('success', 'Berhasil!', 'Artikel berhasil diperbarui.'));
-        Livewire.on('edit-error', () => showAlert('error', 'Error!', 'Gagal menyimpan perubahan artikel.'));
-    "
+    @edit-success.window="showAlert('success', 'Berhasil!', 'Artikel berhasil diperbarui.'); setTimeout(() => window.location.href = '/content', 1500);"
+    @edit-error.window="showAlert('error', 'Error!', 'Gagal menyimpan perubahan artikel.');"
 >
 
     {{-- Alert Notification --}}

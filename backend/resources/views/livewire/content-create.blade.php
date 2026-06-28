@@ -12,17 +12,15 @@
             setTimeout(() => this.alertVisible = false, 4000);
         }
     }"
-    x-init="
-        Livewire.on('published-success', () => showAlert('success', 'Published!', 'Artikel berhasil dipublikasikan.'));
-        Livewire.on('draft-success', () => showAlert('info', 'Draft Saved', 'Artikel disimpan sebagai draft.'));
-        Livewire.on('scheduled-success', () => showAlert('warning', 'Scheduled', 'Artikel berhasil dijadwalkan.'));
-        Livewire.on('published-error-1', () => showAlert('error', 'Error!', 'Gagal mempublikasikan artikel.'));
-        Livewire.on('published-error-2', () => showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.'));
-        Livewire.on('draft-error-1', () => showAlert('error', 'Error!', 'Gagal menyimpan draft.'));
-        Livewire.on('draft-error-2', () => showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.'));
-        Livewire.on('scheduled-error-1', () => showAlert('error', 'Error!', 'Gagal menjadwalkan artikel.'));
-        Livewire.on('scheduled-error-2', () => showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.'));
-    "
+    @published-success.window="showAlert('success', 'Published!', 'Artikel berhasil dipublikasikan.'); setTimeout(() => window.location.href = '/content', 1500);"
+    @draft-success.window="showAlert('info', 'Draft Saved', 'Artikel disimpan sebagai draft.'); setTimeout(() => window.location.href = '/content', 1500);"
+    @scheduled-success.window="showAlert('warning', 'Scheduled', 'Artikel berhasil dijadwalkan.'); setTimeout(() => window.location.href = '/content', 1500);"
+    @published-error-1.window="showAlert('error', 'Error!', 'Gagal mempublikasikan artikel.');"
+    @published-error-2.window="showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.');"
+    @draft-error-1.window="showAlert('error', 'Error!', 'Gagal menyimpan draft.');"
+    @draft-error-2.window="showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.');"
+    @scheduled-error-1.window="showAlert('error', 'Error!', 'Gagal menjadwalkan artikel.');"
+    @scheduled-error-2.window="showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.');"
 >
 
     {{-- Alert Notification --}}
@@ -271,7 +269,7 @@
                             {{ $category_id ? $categories->find($category_id)?->name : '-'}}
                         </span>
 
-                        <p class="text-[10px] leading-relaxed whitespace-pre-line {{ $content ?  'text-black' : 'text-gray-300'}}">{{ trim($content) ?: 'Masukan isi konten'}}</p>
+                        <p class="text-[10px] leading-relaxed whitespace-pre-line text-justify {{ $content ?  'text-black' : 'text-gray-300'}}">{{ trim($content) ?: 'Masukan isi konten'}}</p>
                     </div>
                 </div>
                

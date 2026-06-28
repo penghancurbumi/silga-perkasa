@@ -121,9 +121,7 @@ class LowonganEdit extends Component
             'ip_address'  => request()->ip(),
         ]);
 
-        session()->flash('success', 'Lowongan berhasil ' . $statusLabel . '.');
-
-        $this->redirect(route('lowongan'), navigate: true);
+        $this->dispatch('edit-success', message: 'Lowongan berhasil ' . $statusLabel . '.');
     }
 
     public function render()

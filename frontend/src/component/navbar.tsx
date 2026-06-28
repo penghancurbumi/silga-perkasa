@@ -59,11 +59,17 @@ export default function Navbar() {
                         <Link
                             key={item.name}
                             href={item.href}
-                            className={`nav text-[18px] font-medium ${scrolled || forceWhite
-                                ? "text-black hover:text-gray-700"
-                                : "text-white hover:text-gray-300"
-                                }`}>
+                            className={`relative text-[18px] font-medium transition-colors duration-300 group ${
+                                scrolled || forceWhite
+                                    ? (pathname === item.href ? "text-[#003B65]" : "text-black hover:text-[#003B65]")
+                                    : (pathname === item.href ? "text-white" : "text-white/80 hover:text-white")
+                            }`}
+                        >
                             {item.name}
+                            {/* Garis bawah animasi untuk active & hover state */}
+                            <span className={`absolute -bottom-1 left-0 h-0.5 bg-current transition-all duration-300 ${
+                                pathname === item.href ? "w-full" : "w-0 group-hover:w-full"
+                            }`}></span>
                         </Link>
                     ))}
                 </div>
@@ -93,7 +99,11 @@ export default function Navbar() {
                             key={item.name}
                             href={item.href}
                             onClick={() => setMobileOpen(false)}
-                            className="nav nav-dark py-1.5 w-fit text-[18px] font-medium text-black hover:text-blue-600 transition-colors"
+                            className={`py-2 text-[18px] font-medium transition-colors duration-200 border-b border-gray-50 last:border-0 ${
+                                pathname === item.href 
+                                    ? "text-[#003B65] font-bold" 
+                                    : "text-gray-700 hover:text-[#003B65]"
+                            }`}
                         >
                             {item.name}
                         </Link>

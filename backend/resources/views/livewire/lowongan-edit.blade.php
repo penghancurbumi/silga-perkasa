@@ -1,6 +1,46 @@
 @use('Illuminate\Support\Facades\Storage')
 
-<div>
+<div x-data="{
+        alertVisible: false,
+        alertType: '',
+        alertTitle: '',
+        alertMessage: '',
+        showAlert(type, title, message) {
+            this.alertType = type;
+            this.alertTitle = title;
+            this.alertMessage = message;
+            this.alertVisible = true;
+            setTimeout(() => this.alertVisible = false, 4000);
+        }
+    }"
+    @lowongan-error.window="showAlert('error', 'Validasi Gagal', 'Silakan periksa kembali form Anda.');"
+    @edit-success.window="showAlert('success', 'Berhasil!', $event.detail[0]?.message || 'Lowongan berhasil diperbarui.'); setTimeout(() => window.location.href = '/lowongan', 1500);"
+>
+    {{-- Alert Notification --}}
+    <div x-show="alertVisible" x-cloak
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-x-8"
+         x-transition:enter-end="opacity-100 translate-x-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-x-0"
+         x-transition:leave-end="opacity-0 translate-x-8"
+         class="fixed top-5 right-5 z-[9999] bg-white p-4 rounded-lg border border-gray-200 shadow-lg min-w-[320px]">
+        <div class="flex flex-row space-x-3">
+            <template x-if="alertType === 'success'">
+                <iconify-icon icon="mdi:tick" width="15" class="text-green-500 border border-gray-200 p-2 rounded-lg bg-green-100"></iconify-icon>
+            </template>
+            <template x-if="alertType === 'error'">
+                <iconify-icon icon="gridicons:cross" width="15" class="text-red-500 border border-gray-200 p-2 rounded-lg bg-red-100"></iconify-icon>
+            </template>
+            <div class="flex flex-col flex-1">
+                <p class="text-[12px] font-semibold" x-text="alertTitle"></p>
+                <p class="text-[10px] font-semibold text-gray-400" x-text="alertMessage"></p>
+            </div>
+            <button @click="alertVisible = false" class="self-start -mt-1 cursor-pointer text-gray-500 hover:text-gray-400">
+                <iconify-icon icon="gridicons:cross" width="15"></iconify-icon>
+            </button>
+        </div>
+    </div>
     <div class="flex flex-row items-center justify-between mb-4">
         <div class="flex items-center">
             <h1 class="text-[20px] font-semibold">Edit Lowongan</h1>
